@@ -1,0 +1,42 @@
+.jws-form {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  padding: 0rpx 40rpx;
+  margin-bottom: 10rpx;
+  background: rgba(255, 255, 255, 1);
+  position: relative;
+}
+
+.jws-form .jws-form-row {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  background: rgba(255, 255, 255, 1);
+  padding: 30rpx 0;
+}
+
+.jws-form .jws-form-row .jws-form-title {
+  height: 44rpx;
+  font-size: 32rpx;
+  font-weight: 400;
+  color: rgba(26, 26, 26, 1);
+  line-height: 44rpx;
+}
+
+.jws-form  .jws-form-row .jws-form-title .jws-form-title-icon {
+  margin: 0rpx 14rpx 0rpx 0rpx;
+  border: 0;
+  padding: 0rpx 5rpx;
+  background: rgba(0, 86, 179, 1);
+  border-radius: 6rpx;
+  margin-right: 10rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  max-height: 28rpx;
+  width: 0rpx;
+}
+
+.jws-form  .jws-form-element{
+  width: 100%;
+}

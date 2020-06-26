@@ -1,0 +1,11 @@
+<view class="jws-form columnY">
+  <view class="jws-form-row betweenX centerY" wx:if="{{ title }}">
+    <view class="jws-form-title weight centerY">
+      <view class='jws-form-title-icon' style='{{showColor}}'></view>
+      <view>{{title}}</view>
+    </view>
+  </view>
+  <view class='jws-form-element columnY'>
+    <slot></slot>
+  </view>
+</view>

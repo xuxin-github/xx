@@ -1,0 +1,5 @@
+<view style='{{bgColor}} {{magleft}} {{magtop}}' class="jws-btn-box {{fclass}} {{sizeClass.box}}">
+  <view class='jws-btn {{sizeClass.btn}} centerY'>
+    <slot></slot>
+  </view>
+</view>

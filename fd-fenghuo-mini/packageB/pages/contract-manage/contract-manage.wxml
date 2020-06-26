@@ -1,0 +1,57 @@
+<!-- 合同列表 -->
+<view class="section">
+  <view class='search'>
+    <view class='searchItem'>
+      <image src='/images/icon/search.png' />
+      <input bindinput='onInput' placeholder='搜索合同编号、合同名称、项目名称' value="{{inputValue}}"></input>
+      <button bindtap="manualAddBill" hover-class="none">
+        <!-- <image src='/images/icon/7.svg' /> -->
+      </button>
+    </view>
+  </view>
+  <view class="view1">
+    <view class="table">
+      <block wx:for="{{listData}}" wx:key="id">
+        <view class="tr bg-g" bindtap="detail" data-index1="{{item.contract_code}}" data-index2="{{item.contract_name}}">
+          <view class="title1">
+            <image class="img1" src="/images/icon/33.svg" />
+            <label>{{item.contract_code}}</label>
+          </view>
+          <view class="line"></view>
+          <view class="c">
+            <text class="default-title">合同名称：</text>
+            <label style="letter-spacing:0rpx;">{{item.contract_name?item.contract_name:'--'}}</label>
+          </view>
+          <view class="c">
+            <text class="default-title">关联项目：</text>{{item.project_name?item.project_name:'--'}}</view>
+          <view class="c">
+            <text class="default-title">供 应 商 :</text> {{item.s_name?item.s_name:'--'}}</view>
+          <view class="vs">
+            <view class="c" style="width:374rpx;">
+              <text class="default-title">开票总额：</text>
+              <label style="letter-spacing:0rpx;">{{item.price_amount ? item.price_amount : 0}} 元</label>
+            </view>
+            <view class="c2">
+              <text class="default-titles1">发票数量：</text>
+              <label style="letter-spacing:0rpx;">{{item.invoice_number ?item.invoice_number : 0 }} </label>
+            </view>
+          </view>
+          <view class="vs">
+            <view class="c" style="width:374rpx;">
+              <text class="default-title">创建时间：</text>
+              <label style="letter-spacing:0rpx;">{{item.create_time}}</label>
+            </view>
+            <view class="c2">
+              <text class="default-titles1">风险状态：</text>
+             <label class="{{item.risk_level == '01' ? 'commom' : 'highRisk'}}">{{item.risk_level == '01' ? '正常': item.risk_level == '02' ? '高风险' : '--'}}</label>
+            </view>
+          </view>
+          <view class="view2"></view>
+        </view>
+      </block>
+    </view>
+    <view class="{{listData == ''?'show':'hidden'}}">
+      <image class="nullImage" src="../../../images/icon/null.png" mode='aspectFit'></image>
+    </view>
+  </view>
+</view>

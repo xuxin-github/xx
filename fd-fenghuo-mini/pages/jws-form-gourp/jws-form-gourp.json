@@ -1,0 +1,16 @@
+{
+  "usingComponents": {
+    "jws-upload-img": "/jwsanui/components/jws-upload-img/jws-upload-img",
+    "jws-form": "/jwsanui/components/jws-form/jws-form",
+    "jws-form-item": "/jwsanui/components/jws-form-item/jws-form-item",
+    "jws-input-txt": "/jwsanui/components/jws-input-txt/jws-input-txt",
+    "jws-counter": "/jwsanui/components/jws-counter/jws-counter",
+    "jws-switch": "/jwsanui/components/jws-switch/jws-switch",
+    "jws-button": "/jwsanui/components/jws-button/jws-button",
+    "jws-date": "/jwsanui/components/jws-date/jws-date"
+  },
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "表单组件",
+  "backgroundTextStyle": "light" 
+}

@@ -1,0 +1,99 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="Title">
+    <view class="line"></view>
+    <view class="Reimbursement">报销信息</view>
+  </view>
+  <view class="ReiProject">
+    <view class="ProTitle">
+      <text>*</text>
+      <view>报销项目</view>
+    </view>
+    <view>
+      <picker bindchange="bindPickerChange1" style="font-size:32rpx;text-align: center;" value="{{array1.name}}" range="{{array1}}">
+        <!-- 根据showViews的状态来选择显示那个 -->
+          <view class="{{showViews && (bx_list == '' ||bx_list[0].bx_project_name == '') ?'view_hide':'view_pick'}}">
+            {{bx_list[0].bx_project_name?bx_list[0].bx_project_name:array1[index1]}}
+          </view>
+          <view class="{{showViews && (bx_list == '' ||bx_list[0].bx_project_name == '')?'view_show':'view_hide'}}" style="color:#CCCCCC">
+            请选择需要报销的项目
+          </view>
+        </picker>
+    </view>
+  </view>
+  <view class="liner"></view>
+  <view class="ReiProject">
+    <view class="ProTitle">
+      <text>*</text>
+      <view>报销类别</view>
+    </view>
+    <view>
+      <picker bindchange="bindPickerChange2" style="font-size:32rpx;text-align: center;" value="{{array2.name}}" range="{{array2}}">
+        <!-- 根据showViews的状态来选择显示那个 -->
+          <view class="{{showViews2 && (bx_list == '' || bx_list[0].bx_type_name == '')?'view_hide':'view_pick'}}">
+            {{bx_list[0].bx_type_name?bx_list[0].bx_type_name:array2[index2]}}
+          </view>
+          <view class="{{showViews2 == true && (bx_list == '' || bx_list[0].bx_type_name == '') ? 'view_show':'view_hide'}}" style="color:#CCCCCC">
+            请选择需要报销类别
+          </view>
+        </picker>
+    </view>
+  </view>
+  <view class="liner"></view>
+  <view class="ReiProject">
+    <view class="ProTitle">
+      <text>*</text>
+      <view>报销金额</view>
+    </view>
+    <view class="place">
+      <input style="width:500rpx" type="digit" placeholder="请填写报销金额"  value="{{bx_list[0].bx_money}}" placeholder-style=" color:#cccccc;" bind:input="bindMoney"></input>
+    </view>
+  </view>
+  <view class="liner"></view>
+  <view class="beiZhu">
+    <view>备注说明</view>
+    <view>
+      <textarea  placeholder="请填写报销备注说明…" maxlength="100"  value="{{bx_list[0].bx_beizhu}}" placeholder-style="color:#cccccc" bind:input="bindBeizhu"></textarea>
+      <view class="xianzhi">{{bz_size?bz_size:0}}/100</view>
+    </view>
+  </view>
+  <view class="liner-beiZhu"></view>
+  <view class="upload">
+    <view class="photo">附件图片</view>
+    <view class="img">    
+    <jws-upload-img option='{{option}}' imgs='{{bx_list[0].file?bx_list[0].file:fileList}}' bind:achieve="getValue"></jws-upload-img>
+    </view>
+  </view>
+  <view class="action">
+    <view class="Title1">
+      <view class="line1"></view>
+      <view class="Reimbursement">报销发票</view>
+    </view>
+    <view class="actionReal">
+      <view class="QR" bindtap="scanAdd">扫码添加</view>
+      <view class="hander" bindtap="manageAdd">手动添加</view>
+    </view>
+  </view>
+  <view style="margin-bottom:150rpx">
+  <block wx:for="{{invoiceListData}}" wx:key="{{id}}">
+    <view class="MyFaPiao">
+      <view class="content">
+        <label>{{item.invoice_no_short}}</label>
+        <label style="color:#CCCCCC"> | </label>
+        <label>{{item.price_amount}}元</label>
+      </view>
+      <view class="watch">
+        <view class="watching" bindtap="invoiceDetail" data-index2="{{item.invoice_code}}" data-index1="{{item.invoice_no_short}}">查看</view>
+        <view class="delete" bindtap="deleteInvoice" data-index2="{{item.invoice_code}}" data-index1="{{item.invoice_no_short}}">删除</view>
+      </view>
+    </view>
+    <view class="liner"></view>
+  </block>
+  <view class="{{invoiceListData == ''?'show':'hidden'}}">
+      <image class="nullImage" src="../../../images/icon/null.png" mode='aspectFit'></image>
+    </view>
+  </view>
+  <view class="bottom-view">
+    <button class="button1" bindtap="bindExpend">提交审核</button>
+  </view>
+</view>

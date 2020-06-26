@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fd.fhtmid.mapper.BContractInfoMapper">
+    <!--获取合同列表-->
+    <select id="selectListAll" resultType="Map">
+        SELECT id,a.contract_code , contract_name,project_name,s_name, invoice_number,p2_1,p2_2,p2_3,p2_4,
+        price_amount,risk_level,STATUS,is_delete,create_time,company_id,create_by FROM
+        (SELECT contract_code,b_contract_info.id,b_contract_info.create_time, b_contract_info.`name` AS contract_name,p2_1,p2_2,p2_3,p2_4,b_contract_info.company_id,
+        b_project_info.`name` AS project_name, project_id,risk_level,b_contract_info.status,b_contract_info.is_delete,b_contract_info.create_by
+        FROM b_contract_info LEFT JOIN b_project_info ON b_project_info.`project_code` = b_contract_info.`project_id`
+        GROUP BY contract_code) AS a
+        LEFT JOIN
+        (SELECT contract_code,s_name,COUNT(b_invoice_info.`contract_id`) AS invoice_number, SUM(price_amount) AS
+        price_amount
+        FROM b_contract_info LEFT JOIN b_invoice_info ON contract_code = contract_id WHERE contract_id
+        IN(SELECT contract_id FROM b_invoice_info LEFT JOIN b_contract_info ON b_contract_info.`contract_code`=
+        b_invoice_info.`contract_id`) AND b_invoice_info.audit_status = 1 GROUP BY contract_code) AS b
+        ON a.contract_code = b.contract_code
+        <where>
+            <if test="risk_level != null and risk_level != ''">
+                and risk_level = #{risk_level}
+            </if>
+            <if test="create_by != null and create_by != ''">
+                and create_by = #{create_by}
+            </if>
+            <if test=" contract_params != null and contract_params != ''">
+                and
+                (a.contract_code LIKE concat("%",#{contract_params},"%")
+                or
+                contract_name LIKE concat("%",#{contract_params},"%")
+                or
+                s_name LIKE concat("%",#{contract_params},"%")
+                or
+                project_name LIKE concat("%",#{contract_params},"%"))
+            </if>
+            and company_id = #{company_id}
+        </where>
+        ORDER BY create_time DESC
+    </select>
+    <!--获取合同详情-->
+    <select id="getContractByName" resultType="Map">
+        SELECT id,a.contract_code AS contract_code, contract_tag,contract_name,project_code,project_name,s_name, invoice_number,company_id,p2_1,p2_2,p2_3,p2_4,SUM(p3_3_1+p3_3_2+p3_3_3+p3_3_4+p3_3_5+p3_3_6) AS p_files,SUM(p3_3_7+p3_3_8+p3_3_9+p3_3_10) AS p_internal,SUM(p3_3_11+p3_3_12+p3_3_13+p3_3_14+p3_3_15+p3_3_16+p3_3_17) AS p_communication,SUM(p3_3_18+p3_3_19+p3_3_20+p3_3_21) AS p_deliver,
+        price_amount,risk_level,STATUS,is_delete,create_time,service_name,sign_date,solve_type,sponsor,leader,f_auditor,b_auditor,f_time,receive_b_record,dispute_item,total_amount,sell_name,p3_1_1,p3_1_2,p3_1_3,p3_1_4,p3_1_5,p3_1_6,p3_1_7,p3_2_1,p3_2_2,p3_2_3,p3_2_4,p3_2_5,p3_2_6,p3_3_1,p3_3_2,p3_3_3,p3_3_4,p3_3_5,p3_3_6,p3_3_7,p3_3_8,p3_3_9,p3_3_10,p3_3_11,p3_3_12,p3_3_13,p3_3_14,p3_3_15,p3_3_16,p3_3_17,p3_3_18,p3_3_19,p3_3_20,p3_3_21,p3_4_1,p3_4_2,p3_4_3,p3_4_4,p3_4_5,p3_4_6
+        FROM
+        (SELECT contract_code,b_contract_info.id,b_project_info.`project_code`, b_contract_info.`name` AS contract_name, b_project_info.`name` AS
+        project_name,b_contract_info.company_id,contract_tag,
+        project_id,risk_level,b_contract_info.status,b_contract_info.is_delete,b_contract_info.create_time,b_contract_info.`files`,b_contract_info.`service_name`,b_contract_info.`sign_date`,b_contract_info.`solve_type`,b_contract_info.`sponsor`,b_contract_info.`leader`,b_contract_info.`f_auditor`,b_contract_info.`b_auditor`,b_contract_info.`f_time`,b_contract_info.`receive_b_record`,b_contract_info.`dispute_item`,b_contract_info.total_amount,b_contract_info.sell_name,p2_1,p2_2,p2_3,p2_4,
+        p3_1_1,p3_1_2,p3_1_3,p3_1_4,p3_1_5,p3_1_6,p3_1_7,p3_2_1,p3_2_2,p3_2_3,p3_2_4,p3_2_5,p3_2_6,p3_3_1,p3_3_2,p3_3_3,p3_3_4,p3_3_5,p3_3_6,p3_3_7,p3_3_8,p3_3_9,p3_3_10,p3_3_11,p3_3_12,p3_3_13,p3_3_14,p3_3_15,p3_3_16,p3_3_17,p3_3_18,p3_3_19,p3_3_20,p3_3_21,p3_4_1,p3_4_2,p3_4_3,p3_4_4,p3_4_5,p3_4_6
+        FROM b_contract_info LEFT JOIN b_project_info ON b_project_info.`project_code` = b_contract_info.`project_id`
+        GROUP BY contract_code) AS a
+        LEFT JOIN
+        (SELECT contract_code,s_name,COUNT(b_invoice_info.`contract_id`) AS invoice_number, SUM(price_amount) AS
+        price_amount
+        FROM b_contract_info LEFT JOIN b_invoice_info ON contract_code = contract_id WHERE contract_id
+        IN(SELECT contract_id FROM b_invoice_info LEFT JOIN b_contract_info ON b_contract_info.`contract_code`=
+        b_invoice_info.`contract_id`) AND b_invoice_info.audit_status = 1 GROUP BY contract_code) AS b
+        ON a.contract_code = b.contract_code
+        where a.contract_code = #{contract_code} and company_id = #{company_id} or contract_name = #{contract_name}
+    </select>
+
+    <select id="getContractTag" resultType="Map">
+		select contract_tag from b_contract_info where name = #{contract_name}
+	</select>
+    <!--获取合同详情里的文本内容-->
+    <select id="getContact" resultType="java.lang.String">
+		select t_link_info from b_contract_info where name = #{contract_name}
+	</select>
+    <select id="getContractFiles" resultType="java.lang.String">
+		select files from b_contract_info where name = #{contract_name}
+	</select>
+    <select id="getContractLinkInfo" resultType="java.lang.String">
+		select link_info from b_contract_info where name = #{contract_name}
+	</select>
+    <select id="getContractDocs" resultType="java.lang.String">
+		select docs from b_contract_info where name = #{contract_name}
+	</select>
+    <select id="getContractBLinkInfo" resultType="java.lang.String">
+		select b_link_info from b_contract_info where name = #{contract_name}
+	</select>
+    <select id="getContractFDocs" resultType="java.lang.String">
+		select f_docs from b_contract_info where name = #{contract_name}
+	</select>
+    <select id="getContractFRecord" resultType="java.lang.String">
+		select f_record from b_contract_info where name = #{contract_name}
+	</select>
+    <select id="getContractBRecord" resultType="java.lang.String">
+		select b_record from b_contract_info where name = #{contract_name}
+	</select>
+    <select id="getContractSRecord" resultType="java.lang.String">
+		select s_record from b_contract_info where name = #{contract_name}
+	</select>
+
+    <!--关联变更-->
+    <update id="changeContract" parameterType="Map">
+        update b_contract_info
+        <trim prefix="set" suffixOverrides=",">
+            <if test="status != null and status != ''">status= #{status},</if>
+            <if test="project_code != null and project_code != ''">project_id= #{project_code},</if>
+        </trim>
+        where name = #{contract_name}
+    </update>
+    <!--新建合同-->
+    <insert id="insertContract" parameterType="Map">
+		insert into b_contract_info(id,contract_code,name,status,risk_level,is_delete, create_time,b_link_info,t_link_info,company_id,
+		p3_1_1, p3_1_2, p3_1_3, p3_1_4, p3_1_5, p3_1_6, p3_1_7, p3_2_1, p3_2_2, p3_2_3, p3_2_4, p3_2_5, p3_2_6, p3_3_1, p3_3_2, p3_3_3, p3_3_4, p3_3_5, p3_3_6, p3_3_7,
+		p3_3_8, p3_3_9, p3_3_10, p3_3_11, p3_3_12, p3_3_13, p3_3_14, p3_3_15, p3_3_16, p3_3_17, p3_3_18, p3_3_19, p3_3_20, p3_3_21, p3_4_1, p3_4_2, p3_4_3, p3_4_4,
+		p3_4_5, p3_4_6, create_by, contract_tag)
+		values (#{contract_id},#{contract_code},#{contract_name},#{status},#{risk_level},#{is_delete}, #{create_time},#{b_link_info},#{t_link_info},#{company_id},
+		#{p3_1_1}, #{p3_1_2}, #{p3_1_3}, #{p3_1_4}, #{p3_1_5}, #{p3_1_6}, #{p3_1_7},
+		#{p3_2_1}, #{p3_2_2}, #{p3_2_3}, #{p3_2_4}, #{p3_2_5}, #{p3_2_6},
+		#{p3_3_1}, #{p3_3_2}, #{p3_3_3}, #{p3_3_4}, #{p3_3_5}, #{p3_3_6}, #{p3_3_7}, #{p3_3_8}, #{p3_3_9}, #{p3_3_10}, #{p3_3_11}, #{p3_3_12},
+		#{p3_3_13}, #{p3_3_14}, #{p3_3_15}, #{p3_3_16}, #{p3_3_17}, #{p3_3_18}, #{p3_3_19}, #{p3_3_20}, #{p3_3_21},
+		#{p3_4_1}, #{p3_4_2}, #{p3_4_3}, #{p3_4_4}, #{p3_4_5}, #{p3_4_6}, #{create_by}, #{contract_tag})
+	</insert>
+    <!--查找合同下的发票-->
+    <select id="queryInvoice" resultType="Map">
+		SELECT b_contract_info.contract_code,b_contract_info.name ,b_invoice_info.* FROM b_contract_info,b_invoice_info
+		WHERE b_contract_info.contract_code = b_invoice_info.`contract_id`and b_invoice_info.audit_status = 1 AND b_contract_info.name= #{contract_name} ORDER BY audit_status,b_invoice_info.create_time DESC
+	</select>
+    <!--发票取消关联-->
+    <update id="updateInvoice" parameterType="Map">
+		update b_invoice_info set contract_id = null,type = null,audit_status = null where invoice_no_short = #{invoice_no_short}
+	</update>
+    <!--编辑合同-->
+    <update id="updateContract" parameterType="Map">
+        update b_contract_info
+        <trim prefix="set" suffixOverrides=",">
+            files = #{files},
+            sell_name = #{supplier_name},
+            service_name = #{service_name},
+            total_amount = #{contract_money},
+            <if test="sign_date != null and sign_date != ''">sign_date = #{sign_date},</if>
+            <if test="sign_date == ''">sign_date = null ,</if>
+            solve_type = #{solve_type},
+            sponsor = #{sponsor},
+            leader = #{leader},
+            f_auditor = #{f_auditor},
+            b_auditor = #{b_auditor},
+            link_info = #{link_info},
+            docs = #{docs},
+            b_link_info = #{b_link_info},
+            f_docs = #{f_docs},
+            f_record = #{f_record},
+            b_record = #{b_record},
+            s_record = #{s_record},
+            <if test="f_time != null and f_time != ''">f_time = #{f_time},</if>
+            <if test="f_time == ''">f_time = null ,</if>
+            receive_b_record = #{receive_b_record},
+            dispute_item = #{dispute_item},
+            t_link_info = #{t_link_info},
+            update_by = #{update_by},
+            update_time = #{update_time}
+        </trim>
+        where name = #{contract_name}
+    </update>
+
+    <select id="findByName" resultType="Map">
+		select * from b_contract_info where name = #{contract_name}
+	</select>
+
+    <!-- 获取合同名称和状态. -->
+    <select id="findAllContractName" resultType="Map">
+		select name, status, contract_code from b_contract_info;
+	</select>
+    <!-- 获取合同名称对应的供应商评分. -->
+    <select id="findContractNameAndProviderScore" resultType="Map">
+		SELECT a.name AS name, score, contract_code, b_provider_info.name AS provider_name,
+        is_legal, p3_4_1, p3_4_2, p3_4_3, p3_4_4, p3_4_5, p3_4_6 FROM
+        (SELECT name, b_contract_info.status, s_name, contract_code
+        FROM b_contract_info LEFT JOIN b_invoice_info ON b_contract_info.`contract_code` = b_invoice_info.`contract_id`
+        WHERE name=#{contract_name} GROUP BY name) AS a
+        LEFT JOIN b_provider_info ON a.s_name = b_provider_info.`name`;
+	</select>
+    <!-- 修改合同中的评分. -->
+    <update id="updateContractTaxScore" parameterType="Map">
+        update b_contract_info set p2_1 = #{taxScore} where name = #{contract_name}
+    </update>
+    <update id="updateContractMarketScore" parameterType="Map">
+		update b_contract_info set p2_2 = #{marketScore} where name = #{contract_name}
+    </update>
+    <update id="updateContractInternalScore" parameterType="Map">
+		update b_contract_info set p2_3 = #{internalScore} where name = #{contract_name}
+    </update>
+	<update id="updateContractProviderScore" parameterType="Map">
+		update b_contract_info set p2_4 = #{providerScore}, p3_4_1 = #{p3_4_1}, p3_4_2 = #{p3_4_2},
+        p3_4_3 = #{p3_4_3}, p3_4_4 = #{p3_4_4}, p3_4_5 = #{p3_4_5}, p3_4_6 = #{p3_4_6} where name = #{contract_name}
+    </update>
+    <update id="updateContractProviderScoreNull" parameterType="Map">
+        UPDATE b_contract_info SET p2_4 = 0, p3_4_1 = 0, p3_4_2 = 0,
+        p3_4_3 = 0, p3_4_4 = 0, p3_4_5 = 0, p3_4_6 = 0 WHERE name = #{contract_name}
+    </update>
+
+    <!-- 根据合同名称或编号查重. -->
+    <select id="findByNameOrCode" resultType="Map">
+        SELECT * FROM b_contract_info WHERE NAME = #{contract_name} OR contract_code = #{contract_code}
+    </select>
+    <!-- 根据合同代码查询. -->
+    <select id="findContractByCode" resultType="Map">
+        select * from b_contract_info where contract_code = #{contract_code}
+    </select>
+    <!-- 查询当前合同, 按发票分类进行分组. -->
+    <select id="findCatalogCount" resultType="Map">
+        SELECT contract_code, invoice_catalog, COUNT(invoice_catalog) AS count
+        FROM b_contract_info LEFT JOIN b_invoice_info ON b_contract_info.`contract_code` = b_invoice_info.`contract_id`
+        WHERE contract_id = #{contract_code} GROUP BY invoice_catalog
+    </select>
+    <!-- 修改合同分风险等级. -->
+    <update id="updateContractLevel" parameterType="Map">
+        <if test="risk_level == '02'">
+            update b_contract_info set risk_level = "02" where name = #{contract_name}
+        </if>
+        <if test="risk_level == '01'">
+            update b_contract_info set risk_level = "01" where name = #{contract_name}
+        </if>
+    </update>
+
+    <!-- 修改合同中的税务合规评分小项. -->
+    <update id="updateContractTax" parameterType="Map">
+        update b_contract_info set p3_1_1 = #{p3_1_1}, p3_1_2 = #{p3_1_2}, p3_1_3 = #{p3_1_3}, p3_1_4 = #{p3_1_4}, p3_1_5 = #{p3_1_5}, p3_1_6 = #{p3_1_6}, p3_1_7 = #{p3_1_7}
+        where name = #{contract_name}
+    </update>
+    <!-- 修改合同中市场监管的评分小项. -->
+    <update id="updateContractMarket" parameterType="Map">
+        update b_contract_info set p3_2_1 = #{p3_2_1}, p3_2_2 = #{p3_2_2}, p3_2_3 = #{p3_2_3}, p3_2_4 = #{p3_2_4}, p3_2_5 = #{p3_2_5}, p3_2_6 = #{p3_2_6}
+        where contract_code = #{contract_code}
+    </update>
+    <!-- 修改合同中内部合规的评分小项. -->
+    <update id="updateContractInternal" parameterType="Map">
+        update b_contract_info set p3_3_1 = #{p3_3_1}, p3_3_2 = #{p3_3_2}, p3_3_3 = #{p3_3_3}, p3_3_4 = #{p3_3_4}, p3_3_5 = #{p3_3_5}, p3_3_6 = #{p3_3_6}, p3_3_7 = #{p3_3_7},
+        p3_3_8 = #{p3_3_8}, p3_3_9 = #{p3_3_9}, p3_3_10 = #{p3_3_10}, p3_3_11 = #{p3_3_11}, p3_3_12 = #{p3_3_12}, p3_3_13 = #{p3_3_13}, p3_3_14 = #{p3_3_14}, p3_3_15 = #{p3_3_15},
+        p3_3_16 = #{p3_3_16}, p3_3_17 = #{p3_3_17}, p3_3_18 = #{p3_3_18}, p3_3_19 = #{p3_3_19}, p3_3_20 = #{p3_3_20}, p3_3_21 = #{p3_3_21}
+        where name = #{contract_name}
+    </update>
+    <!-- 修改合同中的扣分明细id. -->
+    <update id="updateComputeId" parameterType="Map">
+        update b_contract_info set compute_version = #{id} where contract_code = #{contract_code}
+    </update>
+    <!-- 查询所有合同及对应的供应商名称. -->
+    <select id="findAllContract" resultType="Map">
+        SELECT name, contract_code, s_name FROM b_contract_info
+        LEFT JOIN b_invoice_info
+        ON b_contract_info.`contract_code` = b_invoice_info.`contract_id`
+        GROUP BY name
+        ORDER BY b_contract_info.create_time DESC
+    </select>
+</mapper>

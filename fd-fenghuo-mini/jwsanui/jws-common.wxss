@@ -1,0 +1,361 @@
+page {
+  /* 标准色 */
+  --red: #e54d42;
+  --orange: #f37b1d;
+  --yellow: #fbbd08;
+  --olive: #8dc63f;
+  --green: #39b54a;
+  --cyan: #1cbbb4;
+  --blue: #0081ff;
+  --purple: #6739b6;
+  --mauve: #9c26b0;
+  --pink: #e03997;
+  --brown: #a5673f;
+  --grey: #8799a3;
+  --black: #333;
+  --darkGray: #666;
+  --gray: #aaa;
+  --ghostWhite: #f1f1f1;
+  --white: #fff;
+  /* 浅色 */
+  --redLight: #fadbd9;
+  --orangeLight: #fde6d2;
+  --yellowLight: #fef2ce;
+  --oliveLight: #e8f4d9;
+  --greenLight: #d7f0db;
+  --cyanLight: #d2f1f0;
+  --blueLight: #cce6ff;
+  --purpleLight: #e1d7f0;
+  --mauveLight: #ebd4ef;
+  --pinkLight: #f9d7ea;
+  --brownLight: #ede1d9;
+  --greyLight: #e7ebed;
+  /* 渐变色 */
+  --gradualRed: linear-gradient(45deg, #f43f3b, #ec008c);
+  --gradualOrange: linear-gradient(45deg, #ff9700, #ed1c24);
+  --gradualGreen: linear-gradient(45deg, #39b54a, #8dc63f);
+  --gradualPurple: linear-gradient(45deg, #9000ff, #5e00ff);
+  --gradualPink: linear-gradient(45deg, #ec008c, #6739b6);
+  --gradualBlue: linear-gradient(45deg, #0081ff, #1cbbb4);
+  /* 阴影透明色 */
+  --ShadowSize: 6rpx 6rpx 8rpx;
+  --redShadow: rgba(204, 69, 59, 0.2);
+  --orangeShadow: rgba(217, 109, 26, 0.2);
+  --yellowShadow: rgba(224, 170, 7, 0.2);
+  --oliveShadow: rgba(124, 173, 55, 0.2);
+  --greenShadow: rgba(48, 156, 63, 0.2);
+  --cyanShadow: rgba(28, 187, 180, 0.2);
+  --blueShadow: rgba(0, 102, 204, 0.2);
+  --purpleShadow: rgba(88, 48, 156, 0.2);
+  --mauveShadow: rgba(133, 33, 150, 0.2);
+  --pinkShadow: rgba(199, 50, 134, 0.2);
+  --brownShadow: rgba(140, 88, 53, 0.2);
+  --greyShadow: rgba(114, 130, 138, 0.2);
+  --grayShadow: rgba(114, 130, 138, 0.2);
+  --blackShadow: rgba(26, 26, 26, 0.2);
+  /* 定义页面属性 */
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  /* background-color: var(--ghostWhite); */
+  font-size: 28rpx;
+  color: var(--black);
+  font-family: -apple-system,
+                 BlinkMacSystemFont,
+                 Helvetica Neue,
+                 PingFang SC,
+                 Microsoft YaHei,
+                 Source Han Sans SC,
+                 Noto Sans CJK SC,
+                 WenQuanYi Micro Hei,
+                 sans-serif !important;
+}
+
+/* 为元素设定的宽度和高度决定了元素的边框盒 */
+
+view, scroll-view, swiper, button, input, textarea, label, navigator, image {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  position: relative;
+}
+
+/* 默认图片是行内元素 */
+
+image {
+  display: inline-block;
+  position: relative;
+}
+
+/* 关闭滚动条  */
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+/* 超过一行显示省略号 */
+
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* 去除边框 */
+
+button {
+  margin: 0;
+  padding: 0;
+  font: 400 15rpx/1.4 '';
+  background: unset;
+}
+
+button::after {
+  border: none;
+}
+
+/* 弹性布局盒模型 */
+
+.flex {
+  display: -moz-box;
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+}
+
+/* 水平垂直居中 */
+
+.centerXY {
+  display: -moz-box;
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 上下居中 */
+
+.centerY {
+  display: -moz-box;
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* 横向排列 */
+
+.rowX {
+  display: -moz-box;
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+/* 横向排列,所有元素放置于底部 */
+
+.bottomY {
+  display: -moz-box;
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+/* 纵向排列,所有元素放置于右部 */
+
+.rightX {
+  display: -moz-box;
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* 左右居中 */
+
+.centerX {
+  display: -moz-box;
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* 纵向排列 */
+
+.columnY {
+  display: -moz-box;
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* 向左向右 */
+
+.betweenX {
+  display: -moz-box;
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/* 向上向下 */
+
+.betweenY {
+  display: -moz-box;
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/*定位全屏*/
+
+.allcover {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/*定位上下左右居中*/
+
+.centerAXY {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*定位上下居中*/
+
+.centerAY {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/*定位左右居中*/
+
+.centerAX {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 清楚浮动 */
+
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.clearfix {
+  zoom: 1;
+}
+
+/* 左浮动 */
+
+.ftl {
+  float: left;
+}
+
+/* 右浮动 */
+
+.ftr {
+  float: right;
+}
+
+
+
+
+
+

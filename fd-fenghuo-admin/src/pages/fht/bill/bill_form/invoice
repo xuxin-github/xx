@@ -1,0 +1,45 @@
+{
+    "response_sn":"20191022140546333GCOZ",
+    "retdata":
+        {
+            "machine_no":"661817540333",
+            "note":" ",
+            "amount":"131",
+            "buyer_address":"上海市崇明区长兴镇潘园公路1800号3号楼51820室（上海泰和经济发展区）",
+            "seller_bank_info":"招商银行股份有限公司上海联洋支行121922825510701",
+            "detail_list":
+                [
+                    {
+                        "unit":" ",
+                        "amount":"127.18",
+                        "name":"*餐饮服务*餐费",
+                        "count":"1",
+                        "tax":"3.82",
+                        "type":" ",
+                        "unit_price":"127.18446601941747",
+                        "tax_rate":"3"
+                    }
+                ],
+            "invoice_no":"18376829",
+            "buyer_bank_info":" ",
+            "buyer_name":"上海羽山数据科技中心（有限合伙）",
+            "total_tax":"3.82",
+            "verify_date":"2019-10-22 14:05:47",
+            "seller_address":"上海市浦东新区芳甸路185号2楼201室B单元 021-68517066",
+            "productO_oil_flag":"N",
+            "invoice_code":"031001800304",
+            "total":"127.18",
+            "seller_name":"上海够劲餐饮管理有限公司",
+            "buyer_tax_no":"91310230MA1K2JK072",
+            "seller_tax_no":"91310115MA1K3GA78N",
+            "check_code":"59960616931608494726",
+            "verify_count":"8",
+            "create_date":"20190615",
+            "cancel_flag":"N"
+        },
+    "version":"1.0",
+    "request_sn":"74fd3b34251a4e96a657f723d8b07890",
+    "retmsg":"交易成功",
+    "retdate":1571724348180,
+    "retcode":"000000"
+}

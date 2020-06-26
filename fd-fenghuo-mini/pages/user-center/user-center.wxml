@@ -1,0 +1,44 @@
+<!--logs.wxml-->
+<view class="container">
+  <view class="titles">
+    <view class="left-title">
+      <span style="color:#C2C4CA">头 像</span> 
+    </view>
+    <view class="content-img">
+      <view class="title">
+        <open-data type="userAvatarUrl"></open-data>
+      </view>
+      </view>
+  </view>
+  <view class="line"></view>
+  <view class="titles">
+    <view class="left-title">
+      <span style="color:#C2C4CA">昵 称</span>
+    </view>
+    <view class="content">
+      <span class="ss"><open-data type="userNickName"></open-data> </span>
+    </view>
+  </view>
+  <view class="line"></view>
+  <view class="titles">
+    <view class="left-title">
+      <label style="color:#C2C4CA">账号名</label>
+    </view>
+    <view class="content">
+      <span class="ss">{{username}}</span> 
+    </view>
+  </view>
+  <view class="line"></view>
+  <view class="titles">
+    <view class="left-title">
+      <label style="color:#C2C4CA">公司名</label> 
+    </view>
+    <view class="content">
+      <label class="ss">{{company_name}}</label>
+    </view>
+  </view>
+  <view class="line1"></view>
+  <view class="out">
+    <view class="bu" bindtap="output">退出当前账号</view>
+  </view>
+</view>

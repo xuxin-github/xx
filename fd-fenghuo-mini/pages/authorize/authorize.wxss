@@ -1,0 +1,359 @@
+
+.main {
+  width: 100%;
+  height: 100%;
+}
+.main .bg {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+}
+.main .opl_1 {
+  border-radius: 10rpx;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+/* 主view */
+.body-view {
+  width: 750rpx;
+}
+/* 为元素设定的宽度和高度决定了元素的边框盒 */
+.border-box {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+/* 默认图片是行内元素 */
+.image {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+/* 关闭滚动条  */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+/* 超过一行显示省略号 */
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
+}
+/* 去除边框 */
+.button {
+  margin: 0;
+  padding: 0;
+  font: 400 30rpx/1.4 '';
+  background: unset;
+}
+.button::after {
+  border: none;
+}
+.flex {
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+}
+/* 水平垂直居中 */
+.centerXY {
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+/* 上下居中 */
+.centerY {
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+/* 横向排列 */
+.rowX {
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+/* 左右居中 */
+.centerX {
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+/* 纵向排列 */
+.columnY {
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+/* 向左向右 */
+.betweenX {
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+/* 向上向下 */
+.betweenY {
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+/*定位全屏*/
+.allcover {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+/*定位上下左右居中*/
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+/*定位上下居中*/
+.ct {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+/*定位左右居中*/
+.cl {
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+/* 清楚浮动 */
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.clearfix {
+  zoom: 1;
+}
+/* 左浮动 */
+.fl {
+  float: left;
+}
+/* 右浮动 */
+.fr {
+  float: right;
+}
+.main {
+  width: 100%;
+  height: 100%;
+}
+.main .container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.main .container .logo {
+  width: 130rpx;
+  height: 130rpx;
+  margin-top: 70rpx;
+}
+.main .container .logo .lgimg {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.main .container .title {
+  margin-top: 30rpx;
+}
+.main .container .title .txt {
+  color: #2278CB;
+  font-size: 42rpx;
+  font-family: PingFangSC-Medium;
+  font-weight: 700;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+.main .container .line {
+  margin-top: 50rpx;
+  width: 88%;
+  height: 2rpx;
+  background: #EDEDED;
+}
+.main .container .notice {
+  margin-top: 35rpx;
+  width: 88%;
+}
+.main .container .notice .notice-txt {
+  color: #1F211B;
+  font-size: 36rpx;
+  font-family: PingFangSC-Regular;
+  font-weight: 500;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+.main .container .notice .notice-info {
+  color: #7B7B7B;
+  font-size: 33rpx;
+  font-family: PingFangSC-Regular;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin-left: 30rpx;
+}
+.main .container .submit-btn {
+  width: 85%;
+  height: 90rpx;
+  margin-top: 350rpx;
+}
+.authorize-btn {
+  background: #2278CB;
+  color: #FFFFFF;
+  font-size: 42rpx;
+  font-family: PingFangSC-Regular;
+  text-align: center;
+  line-height: 90rpx;
+
+}

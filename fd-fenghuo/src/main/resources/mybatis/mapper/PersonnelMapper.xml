@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fd.fhtmid.mapper.BUserInfoMapper">
+    <!-- 查询所有人员. -->
+    <select id="personnelList" resultType="Map">
+        SELECT b_user_info.id, username, pwd, b_user_info.name, role_id, dept_id, is_disable, b_user_info.create_time,
+        b_role_info.name AS role_name, b_dept_info.`dept_index`
+        FROM b_user_info
+        LEFT JOIN b_role_info ON b_user_info.role_id = b_role_info.id
+        LEFT JOIN b_dept_info ON b_user_info.`dept_id` = b_dept_info.`dept_code`
+        ORDER BY create_time DESC
+    </select>
+    <!-- 获取指定人员. -->
+    <select id="getPersonnelByUsername" resultType="Map">
+        select * from b_user_info where username = #{username}
+    </select>
+    <!-- 新增人员. -->
+    <insert id="insertPersonnel" parameterType="Map">
+        insert into b_user_info(id, username, pwd, name, role_id, dept_id, company_id, is_delete, is_disable, create_by, create_time)
+        values (#{id}, #{username}, #{pwd}, #{name}, #{role_id}, #{dept_id}, #{company_id}, #{is_delete}, #{is_disable}, #{create_by}, #{create_time})
+    </insert>
+    <!-- 修改人员. -->
+    <update id="updatePersonnel" parameterType="Map">
+        update b_user_info set username = #{username}, pwd=#{pwd}, name = #{name}, role_id = #{role_id}, dept_id = #{dept_id}, update_by = #{update_by},
+        update_time = #{update_time} where id = #{id}
+    </update>
+
+    <!-- 根据 id 查询. -->
+    <select id="getPersonnelById" resultType="Map">
+        SELECT a.*, b.`role_code`
+        FROM b_user_info AS a LEFT JOIN b_role_info AS b ON a.`role_id`=b.`id`
+        WHERE a.id = #{id}
+    </select>
+    <!-- 改变人员禁启用状态. -->
+    <update id="updatePersonnelStatus" parameterType="Map">
+        <if test="is_disable == 0">
+            update b_user_info set is_disable = '1', update_by = #{update_by}, update_time = #{update_time} where id =
+            #{id}
+        </if>
+        <if test="is_disable == 1">
+            update b_user_info set is_disable = '0', update_by = #{update_by}, update_time = #{update_time} where id =
+            #{id}
+        </if>
+    </update>
+
+    <!-- 修改人员信息中的部门为null. -->
+    <update id="updatePersonnelByNull" parameterType="java.util.List">
+        <if test="personnels != null and personnels.size() > 0">
+            update b_user_info set dept_id = null where id in
+            <foreach collection="personnels" item="personnel" separator="," open="(" close=")">
+                #{personnel}
+            </foreach>
+        </if>
+    </update>
+
+    <!-- 根据部门编号查询出人员信息. -->
+    <select id="PersonnelByDeptList" resultType="Map">
+        select * from b_user_info where dept_id = #{dept_code}
+    </select>
+
+    <!-- 根据id,name查询出人员的权限. -->
+    <select id="getRoleCode" resultType="Map">
+        SELECT b_user_info.id,username,role_code FROM b_user_info LEFT JOIN b_role_info ON b_user_info.`role_id` = b_role_info.`id`
+        where b_user_info.id = #{user_id} and username = #{user_name}
+    </select>
+</mapper>

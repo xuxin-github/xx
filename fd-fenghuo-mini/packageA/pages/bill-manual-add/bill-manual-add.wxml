@@ -1,0 +1,51 @@
+<view class="section">
+  <view  style="flex-direction:column;">
+      <view class="flex1">
+        <jws-form-item required='false' class="input" lable='发票类型'>
+          <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+            <!-- 根据showViews的状态来选择显示那个 -->
+            <view class="{{showViews?'view_shows':'view_hide'}}">
+              {{objectArray[0].name}}
+            </view>
+            <view class="{{showViews?'view_hide':''}}">
+              {{array[index]}}
+            </view>
+            </picker>
+        </jws-form-item>     
+      </view>
+      <view class="flex2">
+        <jws-form-item  required='false'  lable=' 发票号码'>
+            <jws-input-txt bind:input='onInput1' class="input" type="number" placeholder='请填写发票号码'></jws-input-txt>
+        </jws-form-item>    
+      </view>
+      <view class="flex2">
+        <jws-form-item  required='false'  lable='发票代码'>
+            <jws-input-txt bind:input='onInput2' class="input" type="number" placeholder='请填写发票代码'></jws-input-txt>
+        </jws-form-item>    
+      </view>
+      <view class="flex2">
+        <jws-form-item icon='{{index == 0 ? t : f}}'  required='{{index == 0 ? false : true}}' lable='效验码后6位'>
+            <jws-input-txt bind:input='onInput3' class="input" type="number" maxlength="6" placeholder='请填写发票效验码后6位'></jws-input-txt>
+        </jws-form-item>    
+      </view>
+      <view class="flex2">
+        <jws-form-item icon='{{index == 0 ? f : t}}' required='{{index == 0 ? true : false}}'  lable='发票金额'>
+            <jws-input-txt bind:input='onInput4' class="input" type='digit' placeholder='请填写发票金额(不含税)'></jws-input-txt>
+        </jws-form-item>    
+      </view>
+     
+      <view class="flex2">
+        <jws-form-item class="input" required='false'  lable='开票日期'>
+            <picker mode="date" value="{{date}}" bindchange="bindDateChange">
+              <view class="{{showView?'view_show':''}}" >
+                 {{date}}             
+              </view>
+            </picker>
+        </jws-form-item> 
+      </view>
+
+      <view class="bottom-view">  
+          <jws-button color="rgba(20,124,236,1)"  bindtap="ok" isFill="true" mtop="10">查找发票</jws-button>              
+      </view>
+  </view>
+</view>

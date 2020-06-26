@@ -1,0 +1,429 @@
+page{
+  background-color:#111;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  top:0;
+  left:0;
+  position:fixed;
+}
+.main .bg {
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  position:fixed;
+  background-size:cover;
+  z-index: 0;
+  background: no-repeat center 0rpx;
+}
+.gsmh{
+  filter: blur(10rpx);
+  background-color: rgba(180, 179, 179, 0.844);
+  width: 88%;
+  height: 1100rpx;
+  margin-left: 40rpx;
+  z-index: 1;
+  position: fixed;
+}  
+
+.main .opl_1 {
+  border-radius: 10rpx;
+  background-color:rgba(255,255,255,0.8);
+  z-index: 2; 
+}
+/* 主view */
+.body-view {
+  width: 750rpx;
+}
+/* 为元素设定的宽度和高度决定了元素的边框盒 */
+
+/* 默认图片是行内元素 */
+.image {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+/* 关闭滚动条  */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+/* 超过一行显示省略号 */
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
+}
+/* 去除边框 */
+.button {
+  margin: 0;
+  padding: 0;
+  font: 400 30rpx/1.4 '';
+  background: unset;
+}
+.button::after {
+  border: none;
+}
+.flex {
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+}
+/* 水平垂直居中 */
+.centerXY {
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+/* 上下居中 */
+.centerY {
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+/* 横向排列 */
+.rowX {
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+/* 左右居中 */
+.centerX {
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+/* 纵向排列 */
+.columnY {
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+/* 向左向右 */
+.betweenX {
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+/* 向上向下 */
+.betweenY {
+  /* Firefox */
+  display: -ms-flexbox;
+  /* IE10 */
+  display: -webkit-box;
+  /* Safari */
+  display: -webkit-flex;
+  /* Chrome, WebKit */
+  display: box;
+  display: flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+/*定位全屏*/
+.allcover {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+/*定位上下左右居中*/
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+/*定位上下居中*/
+.ct {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+/*定位左右居中*/
+.cl {
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+/* 清楚浮动 */
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.clearfix {
+  zoom: 1;
+}
+/* 左浮动 */
+.fl {
+  float: left;
+}
+/* 右浮动 */
+.fr {
+  float: right;
+}
+.main .cc {
+  width: 670rpx;
+  height:1100rpx; 
+  position: relative;
+  z-index: 100;
+  margin:40rpx auto;
+
+}
+.main .cc .login-view {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.main .cc .login-view .logo {
+  width: 130rpx;
+  height: 130rpx;
+  margin-top: 100rpx;
+  
+}
+.main .cc .login-view .logo .logo-img {
+  width: 100%;
+  height: 100%;
+}
+.main .cc .login-view .title {
+  text-align: center;
+  height: 60rpx;
+  font-size: 42rpx;
+  color: #2278CB;
+  font-weight: 700;
+  margin-top: 50rpx;
+  line-height: 60rpx;
+}
+.title2 {
+  text-align: center;
+  height: 60rpx;
+  font-size: 42rpx;
+  color: #2278CB;
+  font-weight: 700;
+  margin-top: 10rpx;
+  line-height: 60rpx;
+}
+.main .cc .login-view .input-phone {
+  width: 85%;
+  height: 80rpx;
+  background: rgba(255,255,255);
+  border-radius: 10rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 200rpx 30rpx 10rpx 30rpx;
+  position: relative;
+}
+.main .cc .login-view .input-phone .phone {
+  width: 100%;
+  margin-left: 20rpx;
+  height: 44rpx;
+  font-size: 32rpx;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #333333;
+  line-height: 44rpx;
+}
+.main .cc .login-view .input-psd {
+  width: 85%;
+  height: 80rpx;
+  background: rgba(255, 255, 255);
+  border-radius: 10rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 30rpx 30rpx 10rpx 30rpx;
+  position: relative;
+}
+.main .cc .login-view .input-psd .psd {
+  width: 100%;
+  margin-left: 20rpx;
+  height: 44rpx;
+  font-size: 32rpx;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #333333;
+  line-height: 44rpx;
+}
+.main .cc .login-view .login-work {
+  width: 85%;
+  height: 80rpx;
+  background: #2278CB;
+  margin-top: 90rpx;
+ 
+}
+.login-work .btn {
+  color: rgba(255,255,255);
+  font-size: 32rpx;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  text-align: center;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+
+input::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #BEBEBE;
+}
+view, scroll-view, swiper, button, input, textarea, label, navigator, image {
+  position:static; 
+}
+.by{
+  margin-left: 150rpx;
+  margin-top: 50rpx;
+  color: gray;
+}
+.coe{
+  color: #147CEC;
+
+}

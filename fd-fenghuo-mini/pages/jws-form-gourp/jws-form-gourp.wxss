@@ -1,0 +1,11 @@
+.P100 {
+  width: 750rpx;
+}
+
+.mgt10{
+  margin-top: 10rpx;
+}
+
+.mgl10{
+  margin-left: 10rpx;
+}

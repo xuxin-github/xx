@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="150px" height="39px" viewBox="0 0 150 39" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>矩形</title>
+    <desc>Created with Sketch.</desc>
+    <g id="电脑端1.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="风控中心-1" transform="translate(-400.000000, -192.000000)" fill="#147CEC">
+            <g id="编组-8" transform="translate(400.000000, 192.000000)">
+                <g id="编组-7">
+                    <path d="M7,0 L131.128832,0 C135.573688,3.92154091e-15 139.485057,2.93386649 140.729143,7.20106627 L150,39 L150,39 L0,39 L0,7 C-1.36162605e-15,3.13400675 3.13400675,-1.78006981e-16 7,0 Z" id="矩形"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

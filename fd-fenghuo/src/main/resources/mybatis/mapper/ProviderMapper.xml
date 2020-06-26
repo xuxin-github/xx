@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fd.fhtmid.mapper.BProviderInfoMapper">
+    <select id="findProvider" resultType="Map">
+        SELECT * FROM b_provider_info
+        <where>
+            <if test="supplier_status != null and supplier_status != ''">
+                and is_legal = #{supplier_status}
+            </if>
+            <if test="supplier_id != null and supplier_id != ''">
+                and (name LIKE concat("%",#{supplier_id},"%")
+                or reg_code LIKE concat("%",#{supplier_id},"%"))
+            </if>
+        </where>
+        order by ent_update_time desc
+    </select>
+    <select id="getProviderByName" resultType="Map">
+        SELECT * FROM b_provider_info WHERE NAME=#{company_name}
+    </select>
+    <select id="getXzhmd" resultType="String">
+        select xzhmd from b_provider_info WHERE NAME=#{company_name}
+    </select>
+    <select id="getZxgg" resultType="String">
+        select zxgg from b_provider_info WHERE NAME=#{company_name}
+    </select>
+    <select id="getShixin" resultType="String">
+        select shixin from b_provider_info WHERE NAME=#{company_name}
+    </select>
+    <select id="getBgt" resultType="String">
+        select bgt from b_provider_info WHERE NAME=#{company_name}
+    </select>
+
+    <update id="updateProvider" parameterType="Map">
+        <if test="company_status == 1">
+            update b_provider_info set is_legal = '0', update_by = #{update_by}, update_time = #{update_time} where name = #{company_name}
+        </if>
+        <if test="company_status == 0">
+            update b_provider_info set is_legal = '1', update_by = #{update_by}, update_time = #{update_time} where name = #{company_name}
+        </if>
+    </update>
+    <insert id="insertProvider" parameterType="Map">
+        insert into b_provider_info(id, name, reg_code, ent_update_time, is_legal, reg_date, reg_capital, xzhmd, zxgg, shixin, bgt, stockholder, create_time, create_by)
+        values (#{id}, #{company_name}, #{reg_code}, #{ent_update_time}, #{is_legal}, #{reg_date}, #{reg_capital}, #{xzhmd}, #{zxgg}, #{shixin}, #{bgt}, #{shareholders},
+        #{create_time}, #{create_by})
+    </insert>
+
+    <!-- 修改供应商评分. -->
+    <update id="updateProviderScore" parameterType="Map">
+        update b_provider_info set score = #{score} where name = #{company_name}
+    </update>
+    <!-- 获取所用供应商名称. -->
+    <select id="findAllProviderName" resultType="Map">
+        select name from b_provider_info
+    </select>
+    <!-- 修改对应的企业信息更新时间. -->
+    <update id="updateCompanyTime" parameterType="Map">
+        update b_provider_info set ent_update_time = #{ent_update_time} where name = #{company_name}
+    </update>
+    <!-- 根据供应商名称查询合同. -->
+    <select id="findByCompanyTOContract" resultType="Map">
+        SELECT NAME AS contract_name, contract_code, a.contract_id, a.company_name
+        FROM b_contract_info
+        LEFT JOIN
+        (SELECT contract_id, s_name, NAME AS company_name FROM b_invoice_info LEFT JOIN b_provider_info ON b_invoice_info.s_name = b_provider_info.name) AS a
+        ON b_contract_info.`contract_code` = a.contract_id WHERE company_name = #{company_name}
+    </select>
+    <!-- 修改供应商中的供应商评分小项. -->
+    <update id="updateProviderSingleScore" parameterType="Map">
+        update b_provider_info set p3_4_1 = #{p3_4_1}, p3_4_2 = #{p3_4_2}, p3_4_3 = #{p3_4_3}, p3_4_4 = #{p3_4_4}, p3_4_5 = #{p3_4_5}, p3_4_6 = #{p3_4_6}
+        where name = #{company_name}
+    </update>
+
+    <!-- 查询所有供应商. -->
+    <select id="findAllProvider" resultType="Map">
+        SELECT NAME as company_name, create_time FROM b_provider_info ORDER BY create_time DESC
+    </select>
+</mapper>

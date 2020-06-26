@@ -1,0 +1,65 @@
+<view class="section">
+  <view class='search'>
+    <view class='searchItem'>
+      <image src='/images/icon/search.png' />
+      <input bindinput='onInput' placeholder='搜索项目名称,报销编号' value="{{inputValue}}"></input>
+      <button bindtap="manualAddBill" hover-class="none">
+        <!-- <image src='/images/icon/7.svg' /> -->
+      </button>
+    </view>
+  </view>
+  <view class="view1">
+    <view class="table">
+      <block wx:for="{{listData}}" wx:key="id">
+        <view class="bg-g" bindtap="detail" data-index1="{{item.type_name}}" data-index2="{{item.bx_code}}">
+          <view class="vs">
+            <view class="title1">
+              <label>{{item.type_name?item.type_name:'--'}}</label>
+            </view>
+            <view class="title2">
+               <label class="{{item.bx_status == 0 ? 'wait': item.bx_status == 1 ? 'pass':item.bx_status == 2 ? 'reject':''}}">{{item.bx_status == 0 ? '待审核' : item.bx_status == 1 ? '已通过' : item.bx_status == 2 ? '已驳回' : ''}}</label>
+            </view>
+          </view>
+          <view class="line"></view>
+          <view class="vs">
+            <view class="c" style="width:350rpx;">
+              <text class="default-title">报销编号：</text>
+              <label style="letter-spacing:0rpx;">{{item.bx_code}} </label>
+            </view>
+            <view class="c2">
+              <text class="default-title">报销金额：</text>
+              <label style="letter-spacing:0rpx;">{{item.bx_money}} 元 </label>
+            </view>
+          </view>
+          <view class="vs">
+            <view class="c" style="width:350rpx;">
+              <text class="default-title">报销人员：</text>
+              <label style="letter-spacing:0rpx;">{{item.user_name}}</label>
+            </view>
+            <view class="c2">
+              <text class="default-title">所属部门：</text>
+              <label style="letter-spacing:0rpx;">{{item.dept_name}} </label>
+            </view>
+          </view>
+          <view class="vs" style="margin-bottom:30rpx;">
+            <view class="c" style="width:350rpx;">
+              <text class="default-title">发票金额：</text>
+              <label style="letter-spacing:0rpx;">{{item.price_amount ? item.price_amount : 0}} 元</label>
+            </view>
+            <view class="c2">
+              <text class="default-title">无票金额：</text>
+              <label style="letter-spacing:0rpx;">{{item.nIP}} 元 </label>
+            </view>
+          </view>
+          <view class="view2"></view>
+        </view>
+      </block>
+    </view>
+    <view class="{{listData == ''?'show':'hidden'}}">
+      <image class="nullImage" src="../../../images/icon/null.png" mode='aspectFit'></image>
+    </view>
+  </view>
+   <view class="bottom-view">
+    <button class="button1" bindtap="bindExpend">我要报销</button>
+  </view>
+</view>

@@ -1,0 +1,4 @@
+<view class='jws-input-txt'>
+  <input value='{{value}}' type='{{type}}' maxlength='{{maxlength}}' class='input' bindinput='changeInput' placeholder='{{placeholder}}' placeholder-class='place-input'></input>
+  <view wx:if='{{value!=""}}' catchtap='del' class='jws-input-txt-del'></view>
+</view>

@@ -1,0 +1,172 @@
+.jws-date-box {
+  position: relative;
+}
+
+.jws-date-box .jws-date-box-gray {
+  color: rgba(204, 204, 204, 1);
+}
+
+.jws-date-box-picker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999999;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.jws-date-box-picker .jws-date-picker {
+  background: rgba(255, 255, 255, 1);
+  border-radius: 10rpx 10rpx 0px 0px;
+  width: 100%;
+}
+.jws-date-picker-list-box-show{
+  min-width: 750rpx;
+  width: 750rpx;
+  max-width: 750rpx;
+}
+.jws-date-picker-list-box {
+  min-width: 2250rpx;
+  width: 2250rpx;
+  max-width: 2250rpx;
+  position: relative;
+}
+
+.jws-date-picker-list {
+  min-width: 750rpx;
+  width: 750rpx;
+  max-width: 750rpx;
+  padding: 0rpx 25rpx 25rpx 25rpx;
+}
+
+.jws-date-picker-list .jws-date-picker-list-row {
+  width: 100%;
+  padding: 5rpx 0;
+}
+
+.jws-date-picker-list  .jws-date-picker-list-row .jws-date-picker-list-item {
+  border-radius: 50%;
+  width: 70rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  display: block;
+  font-size: 28rpx;
+  border: 1rpx solid rgba(204, 204, 204, 1);
+}
+
+.jws-date-picker-list  .jws-date-picker-list-row .jws-date-picker-list-item-selected{
+  border: 1rpx solid rgba(204, 204, 204, 1);
+  background: var(--cyan);
+}
+
+
+.jws-date-picker-list  .jws-date-picker-list-row .jws-gray{
+  color: rgba(26, 26, 26, 0.3);
+  background: rgba(204, 204, 204, 0.3);
+  border: 1rpx solid rgba(204, 204, 204, 0.3);
+}
+
+.jws-date-picker-week-box {
+  width: 100%;
+  padding: 0 25rpx;
+}
+
+.jws-date-picker-week-box .jws-date-picker-week {
+  width: 70rpx;
+  padding: 20rpx;
+  text-align: center;
+  font-size: 33rpx;
+}
+
+.jws-date-picker-list  .jws-date-picker-list-row .jws-date-picker-list-item:active {
+  color: rgba(0, 0, 0, 0.6) !important;
+  background-color: #dedede !important;
+}
+
+.jws-click:active {
+  color: rgba(0, 0, 0, 0.6) !important;
+  background-color: #dedede !important;
+}
+
+.jws-date-picker-list-option {
+  width: 100%;
+  padding: 20rpx 25rpx 0 25rpx;
+}
+
+.jws-date-picker-list-option .jws-date-picker-list-row-elect {
+  display: inline-flex;
+  padding-left: 20rpx;
+}
+
+.jws-date-picker-list-option .jws-date-picker-list-row-elect .jws-elect-icon1 {
+  height: 30rpx;
+  width: 30rpx;
+  background: url("data:image/svg+xml;base64,PHN2ZyB0PSIxNTY1MDc4NDEyMzc0IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjIwNjMiIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cGF0aCBkPSJNOTAzLjk2NDA3MyA5OTQuNjMyNjc4Yy0xNTEuMjE2NjkzLTE1MS4yMzI5NDktMzAyLjQ0NDIyNC0zMDIuNDQ5NjQzLTQ1My42NjI3MjQtNDUzLjY2ODE0My0xNS45OTIyNjctMTYuMDA2NzE3LTE1Ljk5MjI2Ny00MS45MzQ5OTcgMC01Ny45MjkwNyAxNTEuMjE2NjkzLTE1MS4yMzExNDMgMzAyLjQ0NjAzLTMwMi40NDk2NDMgNDUzLjY2MjcyNC00NTMuNjY4MTQzIDE0Ljk4ODAwOS0xNS4wMDA2NTMgMzkuMzE1OTc5LTE1LjAwMDY1MyA1NC4zMDIxODIgMCAxNS4wMDA2NTMgMTQuOTg4MDA5IDE1LjAwMDY1MyAzOS4zMDMzMzYgMCA1NC4zMDM5ODgtMTQyLjc3NjIzIDE0Mi43NzgwMzYtMjg1LjU1MjQ2IDI4NS41NDM0MjktNDI4LjMxNDI0IDQyOC4zMjE0NjUgMTQyLjc2MzU4NiAxNDIuNzc5ODQyIDI4NS41MzgwMSAyODUuNTU3ODc4IDQyOC4zMTQyNCA0MjguMzM1OTE1IDE1LjAwMDY1MyAxNC45ODgwMDkgMTUuMDAwNjUzIDM5LjMwMTUyOSAwIDU0LjMwMzk4OC0xNC45ODgwMDkgMTUuMDAwNjUzLTM5LjMxNDE3MyAxNS4wMDA2NTMtNTQuMzAyMTgyIDB6IiBmaWxsPSIjY2RjZGNkIiBwLWlkPSIyMDY0Ij48L3BhdGg+PHBhdGggZD0iTTUyMC4xNDk2NjIgOTk0LjYzMjY3OGExMTkzNjg5OC42MDU5MjMgMTE5MzY4OTguNjA1OTIzIDAgMCAxLTQ1My42NzUzNjctNDUzLjY2ODE0M2MtMTUuOTkyMjY3LTE1Ljk5MjI2Ny0xNS45OTIyNjctNDEuOTM0OTk3IDAtNTcuOTI5MDdDMjE3LjcwMzYzMiAzMzEuODE4NzcxIDM2OC45MTg1MTkgMTgwLjU4NTgyMiA1MjAuMTQ5NjYyIDI5LjM2OTEyOGMxNC45ODYyMDMtMTUuMDAwNjUzIDM5LjMwMTUyOS0xNS4wMDA2NTMgNTQuMzAyMTgyIDAgMTUuMDAyNDU5IDE1LjAwMjQ1OSAxNS4wMDI0NTkgMzkuMzAzMzM2IDAgNTQuMzAzOTg5QTEzNjgwMzA0LjgzOTcyMyAxMzY4MDMwNC44Mzk3MjMgMCAwIDEgMTQ2LjEyMzE1NSA1MTEuOTkyNzc1bDQyOC4zMjg2ODkgNDI4LjMzNTkxNWMxNS4wMDI0NTkgMTUuMDAyNDU5IDE1LjAwMjQ1OSAzOS4zMTU5NzkgMCA1NC4zMDM5ODgtMTUuMDAwNjUzIDE1LjAwMDY1My0zOS4zMTU5NzkgMTUuMDAwNjUzLTU0LjMwMjE4MiAweiIgZmlsbD0iI2NkY2RjZCIgcC1pZD0iMjA2NSI+PC9wYXRoPjwvc3ZnPg==");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.jws-date-picker-list-option .jws-date-picker-list-row-elect .jws-elect-icon2 {
+  height: 30rpx;
+  width: 30rpx;
+  background: url("data:image/svg+xml;base64,PHN2ZyB0PSIxNTY1MDc4NjQ0OTUzIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9Ijg0NDUiIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cGF0aCBkPSJNMjcyLjQ0OCA0NzIuMDY0bDM5OS4yMzItMzk5LjIzMmMyMi4wOC0yMi4wOCA1Ny43OTItMjIuMDggNzkuODcyIDAgMjIuMDE2IDIyLjAxNiAyMi4wOCA1Ny43OTIgMCA3OS44NzJsLTM1OS4yOTYgMzU5LjI5NiAzNTkuMjk2IDM1OS4yOTZjMjIuMDE2IDIyLjAxNiAyMi4wOCA1Ny43OTIgMCA3OS44NzJzLTU3Ljc5MiAyMi4wMTYtNzkuODcyIDBsLTM5OS4yMzItMzk5LjIzMmMtMjIuMDE2LTIyLjA4LTIyLjAxNi01Ny43OTIgMC03OS44NzJ6IiBwLWlkPSI4NDQ2IiBmaWxsPSIjY2RjZGNkIj48L3BhdGg+PC9zdmc+");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.jws-date-picker-list-option .jws-date-picker-list-row-elect .jws-elect-icon3 {
+  height: 30rpx;
+  width: 30rpx;
+  background: url("data:image/svg+xml;base64,PHN2ZyB0PSIxNTY1MDc4NjgyNzA3IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjkyMjAiIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cGF0aCBkPSJNNzUxLjU1MiA1NTEuOTM2bC0zOTkuMjMyIDM5OS4yMzJjLTIyLjA4IDIyLjA4LTU3Ljc5MiAyMi4wOC03OS44NzIgMC0yMi4wMTYtMjIuMDE2LTIyLjA4LTU3Ljc5MiAwLTc5Ljg3MmwzNTkuMjk2LTM1OS4yOTYtMzU5LjI5Ni0zNTkuMjk2Yy0yMi4wMTYtMjIuMDE2LTIyLjA4LTU3Ljc5MiAwLTc5Ljg3MnM1Ny43OTItMjIuMDE2IDc5Ljg3MiAwbDM5OS4yMzIgMzk5LjIzMmMyMi4wMTYgMjIuMDggMjIuMDE2IDU3Ljc5MiAwIDc5Ljg3MnoiIHAtaWQ9IjkyMjEiIGZpbGw9IiNjZGNkY2QiPjwvcGF0aD48L3N2Zz4=");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.jws-date-picker-list-option .jws-date-picker-list-row-elect .jws-elect-icon4 {
+  height: 30rpx;
+  width: 30rpx;
+  background: url("data:image/svg+xml;base64,PHN2ZyB0PSIxNTY1MDc4NDg1Njk3IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjIyMzciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cGF0aCBkPSJNNTAzLjg2Mjk4MSA5OTQuNjMyNjc4YzE1MS4yMTY2OTMtMTUxLjIxODUgMzAyLjQ0NDIyNC0zMDIuNDM1MTkzIDQ1My42NjA5MTgtNDUzLjY2ODE0MyAxNS45OTQwNzMtMTUuOTkyMjY3IDE1Ljk5NDA3My00MS45MzQ5OTcgMC01Ny45MjkwN0w1MDMuODYyOTgxIDI5LjM2NzMyMmMtMTUuMDAwNjUzLTE1LjAwMDY1My0zOS4zMTU5NzktMTUuMDAwNjUzLTU0LjMwMzk4OCAwLTE1LjAwMjQ1OSAxNS4wMDI0NTktMTUuMDAyNDU5IDM5LjMwMzMzNiAwIDU0LjMwMzk4OCAxNDIuNzYzNTg2IDE0Mi43NzgwMzYgMjg1LjUzOTgxNiAyODUuNTU2MDcyIDQyOC4zMTYwNDYgNDI4LjMyMTQ2NS0xNDIuNzc0NDI0IDE0Mi43Nzk4NDItMjg1LjU1MjQ2IDI4NS41NTc4NzgtNDI4LjMxNjA0NiA0MjguMzM1OTE1LTE1LjAwMjQ1OSAxNS4wMDI0NTktMTUuMDAyNDU5IDM5LjMxNTk3OSAwIDU0LjMwMzk4OCAxNC45ODgwMDkgMTUuMDAwNjUzIDM5LjMwMzMzNiAxNS4wMDA2NTMgNTQuMzAzOTg4IDB6IiBmaWxsPSIjY2RjZGNkIiBwLWlkPSIyMjM4Ij48L3BhdGg+PHBhdGggZD0iTTEyMC4wNTAzNzcgOTk0LjYzMjY3OGMxNTEuMjE2NjkzLTE1MS4yMzI5NDkgMzAyLjQyOTc3NC0zMDIuNDQ5NjQzIDQ1My42NjA5MTctNDUzLjY2ODE0MyAxNS45OTQwNzMtMTYuMDA2NzE3IDE1Ljk5NDA3My00MS45MzQ5OTcgMC01Ny45MjkwN0wxMjAuMDUwMzc3IDI5LjM2NzMyMmMtMTUuMDAyNDU5LTE1LjAwMDY1My0zOS4zMTU5NzktMTUuMDAwNjUzLTU0LjMxODQzOCAwLTE0Ljk4ODAwOSAxNC45ODgwMDktMTQuOTg4MDA5IDM5LjMwMzMzNiAwIDU0LjMwMzk4OCAxNDIuNzc2MjMgMTQyLjc3ODAzNiAyODUuNTU0MjY2IDI4NS41NDM0MjkgNDI4LjMyODY4OSA0MjguMzIxNDY1LTE0Mi43NzQ0MjQgMTQyLjc3OTg0Mi0yODUuNTUyNDYgMjg1LjU1Nzg3OC00MjguMzI4Njg5IDQyOC4zMzU5MTUtMTQuOTg4MDA5IDE0Ljk4ODAwOS0xNC45ODgwMDkgMzkuMzAxNTI5IDAgNTQuMzAzOTg4IDE1LjAwMjQ1OSAxNS4wMDA2NTMgMzkuMzE1OTc5IDE1LjAwMDY1MyA1NC4zMTg0MzggMHoiIGZpbGw9IiNjZGNkY2QiIHAtaWQ9IjIyMzkiPjwvcGF0aD48L3N2Zz4=");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.jws-date-picker-list-option .jws-date-picker-list-row-elect .jws-elect-txt {
+  font-size: 35rpx;
+  color-adjust: rgba(51, 51, 51, 1);
+}
+
+.jws-date-picker-list-option .jws-date-picker-list-row-confirm {
+  display: inline-flex;
+}
+
+.jws-mgl20 {
+  margin-left: 20rpx;
+}
+
+.jws-mgl30 {
+  margin-left: 30rpx;
+}
+
+.jws-swiper {
+  height: 400rpx;
+}
+
+/* 动画内容在这里添加 */
+
+.jws-show-box {
+  animation: jws-show 0.4s;
+}
+
+.jws-show-picker {
+  animation: jws-slide-top 0.4s;
+}
+
+.jws-hide-box {
+  animation: jws-hide 0.4s;
+}
+
+.jws-hide-picker {
+  animation: jws-slide-bottom 0.4s;
+}

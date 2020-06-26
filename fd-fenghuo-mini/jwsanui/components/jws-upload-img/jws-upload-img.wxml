@@ -1,0 +1,37 @@
+<wxs module="filters" src="./jws-upload-img.wxs"></wxs>
+<view class='jws-upload-img'>
+  <view class='jws-upload-row'>
+    <block wx:for="{{imgs}}" wx:for-index="iidx" wx:for-item="iitem" wx:key="iidx">
+      <view class='jws-upload-img-item'>
+        <image data-cur='{{filters.format(config.host,iitem,config.miniType)}}' catchtap='previewImage' src='{{filters.format(config.host,iitem,config.miniType)}}'></image>
+        <view data-type='imgs' data-index='{{iidx}}' class='jws-upload-img-del' catchtap='delImg'>
+          <view class='del-icon1'></view>
+          <view class='del-icon2'></view>
+        </view>
+      </view>
+    </block>
+    <block wx:for="{{temps}}" wx:for-index="tidx" wx:for-item="titem" wx:key="tidx">
+      <view class='jws-upload-img-item'>
+        <image data-cur='{{filters.format(config.host,titem,config.miniType)}}' catchtap='previewImage' src='{{filters.format(config.host,titem,config.miniType)}}'></image>
+        <view data-type='temps' data-index='{{iidx}}' class='jws-upload-img-del' catchtap='delImg'>
+          <view class='del-icon1'></view>
+          <view class='del-icon2'></view>
+        </view>
+      </view>
+    </block>
+    <block wx:if="{{(temps.length+imgs.length)<config.max}}">
+      <view class='jws-upload-img-item' catchtap='chooseImage'>
+        <view class='jws-add-icon'>
+          <view class='add-icon-additionx' wx:if='{{config.addIcon==1||config.addIcon=="1"}}'>
+            <view class='add-icon-additiony'></view>
+          </view>
+          <view wx:else class='add-icon-camera'></view>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view wx:if='{{config.warming.show==true||config.warming.txt!=""}}' class='jws-upload-row mgt5'>
+    <view class='jws-upload-txt' wx:if='{{config.warming.txt!=""}}'>{{config.warming.txt}}</view>
+    <view class='jws-upload-txt' wx:else>最多上传{{config.max}}张</view>
+  </view>
+</view>

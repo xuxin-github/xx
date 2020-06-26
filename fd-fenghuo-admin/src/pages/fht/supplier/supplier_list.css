@@ -1,0 +1,11 @@
+.normal {
+    background: #DCF279;
+  }
+
+.title_style{
+    color: darkgrey;
+}
+
+.columns{
+    overflow: "auto"
+}

@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fd.fhtmid.mapper.BInvoiceInfoMapper">
+    <!--已通过的发票列表-->
+    <select id="selectListAll" resultType="Map">
+        SELECT  p1.id,p1.contract_id,p1.invoice_no_short,p1.s_name,p1.invoice_type,p1.invoice_catalog,p1.invoice_code,p1.price_amount,p1.invoice_time,p1.type,p1.create_time,p1.create_by,p1.audit_status, c_project_name, bx_project_name
+        FROM
+        (SELECT
+        b_invoice_info.id,b_invoice_info.`contract_id`,invoice_no_short,s_name,invoice_type,invoice_catalog,invoice_code,price_amount,invoice_time,type,b_invoice_info.create_by,audit_status,
+        b.project_name AS c_project_name ,b_invoice_info.`create_time`
+        FROM b_invoice_info
+        LEFT JOIN
+        (SELECT b_contract_info.`contract_code`,b_project_info.name AS project_name FROM b_contract_info LEFT JOIN
+        b_project_info ON b_contract_info.project_id = b_project_info.`project_code`) AS b
+        ON b_invoice_info.`contract_id` = b.`contract_code`) AS p1
+        LEFT JOIN
+        (SELECT b_invoice_info.id,b_invoice_info.`contract_id`,invoice_no_short,s_name,invoice_type,invoice_catalog,invoice_code,price_amount,invoice_time,type,b_invoice_info.create_by,audit_status, a.name AS bx_project_name,b_invoice_info.`create_time`
+        FROM
+        b_invoice_info
+        LEFT JOIN
+        (SELECT b_reimburse_info.`code`,b_project_info.name  FROM b_reimburse_info LEFT JOIN
+        b_project_info ON b_reimburse_info.project_id = b_project_info.`project_code`) AS a
+        ON b_invoice_info.`contract_id` = a.`code`) AS p2
+        ON p1.id = p2.id
+        <where>
+            <if test="invoice_catalog != null and invoice_catalog != ''">
+                and p1.invoice_catalog = #{invoice_catalog}
+            </if>
+            <if test="create_by != null and create_by != ''">
+                and p1.create_by = #{create_by}
+            </if>
+            <if test=" invoice_params != null and invoice_params != ''">
+                and
+                (c_project_name LIKE concat("%",#{invoice_params},"%")
+                or
+                bx_project_name LIKE concat("%",#{invoice_params},"%")
+                or
+                p1.invoice_no_short LIKE concat("%",#{invoice_params},"%")
+                or
+                p1.s_name LIKE concat("%",#{invoice_params},"%")
+                or
+                p1.invoice_code LIKE concat("%",#{invoice_params},"%")
+                )
+            </if>
+            and p1.audit_status = 1 ORDER BY p1.create_time DESC
+        </where>
+    </select>
+
+    <!--获取发票详情-->
+    <select id="getInvoiceByNo" resultType="Map">
+		SELECT b_invoice_info.*, b_reimburse_info.`code` AS reimburse_code, b_reimburse_info.`project_id` AS reimburse_project, b_contract_info.`contract_code`,
+        b_contract_info.`project_id` AS contract_project, b_contract_info.`name` AS contract_name, b_project_info.`name` AS project_name, b_project_info.`project_code`
+        FROM b_invoice_info LEFT JOIN b_reimburse_info ON b_invoice_info.`contract_id`=b_reimburse_info.`code` AND b_invoice_info.`type`='1'
+        LEFT JOIN b_contract_info ON b_invoice_info.`contract_id`=b_contract_info.`contract_code` AND b_invoice_info.`type`='0'
+        LEFT JOIN b_project_info ON b_project_info.`project_code`=b_reimburse_info.`project_id` OR b_project_info.`project_code`=b_contract_info.`project_id`
+		WHERE invoice_no_short = #{invoice_no_short} AND invoice_code = #{invoice_code}
+	</select>
+
+    <!--获取发票详情中的报销信息-->
+    <select id="getBaoXiaoCode" resultType="Map">
+	SELECT TYPE,CODE,STATUS,a.reimburse_is_deletes,b_reimburse_type_info.`type_name` , b_reimburse_type_info.is_delete AS  reimburseType_is_deletes, a.project_name FROM
+    (SELECT b_reimburse_info.code,b_reimburse_info.`status` ,b_reimburse_info.`is_delete` AS reimburse_is_deletes, b_reimburse_info.type,b_project_info.name AS project_name FROM b_reimburse_info LEFT JOIN b_project_info ON b_reimburse_info.project_id = b_project_info.`project_code`) AS a
+    LEFT JOIN
+    b_reimburse_type_info
+    ON a.`type` =  b_reimburse_type_info.`type_code`
+    where code = #{code}
+	</select>
+
+
+    <!--获取货物或应税劳务、服务-->
+    <select id="getServices" resultType="java.lang.String">
+		select services from b_invoice_info where invoice_no_short = #{invoice_no_short}
+	</select>
+
+    <!-- 新增时查重. -->
+    <select id="findByNoAndCode" resultType="Map">
+		select * from b_invoice_info where invoice_no_short = #{invoice_no} and invoice_code = #{invoice_code}
+	</select>
+
+    <!-- 新增 -->
+    <insert id="insertInvoice" parameterType="Map">
+        <if test="invoice_type == '11'">
+            insert into b_invoice_info(id, invoice_type, invoice_code, invoice_no_short, invoice_time, s_name, s_tax_id,
+            b_name, b_tax_id, machine_no, tax_amount, amout, remark,
+            check_code, price_amount, services, payee, create_time, create_by) values(#{id}, #{invoice_type},
+            #{invoice_code},
+            #{invoice_no}, #{create_date}, #{seller_name}, #{seller_tax_no}, #{buyer_name},
+            #{buyer_tax_no}, #{machine_no}, #{total_tax}, #{amount}, #{note}, #{check_code}, #{total}, #{services},
+            #{receiver}, #{create_time}, #{create_by})
+        </if>
+        <if test="invoice_type != '11'">
+            insert into b_invoice_info(id, invoice_type, invoice_code, invoice_no_short, invoice_time, s_name, s_tax_id,
+            b_name, b_tax_id, machine_no, tax_amount, amout, remark,
+            check_code, price_amount, services, s_account, b_account, b_link_info, s_link_info, create_time, create_by)
+            values(#{id}, #{invoice_type}, #{invoice_code}, #{invoice_no}, #{create_date}, #{seller_name},
+            #{seller_tax_no}, #{buyer_name}, #{buyer_tax_no}, #{machine_no}, #{total_tax}, #{amount}, #{note},
+            #{check_code}, #{total}, #{services}, #{seller_bank_info},
+            #{buyer_bank_info}, #{buyer_address}, #{seller_address}, #{create_time}, #{create_by})
+        </if>
+    </insert>
+
+    <!-- 新增时关联合同的下拉选项. -->
+    <select id="findAllContractName" resultType="Map">
+        SELECT NAME, contract_code, b_contract_info.`create_time`, contract_id,b_contract_info.create_by
+        FROM b_contract_info LEFT JOIN b_invoice_info ON b_contract_info.`contract_code` = b_invoice_info.`contract_id`
+        <where>
+            <if test=" create_by != null and create_by != ''">
+                and b_contract_info.create_by = #{create_by}
+            </if>
+            and (contract_id IS NULL OR s_name = #{seller_name}) AND b_contract_info.status = "01"
+            GROUP BY NAME
+            ORDER BY create_time DESC
+        </where>
+
+    </select>
+
+    <!-- 新增时关联已有的合同列表 -->
+    <select id="findAllContract" resultType="Map">
+        SELECT id,a.contract_code AS contract_code, contract_name,s_name, invoice_number,
+        price_amount,create_time,STATUS,a.create_by,a.project_name,project_status FROM
+        (SELECT contract_code,b_contract_info.id, b_contract_info.`name` AS contract_name,
+        b_contract_info.create_time,b_contract_info.status,b_contract_info.create_by,b_project_info.`name` AS
+        project_name,b_project_info.status AS project_status
+        FROM b_contract_info LEFT JOIN b_project_info ON b_project_info.`project_code` = b_contract_info.`project_id`
+        GROUP BY contract_code) AS a
+        LEFT JOIN
+        (SELECT contract_code,s_name,COUNT(b_invoice_info.`contract_id`) AS invoice_number, SUM(price_amount) AS
+        price_amount,b_invoice_info.contract_id
+        FROM b_contract_info LEFT JOIN b_invoice_info ON contract_code = contract_id WHERE contract_id
+        IN(SELECT contract_id FROM b_invoice_info LEFT JOIN b_contract_info ON b_contract_info.`contract_code`=
+        b_invoice_info.`contract_id`) GROUP BY contract_code) AS b
+        ON a.contract_code = b.contract_code
+        <where>
+            <if test=" create_by != null and create_by != ''">
+                and a.create_by = #{create_by}
+            </if>
+            <if test=" contract_params != null and contract_params != ''">
+                and
+                (a.contract_code LIKE concat("%",#{contract_params},"%")
+                or
+                contract_name LIKE concat("%",#{contract_params},"%")) and
+            </if>
+            b.contract_id IS NULL and status = '01' and project_status = 1 OR s_name = #{s_name} order by create_time
+            desc
+        </where>
+    </select>
+
+    <!-- 新增时直接关联合同. -->
+    <update id="updateInvoiceContractId" parameterType="Map">
+		update b_invoice_info set contract_id = #{contract_code},type = 0,audit_status = 0 where invoice_code = #{invoice_code} and invoice_no_short = #{invoice_no_short}
+	</update>
+
+    <!-- 根据所得参数查看数据库中是否存在 -->
+    <select id="findOneInvoice" resultType="Map">
+         SELECT * FROM  b_invoice_info WHERE invoice_no_short = #{invoice_no_short} AND invoice_code = #{invoice_code}
+    </select>
+
+    <!-- 根据合同编号获取供应商. -->
+    <select id="findContractCodeAndProviderScore" resultType="Map">
+		SELECT name, contract_code, score, s_name, a.p3_4_1,  a.p3_4_2,  a.p3_4_3,  a.p3_4_4,  a.p3_4_5,  a.p3_4_6 FROM b_contract_info LEFT JOIN
+        (SELECT s_name, score, contract_id, p3_4_1, p3_4_2, p3_4_3, p3_4_4, p3_4_5, p3_4_6
+        FROM b_invoice_info LEFT JOIN b_provider_info
+        ON b_invoice_info.`s_name` = b_provider_info.`name`) AS a
+        ON contract_code = a.contract_id WHERE contract_code = #{contract_code}
+        GROUP BY s_name
+	</select>
+    <!-- 判断销方名称与该合同供应商是否一致. -->
+    <select id="findByContractId" resultType="Map">
+        SELECT s_name FROM b_invoice_info WHERE contract_id = #{contract_code} group by s_name
+    </select>
+    <!-- 将发票的销方名称带入合同的供应方(销方)名称. -->
+    <update id="updateContractSeller" parameterType="Map">
+        UPDATE b_contract_info SET sell_name = #{seller_name} WHERE name = #{contract_name}
+    </update>
+    <!-- 修改发票的发票分类. -->
+    <update id="updateInvoiceCatalog" parameterType="Map">
+		update b_invoice_info set invoice_catalog = #{invoice_catalog},type=0,audit_status=0 where invoice_code = #{invoice_code} and invoice_no_short = #{invoice_no}
+	</update>
+
+    <!-- 获取合同下的发票数量. -->
+    <select id="findInvoiceCount" resultType="Map">
+        SELECT contract_code, b_contract_info.name, contract_id, COUNT(contract_id) AS number
+        FROM b_contract_info LEFT JOIN b_invoice_info
+        ON b_contract_info.`contract_code` = b_invoice_info.`contract_id`
+        WHERE contract_code = #{contract_code}
+        GROUP BY contract_id
+    </select>
+
+    <!-- 获取高风险发票来源(lq). -->
+    <select id="findHighRiskInvoice" resultType="Map">
+        SELECT a.id, a.invoice_catalog, a.invoice_code, a.invoice_no_short, a.b_name, a.s_name, a.company_name, single_count, total_count
+        FROM
+        (SELECT b_invoice_info.`id`, invoice_catalog, invoice_code, invoice_no_short, b_name, s_name, b_company_info.name AS company_name, COUNT(s_name) AS total_count
+        FROM b_invoice_info LEFT JOIN b_company_info
+        ON b_invoice_info.`b_name` = b_company_info.`name`
+        GROUP BY s_name) AS a
+        LEFT JOIN
+        (SELECT b_invoice_info.`id`, invoice_catalog, invoice_code, invoice_no_short, b_name, s_name, b_company_info.name AS company_name, COUNT(s_name) AS single_count
+        FROM b_invoice_info LEFT JOIN b_company_info
+        ON b_invoice_info.`b_name` = b_company_info.`name`
+        WHERE invoice_catalog = "01" OR invoice_catalog = "02" OR invoice_catalog = "03" OR invoice_catalog = "04" OR invoice_catalog = "05" OR invoice_catalog = "06"
+        GROUP BY s_name) AS b
+        ON a.s_name = b.s_name
+        WHERE a.company_name = #{company_name} AND b.single_count != NULL OR b.single_count != 0
+        ORDER BY single_count DESC
+    </select>
+    <!-- 获取进项票据统计(lq). -->
+    <select id="findAddInvoiceCount" resultType="Map">
+        <!--    只算本公司的当月新增发票数量
+                SELECT a.b_name, a.company_name, m_time, y_time FROM
+                (SELECT b_company_info.name AS company_name, b_name, COUNT(b_name) AS m_time
+                FROM b_invoice_info LEFT JOIN b_company_info ON b_invoice_info.`b_name` = b_company_info.`name`
+                WHERE DATE_FORMAT( b_invoice_info.create_time, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+                GROUP BY b_name) AS a
+                LEFT JOIN
+                (SELECT b_company_info.name AS company_name, b_name, COUNT(b_name) AS y_time
+                FROM b_invoice_info LEFT JOIN b_company_info ON b_invoice_info.`b_name` = b_company_info.`name`
+                WHERE YEAR(b_invoice_info.create_time)=YEAR(NOW())
+                GROUP BY b_name) AS b
+                ON a.b_name = b.b_name
+                WHERE a.company_name = #{company_name}  -->
+
+        SELECT a.b_name, m_time, y_time FROM
+        (SELECT b_name, COUNT(id) AS m_time
+        FROM b_invoice_info
+        WHERE DATE_FORMAT( b_invoice_info.create_time, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+        ) AS a
+        LEFT JOIN
+        (SELECT b_name, COUNT(id) AS y_time
+        FROM b_invoice_info
+        WHERE YEAR(b_invoice_info.create_time)=YEAR(NOW())
+        ) AS b
+        ON a.b_name = b.b_name
+
+    </select>
+
+
+    <select id="invoiceFinishCount" resultType="Map">
+	    <![CDATA[
+
+                SELECT COUNT(*) as count FROM (SELECT  (IFNULL(a.p2_1,0)+ IFNULL(a.p2_2,0)+IFNULL(a.p2_3,0)+IFNULL(a.p2_4,0)) AS c_total,
+                    (#{p2_1}-a.p2_1) AS c_p2_1,(#{p2_2}-a.p2_2) AS c_p2_2,(#{p2_3}-a.p2_3) AS c_p2_3,(#{p2_4}-a.p2_4) AS c_p2_4,
+                    (#{p1}-(IFNULL(a.p2_1,0)+ IFNULL(a.p2_2,0)+IFNULL(a.p2_3,0)+IFNULL(a.p2_4,0))) AS c_p1
+                    ,a.* ,b.b_name,b.invoice_catalog ,b.create_time AS b_time FROM b_contract_info  a RIGHT JOIN
+                    b_invoice_info b ON a.contract_code = b.contract_id) AS  c WHERE c_p1 <= 0 AND  c_p2_1 <= 0 AND  c_p2_2 <= 0 AND  c_p2_3 <= 0 AND  c_p2_4<= 0 AND invoice_catalog != '07'  AND
+                    DATE_FORMAT( b_time, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+                    UNION ALL
+                    SELECT COUNT(*) FROM (
+                    SELECT  (IFNULL(a.p2_1,0)+ IFNULL(a.p2_2,0)+IFNULL(a.p2_3,0)+IFNULL(a.p2_4,0)) AS c_total,
+                    (#{p2_1}-a.p2_1) AS c_p2_1,(#{p2_2}-a.p2_2) AS c_p2_2,(#{p2_3}-a.p2_3) AS c_p2_3,(#{p2_4}-a.p2_4) AS c_p2_4,
+                    (#{p1}-(IFNULL(a.p2_1,0)+ IFNULL(a.p2_2,0)+IFNULL(a.p2_3,0)+IFNULL(a.p2_4,0))) AS c_p1
+                    ,a.* ,b.b_name,b.invoice_catalog ,b.create_time AS b_time FROM b_contract_info  a RIGHT JOIN b_invoice_info b ON a.contract_code = b.contract_id) AS  c
+                    WHERE c_p1 <= 0
+                    AND  c_p2_1 <= 0 AND  c_p2_2 <= 0 AND  c_p2_3 <= 0 AND  c_p2_4<= 0 AND invoice_catalog != '07'  AND DATE_FORMAT( b_time, '%Y' ) = DATE_FORMAT( CURDATE( ) , '%Y' )
+
+        ]]>
+	    
+    </select>
+
+
+    <select id="invoiceUnFinishCount" resultType="Map">
+	    <![CDATA[
+
+                SELECT COUNT(*) as count FROM (SELECT  (IFNULL(a.p2_1,0)+ IFNULL(a.p2_2,0)+IFNULL(a.p2_3,0)+IFNULL(a.p2_4,0)) AS c_total,
+                    (#{p2_1}-a.p2_1) AS c_p2_1,(#{p2_2}-a.p2_2) AS c_p2_2,(#{p2_3}-a.p2_3) AS c_p2_3,(#{p2_4}-a.p2_4) AS c_p2_4,
+                    (#{p1}-(IFNULL(a.p2_1,0)+ IFNULL(a.p2_2,0)+IFNULL(a.p2_3,0)+IFNULL(a.p2_4,0))) AS c_p1
+                    ,a.* ,b.b_name,b.invoice_catalog ,b.create_time AS b_time FROM b_contract_info  a RIGHT JOIN
+                    b_invoice_info b ON a.contract_code = b.contract_id) AS  c WHERE (c_p1 > 0 or  c_p2_1 > 0 or  c_p2_2 > 0 or  c_p2_3 > 0 or  c_p2_4> 0) AND invoice_catalog != '07'  AND
+                    DATE_FORMAT( b_time, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+                    UNION ALL
+                    SELECT COUNT(*) FROM (
+                    SELECT  (IFNULL(a.p2_1,0)+ IFNULL(a.p2_2,0)+IFNULL(a.p2_3,0)+IFNULL(a.p2_4,0)) AS c_total,
+                    (#{p2_1}-a.p2_1) AS c_p2_1,(#{p2_2}-a.p2_2) AS c_p2_2,(#{p2_3}-a.p2_3) AS c_p2_3,(#{p2_4}-a.p2_4) AS c_p2_4,
+                    (#{p1}-(IFNULL(a.p2_1,0)+ IFNULL(a.p2_2,0)+IFNULL(a.p2_3,0)+IFNULL(a.p2_4,0))) AS c_p1
+                    ,a.* ,b.b_name,b.invoice_catalog ,b.create_time AS b_time FROM b_contract_info  a RIGHT JOIN b_invoice_info b ON a.contract_code = b.contract_id) AS  c
+                    WHERE (c_p1 > 0
+                    or c_p2_1 > 0 or  c_p2_2 > 0 or  c_p2_3 > 0 or  c_p2_4> 0) AND invoice_catalog != '07'  AND DATE_FORMAT( b_time, '%Y' ) = DATE_FORMAT( CURDATE( ) , '%Y' )
+
+        ]]>
+	    
+    </select>
+
+    <!-- 查询所有票据及对应的合同名称. -->
+    <select id="findAllInvoice" resultType="Map">
+        SELECT invoice_code, invoice_no_short, s_name, contract_id, NAME as contract_name, b_invoice_info.`create_time`, invoice_type FROM b_invoice_info
+        LEFT JOIN b_contract_info
+        ON b_invoice_info.`contract_id` = b_contract_info.`contract_code`
+        ORDER BY b_invoice_info.`create_time` DESC
+    </select>
+
+
+
+
+
+
+
+
+
+    <!-- 删除发票(取消关联). -->
+    <update id="cancelConnectInvoice" parameterType="Map">
+		UPDATE b_invoice_info SET contract_id = NULL, audit_status = null, type = null, update_by = #{update_by}, update_time = #{update_time}
+		WHERE invoice_no_short = #{invoice_no} and invoice_code = #{invoice_code}
+	</update>
+    <!-- 关联(修改发票的contract_id, type, audit_status). -->
+    <update id="updateInvoiceConnect" parameterType="Map">
+        UPDATE b_invoice_info SET contract_id = #{connect_id}, audit_status = #{status}, type = #{type}, update_by = #{update_by}, update_time = #{update_time}
+		WHERE invoice_no_short = #{invoice_no} and invoice_code = #{invoice_code}
+    </update>
+
+
+
+    <!-- 权限控制. -->
+    <!-- 查询所有发票. -->
+    <select id="invoiceTotalList" resultType="Map">
+        SELECT b_invoice_info.`id`, invoice_no_short, invoice_type, s_name, invoice_catalog, invoice_code, price_amount, invoice_time,
+        b_invoice_info.`type`,b_invoice_info.`audit_status`, b_invoice_info.`contract_id`, b_reimburse_info.`code` AS reimburse_code, b_reimburse_info.`project_id` AS reimburse_project,
+        b_contract_info.`contract_code`, b_contract_info.`project_id` AS contract_project, b_contract_info.`name` AS contract_name,
+        b_project_info.`name` AS project_name, b_user_info.`username`
+        FROM b_invoice_info LEFT JOIN b_reimburse_info ON b_invoice_info.`contract_id`=b_reimburse_info.`code` AND b_invoice_info.`type`='1'
+        LEFT JOIN b_contract_info ON b_invoice_info.`contract_id`=b_contract_info.`contract_code` AND b_invoice_info.`type`='0'
+        LEFT JOIN b_project_info ON b_project_info.`project_code`=b_reimburse_info.`project_id` OR b_project_info.`project_code`=b_contract_info.`project_id`
+        LEFT JOIN b_user_info ON b_invoice_info.`create_by`=b_user_info.`id`
+        <where>
+            <if test="invoice_catalog != null and invoice_catalog != ''">
+                and invoice_catalog = #{invoice_catalog}
+            </if>
+            <if test=" invoice_params != null and invoice_params != ''">
+                and
+                (
+                    invoice_no_short LIKE concat("%",#{invoice_params},"%")
+                    or
+                    b_contract_info.`name` LIKE concat("%",#{invoice_params},"%")
+                    or
+                    b_project_info.`name` LIKE concat("%",#{invoice_params},"%")
+                )
+            </if>
+            <if test="role_code == 'ROLE_DIRECTOR'">
+                and (username = #{username})
+            </if>
+        </where>
+        ORDER BY b_invoice_info.`create_time` DESC
+    </select>
+    <!-- 权限控制下的新增关联合同的下拉列表. -->
+    <select id="invoiceAddContractList" resultType="Map">
+        SELECT b_contract_info.`name`, contract_code, b_contract_info.`create_time`, contract_id, b_contract_info.`create_by`,
+        b_user_info.`username` FROM b_contract_info
+        LEFT JOIN b_invoice_info ON b_contract_info.`contract_code` = b_invoice_info.`contract_id`
+        LEFT JOIN b_user_info ON b_contract_info.`create_by`=b_user_info.`id`
+        <where>
+            (contract_id IS NULL OR s_name = #{seller_name}) AND STATUS = "01"
+            <if test="role_code == 'ROLE_DIRECTOR'">
+                AND (username = #{username})
+            </if>
+        </where>
+        GROUP BY NAME
+        ORDER BY create_time DESC
+    </select>
+</mapper>

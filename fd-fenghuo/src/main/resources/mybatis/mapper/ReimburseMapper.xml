@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fd.fhtmid.mapper.BReimburseInfoMapper">
+	<!--报销列表(普通用户/主管)-->
+    <select id="selectAllList1" resultType="Map">
+		SELECT bx_user_role.id,user_id,bx_code,type_name,bx_money,note,files,bx_status,bx_is_delete,bx_create_by,bx_create_time,bx_user_role.project_name,bx_create_time,dept_name,user_name,price_amount,project_create_by FROM
+		-- 报销与项目与用户与部门信息
+		(SELECT aa.id,bx_code,type_name,user_id,bx_money,note,files,bx_status,bx_is_delete,bx_create_by,bx_create_time,aa.project_name,dept_name,user_name,project_create_by FROM
+		-- 报销与项目
+		(SELECT a.id,bx_code,type_name,a.user_id,bx_money,note,files,bx_status,bx_is_delete,bx_create_by,bx_create_time,a.project_name,a.project_create_by
+		FROM
+		(SELECT b_reimburse_info.id,user_id,CODE AS bx_code,NAME AS project_name,TYPE AS bx_type,money AS bx_money,note,files,b_reimburse_info.`project_id`,b_reimburse_info.status AS bx_status,b_reimburse_info.`is_delete` AS bx_is_delete,b_reimburse_info.`create_by` AS bx_create_by,b_reimburse_info.`create_time` AS bx_create_time,b_project_info.`create_by` AS project_create_by
+		FROM b_reimburse_info LEFT JOIN b_project_info ON b_reimburse_info.`project_id` = b_project_info.`project_code` WHERE user_id IN
+		(SELECT b_project_member_info.user_id FROM b_reimburse_info LEFT JOIN b_project_member_info ON b_reimburse_info.`project_id` = b_project_member_info.`project_code` WHERE b_project_member_info.`user_id` = b_reimburse_info.`user_id`)
+		AND b_reimburse_info.`project_id` IN
+		(SELECT b_project_member_info.`project_code` FROM b_reimburse_info LEFT JOIN b_project_member_info ON b_reimburse_info.`project_id` = b_project_member_info.`project_code` WHERE b_project_member_info.`user_id` = b_reimburse_info.`user_id`)
+		OR b_project_info.`create_by` = user_id) AS a
+		LEFT JOIN
+		(SELECT b_reimburse_info.id,b_reimburse_info.`user_id`,type_name FROM b_reimburse_info LEFT JOIN b_reimburse_type_info ON b_reimburse_info.`type`=b_reimburse_type_info.`type_code`) AS b
+		ON a.id = b.id ) AS aa
+		LEFT JOIN
+		-- 报销与用户与部门
+		(SELECT b_reimburse_info.id,dept_name,user_name FROM
+		b_reimburse_info
+		LEFT JOIN
+		(SELECT b_user_info.id ,b_dept_info.name AS dept_name,b_user_info.name AS user_name FROM b_user_info LEFT JOIN b_dept_info ON b_user_info.`dept_id` = b_dept_info.`dept_code`) AS u
+		ON b_reimburse_info.user_id = u.id) AS uu
+		ON aa.id = uu.id) AS bx_user_role
+		LEFT JOIN
+		-- 报销与发票信息
+		(SELECT b_reimburse_info.id,b_reimburse_info.`code`,SUM(price_amount) AS price_amount
+		FROM
+		b_reimburse_info
+		LEFT JOIN
+		b_invoice_info
+		ON b_reimburse_info.`code` = b_invoice_info.`contract_id` WHERE b_invoice_info.type = 1 GROUP BY CODE  ) AS bx_invoice
+		ON bx_user_role.bx_code = bx_invoice.code
+		<where>
+		<if test="params != '' and params != null">
+			and
+			project_name LIKE concat("%",#{params},"%")
+			or
+			bx_code LIKE concat("%",#{params},"%")
+		</if>
+			and bx_create_by = #{user_id} ORDER BY bx_status,bx_create_time DESC
+		</where>
+    </select>
+
+
+	<!--获取所有的报销信息-->
+	<select id="selectAllList2" resultType="Map">
+	SELECT bx_user_role.id,user_id,bx_code,type_name,bx_money,note,files,bx_status,bx_is_delete,bx_create_by,bx_create_time,bx_user_role.project_name,bx_create_time,dept_name,user_name,price_amount,project_create_by FROM
+			-- 报销与项目与用户与部门信息
+			(SELECT aa.id,bx_code,type_name,user_id,bx_money,note,files,bx_status,bx_is_delete,bx_create_by,bx_create_time,aa.project_name,dept_name,user_name,project_create_by FROM
+				-- 报销与项目
+				(SELECT a.id,bx_code,type_name,a.user_id,bx_money,note,files,bx_status,bx_is_delete,bx_create_by,bx_create_time,a.project_name,a.project_create_by
+				FROM
+				(SELECT b_reimburse_info.id,user_id,CODE AS bx_code,NAME AS project_name,TYPE AS bx_type,money AS bx_money,note,files,b_reimburse_info.`project_id`,b_reimburse_info.status AS bx_status,b_reimburse_info.`is_delete` AS bx_is_delete,b_reimburse_info.`create_by` AS bx_create_by,b_reimburse_info.`create_time` AS bx_create_time,b_project_info.`create_by` AS project_create_by
+				FROM b_reimburse_info LEFT JOIN b_project_info ON b_reimburse_info.`project_id` = b_project_info.`project_code`) AS a
+				LEFT JOIN
+				(SELECT b_reimburse_info.id,b_reimburse_info.`user_id`,type_name FROM b_reimburse_info LEFT JOIN b_reimburse_type_info ON b_reimburse_info.`type`=b_reimburse_type_info.`type_code`) AS b
+				ON a.id = b.id ) AS aa
+			LEFT JOIN
+			-- 报销与用户与部门
+				(SELECT b_reimburse_info.id,dept_name,user_name FROM
+				b_reimburse_info
+				LEFT JOIN
+				(SELECT b_user_info.id ,b_dept_info.name AS dept_name,b_user_info.name AS user_name FROM b_user_info LEFT JOIN b_dept_info ON b_user_info.`dept_id` = b_dept_info.`dept_code`) AS u
+				ON b_reimburse_info.user_id = u.id) AS uu
+			ON aa.id = uu.id) AS bx_user_role
+		LEFT JOIN
+		-- 报销与发票信息
+			(SELECT b_reimburse_info.id,b_reimburse_info.`code`,SUM(price_amount) AS price_amount
+			FROM
+			b_reimburse_info
+			LEFT JOIN
+			b_invoice_info
+			ON b_reimburse_info.`code` = b_invoice_info.`contract_id` WHERE b_invoice_info.type = 1 GROUP BY CODE  ) AS bx_invoice
+		ON bx_user_role.bx_code = bx_invoice.code
+		<where>
+			<if test="params != null and params != ''">
+				and
+				(project_name LIKE concat("%",#{params},"%")
+				or
+				bx_code LIKE concat("%",#{params},"%"))
+			</if>
+		</where>
+		order by bx_status,bx_create_time DESC
+	</select>
+
+	<!--报销详情-->
+	<select id="selectDetails" resultType="Map">
+		SELECT bx_user_role.id,user_id,bx_code,type_name,bx_money,note,files,bx_status,bx_is_delete,bx_create_by,bx_create_time,bx_user_role.project_name,bx_create_time,dept_name,user_name,price_amount FROM
+		-- 报销与项目与用户与部门信息
+		(SELECT aa.id,bx_code,type_name,user_id,bx_money,note,files,bx_status,bx_is_delete,bx_create_by,bx_create_time,aa.project_name,dept_name,user_name FROM
+		-- 报销与项目
+		(SELECT a.id,bx_code,type_name,a.user_id,bx_money,note,files,bx_status,bx_is_delete,bx_create_by,bx_create_time,a.project_name
+		 FROM
+		(SELECT b_reimburse_info.id,user_id,CODE AS bx_code,NAME AS project_name,TYPE AS bx_type,money AS bx_money,note,files,b_reimburse_info.status AS bx_status,b_reimburse_info.`is_delete` AS bx_is_delete,b_reimburse_info.`create_by` AS bx_create_by,b_reimburse_info.`create_time` AS bx_create_time
+		FROM b_reimburse_info LEFT JOIN b_project_info ON b_reimburse_info.`project_id` = b_project_info.`project_code`) AS a
+		LEFT JOIN
+		(SELECT b_reimburse_info.id,b_reimburse_info.`user_id`,type_name FROM b_reimburse_info LEFT JOIN b_reimburse_type_info ON b_reimburse_info.`type`=b_reimburse_type_info.`type_code`) AS b
+		ON a.id = b.id) AS aa
+		LEFT JOIN
+		-- 报销与用户与部门
+		(SELECT b_reimburse_info.id,dept_name,user_name FROM
+		b_reimburse_info
+		LEFT JOIN
+		(SELECT b_user_info.id ,b_dept_info.name AS dept_name,b_user_info.name AS user_name FROM b_user_info LEFT JOIN b_dept_info ON b_user_info.`dept_id` = b_dept_info.`dept_code`) AS u
+		ON b_reimburse_info.user_id = u.id) AS uu
+		ON aa.id = uu.id) AS bx_user_role
+		LEFT JOIN
+		-- 报销与发票信息
+		(SELECT b_reimburse_info.id,b_reimburse_info.`code`,SUM(price_amount) AS price_amount
+		FROM
+		 b_reimburse_info
+		 LEFT JOIN
+		 b_invoice_info
+		 ON b_reimburse_info.`code` = b_invoice_info.`contract_id` WHERE b_invoice_info.type = 1 GROUP BY CODE  ) AS bx_invoice
+		ON bx_user_role.bx_code = bx_invoice.code
+		<where>
+			<if test="type_name != '' and type_name  != null">
+				type_name = #{type_name}
+			</if>
+			and bx_code = #{bx_code}
+		</where>
+
+	</select>
+    <!--报销下的发票信息-->
+	<select id="selectBxInvoice" resultType="Map">
+		SELECT b_reimburse_info.id,b_reimburse_info.`code`,invoice_code,invoice_no_short,invoice_type,invoice_catalog,invoice_time, price_amount,s_name
+		FROM
+ 		b_reimburse_info
+ 		LEFT JOIN
+ 		b_invoice_info
+ 		ON b_reimburse_info.`code` = b_invoice_info.`contract_id` WHERE  b_invoice_info.type = 1 AND CODE = #{bx_code}
+	</select>
+    <!--获得移动端我要报销中的报销项目信息-->
+    <select id="getExpendProject" resultType="Map">
+		SELECT DISTINCT b_project_info.name AS project_name,b_project_info.id AS p_id FROM b_project_info
+		LEFT JOIN b_project_member_info ON b_project_info.`project_code` = b_project_member_info.`project_code`
+		<where>
+			<if test="user_id != null and user_id != ''">
+				user_id = #{user_id} OR b_project_info.create_by = #{user_id}
+			</if>
+			and b_project_info.`status` = 1 ORDER BY b_project_info.`create_time` DESC
+		</where>
+	</select>
+
+	<!--获得移动端我要报销中的报销类别信息-->
+	<select id="getExpendType" resultType="Map">
+		SELECT type_code,type_name FROM b_reimburse_type_info
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- 修改报销记录的审核状态. -->
+	<update id="updateReimburseStatus" parameterType="Map">
+		update b_reimburse_info set status = #{status}, update_by = #{update_by}, update_time = #{update_time}
+		where code = #{reimburse_code}
+	</update>
+	<!-- 根据报销编号查询发票(项目). -->
+	<select id="getInvoiceByReimburse" resultType="Map">
+		SELECT invoice_no_short, invoice_code
+		FROM b_reimburse_info LEFT JOIN b_invoice_info ON b_reimburse_info.`code`=b_invoice_info.`contract_id`
+		WHERE b_invoice_info.`type`='1' AND b_reimburse_info.`code` = #{reimburse_code}
+	</select>
+	<!-- 取消关联. -->
+	<update id="cancelConnectReimburse" parameterType="Map">
+		update b_reimburse_info set project_id = null, update_by = #{update_by}, update_time = #{update_time}
+		where code = #{reimburse_code}
+	</update>
+	<!-- 获取指定报销记录. -->
+	<select id="getReimburseByCode" resultType="Map">
+		SELECT b_reimburse_info.`id`, b_reimburse_info.`code`, b_reimburse_info.`user_id`, b_reimburse_info.`project_id`, b_invoice_info.`type` AS invoice_type,
+		b_reimburse_info.`type`, b_reimburse_info.`money`, b_reimburse_info.`note`, b_reimburse_info.`files`, b_reimburse_info.`status`,
+		b_user_info.`name` AS reimburse_name, b_dept_info.`name` AS dept_name, b_reimburse_type_info.`type_name`, IFNULL(SUM(b_invoice_info.`price_amount`), 0) AS invoice_money,
+		(IFNULL(b_reimburse_info.`money`, 0)-IFNULL(SUM(b_invoice_info.`price_amount`), 0)) AS not_invoice_monet, b_invoice_info.`audit_status`
+		FROM b_reimburse_info LEFT JOIN b_user_info ON b_reimburse_info.`user_id`=b_user_info.`id`
+		LEFT JOIN b_dept_info ON b_user_info.`dept_id`=b_dept_info.`dept_code`
+		LEFT JOIN b_reimburse_type_info ON b_reimburse_info.`type`=b_reimburse_type_info.`type_code`
+		LEFT JOIN b_invoice_info ON b_reimburse_info.`code`=b_invoice_info.`contract_id` AND b_invoice_info.`type`='1'
+		WHERE b_reimburse_info.`code` = #{reimburse_code}
+		GROUP BY b_reimburse_info.`code`
+	</select>
+	<!-- 根据报销编号查询发票(报销). -->
+	<select id="getInvoiceByReimburseCode" resultType="Map">
+		SELECT b_invoice_info.`id`, b_reimburse_info.`code`, invoice_no_short, b_invoice_info.`audit_status`,
+		invoice_type, s_name, invoice_catalog, invoice_code, price_amount, invoice_time, b_invoice_info.`type`
+		FROM b_reimburse_info RIGHT JOIN b_invoice_info
+		ON b_reimburse_info.`code`=b_invoice_info.`contract_id` AND b_invoice_info.`type`='1'
+		WHERE b_reimburse_info.`code` = #{reimburse_code}
+		ORDER BY invoice_time DESC
+	</select>
+	<!-- 获取最新插入的数据. -->
+	<select id="getLatestReimburse" resultType="Map">
+		SELECT id, code, create_time FROM b_reimburse_info ORDER BY create_time DESC LIMIT 1
+	</select>
+	<!-- 新增报销. -->
+	<insert id="insertReimburse" parameterType="Map">
+		insert into b_reimburse_info(id, code, user_id, project_id, company_id, type, money, note, files, status, is_delete, create_by, create_time)
+		values (#{id}, #{code}, #{user_id}, #{project_id}, #{company_id}, #{type}, #{money}, #{note}, #{files}, #{status}, #{is_delete}, #{create_by}, #{create_time})
+	</insert>
+</mapper>

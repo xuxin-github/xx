@@ -1,0 +1,19 @@
+{
+  "name": "fd-fenghuo-mini",
+  "version": "1.0.0",
+  "description": "在公司进行小程序开发，遇到许多关于小程序的一些问题，在解决问题的同时进行记录、总结，逐渐形成该微信小程序开发模板。",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://118.89.138.54:7171/fudengtech/fd-fenghuo-mini.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jwt-decode": "^2.2.0"
+  }
+}

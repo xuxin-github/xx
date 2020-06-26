@@ -1,0 +1,142 @@
+body {
+  background: #f5f5f5;
+}
+page {
+  background: #f5f5f5;
+}
+
+
+view.search {
+    display: flex;
+    flex-direction: row;
+    height: 140rpx;
+    margin-top: -120rpx;
+    width: 100%;
+    background: rgb(255, 255, 255);
+    align-items: center;
+    position: fixed;
+    z-index: 99;
+}
+ 
+view.searchItem {
+    display: flex;
+    width: 94%;
+    height: 80rpx;
+    background: rgba(244,244,244,1);
+    flex-direction: row;
+    border-radius: 10rpx;
+    padding-top: 15rpx;
+    margin-right: 30rpx;
+    margin-left: 20rpx;
+    align-self: center;
+    position: fixed;
+    z-index: 99;
+}
+ 
+view.searchItem image {
+    height: 35rpx;
+    width: 35rpx;
+    margin-top: 6rpx;
+    margin-left: 20rpx;
+    margin-right: 20rpx;
+    margin-bottom: 15rpx;
+}
+view.searchItem button {
+    height: 50rpx;
+    color: #147CEC;
+    font-size: 50rpx;
+    margin-left: 20rpx;
+    margin-right: 20rpx;
+    margin-top: 5rpx;
+}
+ 
+view.searchItem input {
+    flex: 1;
+    font-size: 30rpx;
+}
+
+.img1{
+  margin-right: 15rpx;
+  margin-bottom: -5rpx;
+  width: 26rpx;
+  height: 34rpx;
+
+}
+
+.view1{ 
+  background: rgb(255, 255, 255);
+  height: 40%;
+  margin-top: 120rpx; 
+}
+.view2{ 
+  background: #f5f5f5;
+  height: 10rpx;
+}
+
+.title1{ 
+  padding-top: 20rpx; 
+  margin-left: 30rpx;
+  margin-bottom:42rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #4A4A4A;
+}
+
+.c{
+  margin-left: 30rpx;
+  margin-bottom:20rpx;
+  letter-spacing:5rpx;
+  margin-right: 30rpx;
+}
+
+.c2{
+  margin-bottom:20rpx;
+  letter-spacing:5rpx;
+  margin-right: 30rpx;
+  flex-direction:row;
+}
+
+ /* 用于view并排 */
+.vs{
+  display: flex;
+  flex-direction: row;
+}
+.default-title{
+  color: #9B9B9B; 
+  margin-right: 10rpx;
+}
+.default-titles1{
+  color: #9B9B9B;
+}
+
+.default-titles2{
+  color: #9B9B9B;
+  margin-left: 80rpx; 
+}
+.line{
+  width:90%;
+  border-top: 1px solid rgba(246,247,248,1); 
+  float: left;
+  margin-left: 30rpx;
+  margin-top: -20rpx;
+}
+.commom{
+  color: #539E00;
+  font-weight:600;
+}
+.highRisk{
+  color: #DD5364;
+  font-weight:600;
+}
+.hidden{
+  display: none;
+}
+.show{
+  display: block;
+}
+.nullImage{
+  width: 300rpx;
+  height: 300rpx;
+  display: flex;
+  margin: 0 auto;
+}

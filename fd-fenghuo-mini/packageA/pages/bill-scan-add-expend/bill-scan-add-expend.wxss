@@ -1,0 +1,75 @@
+body {
+  background: #f5f5f5;
+}
+page {
+  background: #f5f5f5;
+}
+.flex-wrp {
+  display: flex;
+  }
+
+.bc_1 {
+  background: rgba(255, 255, 255);
+  height: 30%;
+  margin-bottom: 10rpx;
+  }
+
+.bc_3 { 
+  background: rgba(255, 255, 255);
+  height: 30%;
+  margin-bottom: 150rpx;
+  }
+
+.view1{
+  margin-left: 60rpx;
+  margin-bottom:15rpx;
+  margin-right: 60rpx;
+  letter-spacing:5rpx;
+}
+
+.button1{
+    background:#9B9B9B;
+    padding: 5rpx 10rpx;
+    border-radius: 10rpx;
+    width: 320rpx;
+    height: 94rpx;
+    color: rgba(255, 255, 255);
+    align-items: center;
+    justify-content: center;
+    display: inline-flex;
+    font-size: 32rpx; 
+    margin-top: 15rpx;
+    margin-left: 45rpx; 
+    margin-bottom: 15rpx;  
+  }
+
+.button2{
+    padding: 5rpx 10rpx;
+    border-radius: 10rpx;
+    width: 320rpx;
+    height: 94rpx;
+    color: rgba(255, 255, 255);
+    align-items: center;
+    justify-content: center;
+    display: inline-flex;
+    font-size: 32rpx;
+    margin-left: 15rpx;
+    margin-top: 15rpx;
+    margin-bottom: 15rpx;
+    background:#69C305; 
+    
+  }
+  .bottom-view{
+    height: 130rpx;
+    background: rgba(255, 255, 255);
+    bottom: 0rpx;
+    position: fixed;
+    width: 100%; 
+  }
+  .text_1{
+    color: #9B9B9B; 
+    margin-right: 10rpx;
+  }
+  .number{
+    letter-spacing:0rpx;
+  }

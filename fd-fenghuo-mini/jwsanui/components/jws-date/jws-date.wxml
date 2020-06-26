@@ -1,0 +1,54 @@
+<view class="jws-date-box">
+  <view class="" catchtap="showPicker">
+    {{value||placeholder}}
+  </view>
+  <view wx:if="{{showStatus}}" class="jws-date-box-picker bottomY {{showClass[0]}}" catchtouchmove="{{true}}">
+    <view class="jws-date-picker  {{showClass[1]}}">
+      <view class="jws-date-picker-list-option betweenX centerY">
+        <view class="jws-date-picker-list-row-elect centerY">
+          <view class="jws-elect-icon1 jws-mgl20 jws-click" catchtap="clickYear" data-dotype="1"></view>
+          <view class="jws-elect-icon2 jws-mgl30 jws-click" catchtap="clickMonth" data-dotype="1"></view>
+          <view class="jws-elect-txt jws-mgl30">{{year}}年</view>
+          <view class="jws-elect-txt jws-mgl30">{{month}}月</view>
+          <view class="jws-elect-icon3 jws-mgl30 jws-click" catchtap="clickMonth" data-dotype="2"></view>
+          <view class="jws-elect-icon4 jws-mgl30" catchtap="clickYear" data-dotype="2"></view>
+        </view>
+        <view class="jws-date-picker-list-row-confirm">
+          <jws-button color="gray" catchtap="showPicker">取消</jws-button>
+          <jws-button color="green" mleft="20" catchtap="ok">确定</jws-button>
+        </view>
+      </view>
+
+      <view class="jws-date-picker-week-box centerY betweenX">
+        <view class="jws-date-picker-week" wx:for="{{weeks}}" wx:for-item="item" wx:key="idx" wx:for-index="idx">
+          {{item}}
+        </view>
+      </view>
+      <scroll-view scroll-x="{{true}}" scroll-left="{{scrollLeft}}" bindtouchstart="touchStart" bindtouchend="touchEnd" class="jws-date-picker-list-box-show">
+        <view class="jws-date-picker-list-box centerY">
+          <view class="jws-date-picker-list centerX">
+            <view class="jws-date-picker-list-row betweenX centerY" wx:for="{{datelist[0]}}" wx:for-item="item" wx:key="idx" wx:for-index="idx">
+              <view class="jws-date-picker-list-item {{item2.sign!=2?'jws-gray':''}}" catchtap="clickDate" wx:for="{{item}}" wx:for-item="item2" wx:key="idx2" wx:for-index="idx2">
+                {{item2.day.cDay}}
+              </view>
+            </view>
+          </view>
+          <view class="jws-date-picker-list centerX">
+            <view class="jws-date-picker-list-row betweenX centerY" wx:for="{{datelist[1]}}" wx:for-item="item" wx:key="idx" wx:for-index="idx">
+              <view class="jws-date-picker-list-item {{item2.sign!=2?'jws-gray':''}}" catchtap="clickDate" wx:for="{{item}}" wx:for-item="item2" wx:key="idx2" wx:for-index="idx2">
+                {{item2.day.cDay}}
+              </view>
+            </view>
+          </view>
+          <view class="jws-date-picker-list centerX">
+            <view class="jws-date-picker-list-row betweenX centerY" wx:for="{{datelist[2]}}" wx:for-item="item" wx:key="idx" wx:for-index="idx">
+              <view class="jws-date-picker-list-item {{item2.sign!=2?'jws-gray':''}}" catchtap="clickDate" wx:for="{{item}}" wx:for-item="item2" wx:key="idx2" wx:for-index="idx2">
+                {{item2.day.cDay}}
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "jws-button": "../jws-button/jws-button"
+  }
+}

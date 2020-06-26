@@ -1,0 +1,10 @@
+<view class='jws-loading-box'>
+  <view class='jws-loading' catchtap='onTip'>
+    <view class='loading-line'></view>
+    <view class='loading-txt'>
+      <view class='loading-icon' wx:if='{{status==2}}'></view> 
+      <view class='jws-mgl5'>{{warms[status]}}</view>
+    </view>
+    <view class='loading-line'></view>
+  </view>
+</view>

@@ -1,0 +1,44 @@
+<view class="main">
+  <image class="bg" mode="aspectFill" src="/images/icon/9.png"></image>
+  <view class="gsmh">
+  </view>
+  <view class="cc opl_1">
+    <view class="login-view">
+      <view class="logo">
+        <image class="logo-img" src="/images/icon/fht_logo.svg"></image>
+      </view>
+    </view>
+    <view class="login-view">
+      <view class="title">
+        <text>锦 信</text>
+      </view>
+      <view class="title2">
+        <text>财税法合规AI大数据平台
+</text>
+      </view>
+    </view>
+    <view class="login-view">
+      <view class="input-phone">
+        <input class="phone" placeholder="请输入登录账号" value="{{username}}"  placeholder-class="input-placeholder" bindchange="handleAccount" />  
+      </view>
+    </view>
+    <view class="login-view">
+      <view class="input-psd">
+        <input class="psd" type="password" placeholder="请输入登录密码" placeholder-class="input-placeholder" bindchange="handlePsd" />
+      </view>
+    </view>
+    <view class="login-view">
+      <view class="login-work">
+        <block>
+          <view class="btn" bindtap="handleLogin">立即登录</view>
+        </block>
+        <block>
+          <view class="by">没有账号？
+            <text class="coe" bindtap="call">联系我们</text>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+</view>

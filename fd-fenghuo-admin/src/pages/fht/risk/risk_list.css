@@ -1,0 +1,40 @@
+.card_container{
+    border-color: #fff;
+    background: #fff;
+    padding: 0 20px;
+    line-height: 38px;
+    border: 1px solid #e8e8e8;
+    box-shadow: 0px 0px 24px 0px rgba(0,0,0,0.1);
+    border-radius: 7px;
+}
+
+.select_content_font{
+    height: 50px;
+    padding: 0 30px 0 35px;
+    font-family: PingFangSC-Regular;
+    font-size: 16px;
+    color: #242526;
+    letter-spacing: -0.39px;
+
+    /* 居中 */
+    display: -moz-box;
+	/* Firefox */
+	display: -ms-flexbox;
+	/* IE10 */
+	display: -webkit-box;
+	/* Safari */
+	display: -webkit-flex;
+	/* Chrome, WebKit */
+	display: box;
+	display: flexbox;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+    align-items: center;
+    
+    background: url('../../../assets/路径 2.svg') no-repeat scroll right center content-box, url('../../../assets/编组 2.svg') no-repeat scroll 1% center transparent;
+}
+
+.select_content_left{
+    background: #147CEC;
+}

@@ -1,0 +1,147 @@
+body {
+  background: #f5f5f5;
+}
+page {
+  background: #f5f5f5;
+}
+
+
+.bottom-view{
+    bottom: 0rpx;
+    position: fixed;
+    width: 100%;
+    margin-top: 100rpx;
+    height: 140rpx;
+    background: rgb(255, 255, 255);
+    text-align: center;
+}
+
+.button1{
+    background: rgba(20,124,236,1);
+    color:white;
+    margin-left: 70rpx;
+    margin-top: 20rpx;
+    margin-bottom: 50rpx;
+    width: 600rpx;
+    height: 90rpx;
+    border-radius: 10rpx;
+    font-size: 36rpx;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+}
+
+view.search {
+    display: flex;
+    flex-direction: row;
+    height: 120rpx;
+    background: rgb(255, 255, 255);
+    align-items: center;
+}
+ 
+view.searchItem {
+    display: flex;
+    width: 100%;
+    height: 80rpx;
+    background: rgba(244,244,244,1);
+    flex-direction: row;
+    border-radius: 10rpx;
+    padding-top: 15rpx;
+    margin-right: 30rpx;
+    margin-left: 20rpx;
+    align-self: center;
+}
+ 
+view.searchItem image {
+    height: 35rpx;
+    width: 35rpx;
+    margin-left: 20rpx;
+    margin-right: 20rpx;
+    margin-bottom: 15rpx;
+    margin-top: 6rpx;
+}
+ 
+view.searchItem input {
+    flex: 1;
+    font-size: 30rpx;
+}
+
+.view1{ 
+  background: rgb(255, 255, 255);
+  height: 100%;
+  margin-bottom: 180rpx; 
+  margin-top: 10rpx; 
+}
+.view2{ 
+  background: #f5f5f5;
+  height: 10rpx;
+ 
+}
+
+.title1{ 
+  padding-top: 26rpx; 
+  margin-left: 30rpx;
+  margin-bottom:48rpx;
+  letter-spacing:2rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #4A4A4A;
+}
+
+.c{
+  margin-left: 30rpx;
+  margin-bottom:20rpx;
+  letter-spacing:5rpx;
+  
+}
+.default-title{
+  color: #9B9B9B; 
+  margin-right: 10rpx;
+}
+.default-titles{
+  color: #9B9B9B;
+  margin-left: 120rpx; 
+}
+
+.check1{
+  color: #9B9B9B;
+  margin-left: 30rpx;
+  margin-top: 40rpx;
+  margin-bottom: 30rpx;
+  font-size: 30rpx;
+}
+
+.check2{ 
+  color: #147CEC;
+  margin-left: 30rpx;
+  margin-top: 40rpx;
+  font-size: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.check_icon{
+  margin-top:9rpx;
+  padding-right: 10rpx;
+  float: left;
+}
+.line{
+  width:90%;
+  border-top: 1px solid rgba(246,247,248,1); 
+  float: left;
+  margin-left: 30rpx;
+  margin-top: -20rpx;
+}
+.hidden{
+  display: none;
+}
+.show{
+  display: block;
+  height: 220rpx;
+  background: #fff;
+}
+.nullImage{
+  width: 200rpx;
+  height: 200rpx;
+  display: flex;
+  margin: 0 auto;
+}

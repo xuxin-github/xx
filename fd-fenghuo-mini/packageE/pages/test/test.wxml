@@ -1,0 +1,16 @@
+<!--pages/service/file/index.wxml-->
+<loading hidden="{{!loading}}"/>
+<image  mode="top" src="{{imgSrc}}"></image>
+<button bindtap="downloadFile" data-src="{{imgSrc}}">下载图片</button>
+<button bindtap="toLocal">保存到本地</button>
+<!--<button bindtap="uploadFile">uploadFile</button>-->
+<button bindtap="getList">查看已保存文件列表</button>
+<button bindtap="openFile">打开一份在线的的pdf文件</button>
+ 
+<view class="tip-box">
+    <view>tip:</view>
+    <view>1.操作步骤：下载图片->保存到本地->查看已保存文件列表。</view>
+    <view>2.下载图片的临时路径仅能保存到本地一次。</view>
+    <view>3.可以多次下载图片，再每次保存到本地，就可以看到多个文件保存的记录。</view>
+    <view>4.图片仅用于显示。</view>
+</view>

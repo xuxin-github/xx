@@ -1,0 +1,70 @@
+<!-- 首页 -->
+<view class="main">
+  <view class="col1">
+    <image class="img1" src="/images/icon/9.png"></image>
+  </view>
+  <view class="gsmh"></view>
+  <view class="c-view1">
+    <view style=" position:relative;display:flex;">
+      <view class="user" bindtap="toUserData">
+        <open-data class="img2" type="userAvatarUrl"></open-data>
+      </view>
+      <view class="c-view-title">
+        <view style="font-weight: 550">{{username}}</view>
+        <view class="c-view-title2">{{company_name}}</view>
+      </view>
+    </view>
+    <view class="line"></view>
+    <view class="c-view1-1">
+      <view style="margin-left:40rpx">
+        <view style="color:#C2C4CA">待审核</view>
+        <view class="c-view-number1">{{ waitInvoice ? waitInvoice : 0}}</view>
+      </view>
+      <view>
+        <view class="c-view-title3">已通过</view>
+        <view class="c-view-number2">{{ passInvoice ? passInvoice : 0}}</view>
+      </view>
+      <view>
+        <view class="c-view-title3">已驳回</view>
+        <view class="c-view-number3">{{noPassInvoice ? noPassInvoice : 0}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="col2">
+    <view class="col22">
+      <view class="left1" bindtap="addBill">
+        <view class="left-title1">
+          <image class="img3" src="/images/icon/1.svg"></image>
+        </view>
+        <view class="left-title2">添加发票</view>
+        <view class="left-title3">Add Receipt</view>
+      </view>
+      <view class="right1" bindtap="billManage">
+        <view class="left-title1">
+          <image class="img3" src="/images/icon/2.svg"></image>
+        </view>
+        <view class="left-title2">已通过的发票</view>
+        <view class="left-title3">Receipt Management</view>
+      </view>
+    </view>
+    <view class="col22">
+      <view class="{{quanxian[0].authority == 'ROLE_COMMON' ? 'hidden' : 'show'}}">
+        <view class="left2" bindtap="contractManage">
+          <view class="left-title1">
+            <image class="img3" src="/images/icon/3.svg"></image>
+          </view>
+          <view class="left-title2">合同发票</view>
+          <view class="left-title3">Contract Management</view>
+        </view>
+      </view>
+      <view class="{{quanxian[0].authority == 'ROLE_COMMON' ? 'right22' : 'right2'}}" bindtap="expendRecordManage">
+        <view class="left-title1">
+          <image class="img3" src="/images/icon/4.svg"></image>
+        </view>
+        <view class="left-title2">报销记录</view>
+        <view class="left-title3">Expend Record</view>
+      </view>
+
+    </view>
+  </view>
+</view>

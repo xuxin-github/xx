@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fd.fhtmid.mapper.ChartMapper">
+    
+    <select id="invoiceChart" resultType="Map">
+    
+    	select  count(*) as num,DATE_FORMAT( create_time, '%c' ) as c_time from b_invoice_info  where DATE_FORMAT( create_time, '%Y' ) = DATE_FORMAT( CURDATE( ) , '%Y' ) 
+			<if test="invoice_catalog_not != null">
+			and invoice_catalog != #{invoice_catalog_not}
+			</if>
+			<if test="invoice_catalog_eq != null">
+			and invoice_catalog = #{invoice_catalog_eq}
+			</if>
+			group by DATE_FORMAT( create_time, '%Y%m' )
+    
+        
+    </select>
+    
+    
+    <select id="highInvoiceChart" resultType="Map">
+    
+    	
+			SELECT COUNT(*) as num ,DATE_FORMAT( b_time, '%c' ) as c_time FROM (
+			SELECT  (IFNULL(a.p2_1,0)+ IFNULL(a.p2_2,0)+IFNULL(a.p2_3,0)+IFNULL(a.p2_4,0)) AS c_total,
+			(#{p2_1}-a.p2_1) AS c_p2_1,(#{p2_2}-a.p2_2) AS c_p2_2,(#{p2_3}-a.p2_3) AS c_p2_3,(#{p2_4}-a.p2_4) AS c_p2_4,
+			(#{p1}-(IFNULL(a.p2_1,0)+ IFNULL(a.p2_2,0)+IFNULL(a.p2_3,0)+IFNULL(a.p2_4,0))) AS c_p1
+			,a.* ,b.b_name,b.invoice_catalog ,b.create_time AS b_time FROM b_contract_info  a RIGHT JOIN b_invoice_info b ON a.contract_code = b.contract_id) AS  c
+			WHERE 
+			<![CDATA[
+			(c_p1 > 0
+			or c_p2_1 > 0 or  c_p2_2 > 0 or  c_p2_3 > 0 or  c_p2_4> 0)
+			]]>	 
+			<if test="invoice_catalog_not != null">
+			and invoice_catalog != #{invoice_catalog_not}
+			</if>
+			<if test="invoice_catalog_eq != null">
+			and invoice_catalog = #{invoice_catalog_eq}
+			</if>
+		
+			AND DATE_FORMAT( b_time, '%Y' ) = DATE_FORMAT( CURDATE( ) , '%Y' ) 
+			GROUP BY DATE_FORMAT( b_time, '%Y%m' )
+	
+    
+        
+    </select>
+    
+    
+    
+     <select id="overallBusinessRisk" resultType="Map">
+    
+    		SELECT AVG(p2_1) as p2_1,AVG(p2_2) as p2_2,AVG(p2_3) as p2_3,AVG(p2_4) as p2_4 FROM b_contract_info
+			WHERE DATE_FORMAT( create_time, '%Y%m' ) = #{ym}
+			GROUP BY DATE_FORMAT( create_time, '%Y%m' )
+	   
+        
+    </select>
+    
+    <select id="overallBusinessRisk_shichang" resultType="Map">
+    
+    		SELECT COUNT(*) AS num,invoice_catalog,DATE_FORMAT( create_time, '%Y%m' ) AS ym FROM b_invoice_info
+			WHERE DATE_FORMAT( create_time, '%Y%m' ) = #{ym}
+			GROUP BY invoice_catalog,DATE_FORMAT( create_time, '%Y%m' )
+	          
+    </select>
+    
+    
+    <select id="fengxianfapiaotongji" resultType="Map">
+	   	SELECT COUNT(*) AS num,ELT(INTERVAL(price_amount, 0, 500, 1000, 3000, 5000), 'l500', 'l1000', 'l3000', 'l5000', 'g5000') AS r,price_amount FROM b_invoice_info
+		WHERE DATE_FORMAT( create_time, '%Y%m' ) = #{ym} AND invoice_catalog != '07'
+        GROUP BY ELT(INTERVAL(price_amount, 0, 500, 1000, 3000, 5000), 'l500', 'l1000', 'l3000', 'l5000', 'g5000');
+    </select>
+    
+    <select id="fengkongzhibiaoqushitu" resultType="Map">
+	   	
+	   	SELECT AVG(p2_1+p2_2+p2_3+p2_4) AS p_total,
+	   	AVG(p2_1) AS p2_1,AVG(p2_2) AS p2_2,AVG(p2_3) AS p2_3,AVG(p2_4) AS p2_4,
+	   	DATE_FORMAT( create_time, '%c' ) as c_time
+	   	FROM b_contract_info 
+		WHERE
+		<if test="ym.length()==4">  
+			DATE_FORMAT( create_time, '%Y' ) = #{ym}          	
+		</if>
+		<if test="ym.length()==6">  
+			DATE_FORMAT( create_time, '%Y%m' ) = #{ym}          	
+		</if>
+		 GROUP BY DATE_FORMAT( create_time, '%Y%m' ) 
+	   	
+    </select>
+    
+    
+    <select id="gongyingshangfenxiantongji" resultType="Map">
+	   	
+	   		
+	   	SELECT SUM(IF(p3_4_1>0,0,1)) AS p3_4_1,SUM(IF(p3_4_2>0,0,1)) AS p3_4_2,
+		SUM(IF(p3_4_3>0,0,1)) AS p3_4_3,SUM(IF(p3_4_4>0,0,1)) AS p3_4_4,
+		SUM(IF(p3_4_5>0,0,1)) AS p3_4_5,SUM(IF(p3_4_6>0,0,1)) AS p3_4_6,COUNT(*) AS total FROM b_contract_info 
+		WHERE  DATE_FORMAT( create_time, '%Y%m' ) = #{ym}         	
+		GROUP BY DATE_FORMAT( create_time, '%Y%m' ) 
+	   	
+    </select>
+    
+    <select id="neibufengkongfengxiantongji" resultType="Map">
+	   	
+	   	SELECT SUM(IF((p3_3_1>0 and p3_3_2>0 and p3_3_3>0 and p3_3_4>0 and p3_3_5>0 and p3_3_6>0),0,1)) AS hetong,
+		SUM(IF((p3_3_7>0 and p3_3_8>0 and p3_3_9>0 and p3_3_10>0),0,1)) AS neibu,
+		SUM(IF((p3_3_11>0 and p3_3_12>0 and p3_3_13>0 and p3_3_14>0 and p3_3_15>0 and p3_3_16>0 and p3_3_17>0),0,1)) AS yewu,
+		SUM(IF((p3_3_18>0 and p3_3_19>0 and p3_3_20>0 and p3_3_21>0),0,1)) AS jiaofu,
+		COUNT(*) AS total FROM b_contract_info 
+		WHERE  DATE_FORMAT( create_time, '%Y%m' ) = #{ym}        	
+		GROUP BY DATE_FORMAT( create_time, '%Y%m' ) 
+	   	
+    </select>
+    
+	<select id="shuiwuheguifengxiantongji" resultType="Map">
+	   	
+	   	SELECT SUM(IF((p3_1_1>0),0,1)) AS canyuxukai,
+		SUM(IF((p3_1_2>0 and p3_1_3>0 and p3_1_4>0 and p3_1_5>0 and p3_1_6>0),0,1)) AS weifashourang,
+		SUM(IF((p3_1_7>0),0,1)) AS qudeyichang,
+		COUNT(*) AS total FROM b_contract_info 
+		WHERE  DATE_FORMAT( create_time, '%Y%m' ) = #{ym}        	
+		GROUP BY DATE_FORMAT( create_time, '%Y%m' ) 
+	   	
+    </select>
+
+
+	<select id="xiaoxitixinzhongxin1" resultType="Map">
+
+      SELECT a.s_name,company_id,b.invoice_time,b.invoice_type,price FROM ( SELECT DISTINCT company_id,s_name,invoice_type FROM b_invoice_info LEFT JOIN b_contract_info ON contract_id = contract_code
+      WHERE contract_id IN(SELECT contract_id FROM b_invoice_info LEFT JOIN b_contract_info ON b_contract_info.`contract_code`= b_invoice_info.`contract_id`) AND invoice_type != '01' AND contract_id != '' AND s_name = #{s_name}) AS a
+      LEFT JOIN
+      (SELECT s_name ,MAX(invoice_time) AS invoice_time,SUM(price_amount) AS price,invoice_type FROM b_invoice_info WHERE s_name = #{s_name} AND invoice_type != '01' AND invoice_time BETWEEN DATE_SUB(DATE(invoice_time), INTERVAL 365 DAY) AND DATE(invoice_time) GROUP BY s_name ) AS b
+      ON a.s_name = b.s_name WHERE (price BETWEEN 1000000 AND 1200000) OR (price BETWEEN 4800000 AND 5000000)
+
+    </select>
+
+	<select id="xiaoxitixinzhongxin2" resultType="Map">
+
+	SELECT a.s_name,company_id,b.invoice_time,b.invoice_type,price FROM ( SELECT DISTINCT company_id,s_name,invoice_type FROM b_invoice_info LEFT JOIN b_contract_info ON contract_id = contract_code
+	 WHERE contract_id IN(SELECT contract_id FROM b_invoice_info LEFT JOIN b_contract_info ON b_contract_info.`contract_code`= b_invoice_info.`contract_id`) AND invoice_type != '01' AND contract_id != ''and s_name = #{s_name}) AS a
+	 LEFT JOIN
+	 (SELECT s_name ,MAX(invoice_time) AS invoice_time,SUM(price_amount) AS price,invoice_type FROM b_invoice_info WHERE s_name = #{s_name} AND invoice_type != '01' AND invoice_time BETWEEN DATE_SUB(DATE(invoice_time), INTERVAL 30 DAY) AND DATE(invoice_time) GROUP BY s_name ) AS b
+	 ON a.s_name = b.s_name WHERE (price BETWEEN 250000 AND 500000)
+
+    </select>
+
+	<select id="xiaoxitixinzhongxin3" resultType="Map">
+
+	SELECT a.s_name,company_id,price FROM ( SELECT DISTINCT company_id,s_name,invoice_type FROM b_invoice_info LEFT JOIN b_contract_info ON contract_id = contract_code
+	WHERE contract_id IN(SELECT contract_id FROM b_invoice_info LEFT JOIN b_contract_info ON b_contract_info.`contract_code`= b_invoice_info.`contract_id`)  AND s_name = #{s_name}) AS a
+	LEFT JOIN
+	(SELECT s_name ,SUM(price_amount) AS price,invoice_type FROM b_invoice_info WHERE s_name = #{s_name}  AND MONTH(invoice_time) = MONTH(NOW()) GROUP BY s_name ) AS b
+	ON a.s_name = b.s_name WHERE DAY(CURRENT_DATE) >= 25 AND  #{new_price} / price > 0.2
+
+    </select>
+
+	<select id="xiaoxitixinzhongxin4" resultType="Map">
+
+	SELECT a.s_name,company_id,price,reg_capital FROM ( SELECT DISTINCT company_id,s_name FROM b_invoice_info LEFT JOIN b_contract_info ON contract_id = contract_code
+	 WHERE contract_id IN(SELECT contract_id FROM b_invoice_info LEFT JOIN b_contract_info ON b_contract_info.`contract_code`= b_invoice_info.`contract_id`) AND s_name = #{s_name}) AS a
+	 LEFT JOIN
+	 (SELECT s_name ,SUM(price_amount) AS price,reg_capital FROM b_invoice_info LEFT JOIN b_provider_info ON s_name = NAME WHERE s_name = #{s_name}  AND YEAR(invoice_time)=YEAR(NOW()) GROUP BY s_name ) AS b
+	 ON a.s_name = b.s_name WHERE price > reg_capital*20*10000
+
+    </select>
+
+	<select id="xiaoxitixinzhongxin5" resultType="Map">
+
+	SELECT s_name,invoice_time,price_amount,COUNT(price_amount) AS num FROM b_invoice_info WHERE s_name=#{s_name} AND invoice_time > #{time} AND (price_amount = 9900 OR price_amount = 99000 OR price_amount = 990000) LIMIT 10
+
+    </select>
+
+    <insert id="insertMessage" parameterType="Map">
+
+		insert into b_message_info(id,content,create_time) values (#{id},#{content},#{create_time});
+
+	</insert>
+
+    <select id="xiaoxitixingzhongxinAll" resultType="Map">
+
+    SELECT * FROM b_message_info ORDER BY create_time DESC;
+
+    </select>
+
+	<select id="xiaoxitixingzhongxinContent" resultType="Map">
+
+     SELECT content FROM b_message_info where content = #{content};
+
+    </select>
+
+	<update id="updateMessage" parameterType="Map">
+		update b_message_info set create_time = #{create_time} where content = #{content}
+    </update>
+
+	<select id="getUserCompanyName" resultType="Map">
+    SELECT b_company_info.name AS company_name FROM b_user_info ,b_company_info WHERE b_user_info.`company_id` = b_company_info.`company_code` AND b_user_info.`username` = #{username}
+    </select>
+
+	<select id="getInvoice" resultType="Map">
+    SELECT COUNT(id) as number FROM b_reimburse_info
+    <where>
+		<if test="create_by != null and create_by != ''">
+			 create_by = #{create_by}
+		</if>
+			and status = #{audit_status}
+	</where>
+    </select>
+
+</mapper>

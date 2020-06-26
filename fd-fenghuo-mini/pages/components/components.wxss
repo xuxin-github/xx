@@ -1,0 +1,15 @@
+.upload-img {
+  width: 100%;
+  padding: 0 30rpx;
+  margin-top: 30rpx;
+}
+
+.list-item {
+  font-size: 30rpx;
+  margin-top: 10rpx;
+  margin-left: 30rpx;
+}
+
+.form-view {
+  width: 100%;
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fd.fhtmid.mapper.BReimburseTypeInfoMapper">
+    <!-- 查询所有报销类别. -->
+    <select id="reimburseTypeList" resultType="Map">
+        SELECT * FROM b_reimburse_type_info order by create_time desc
+    </select>
+    <!-- 获取指定报销类别. -->
+    <select id="getReimburseTypeByName" resultType="Map">
+        select * from b_reimburse_type_info where type_name = #{type_name}
+    </select>
+    <!-- 根据编号查询. -->
+    <select id="getReimburseTypeByCode" resultType="Map">
+        select * from b_reimburse_type_info where type_code = #{type_code}
+    </select>
+    <!-- 新增报销类别. -->
+    <insert id="insertReimburseType" parameterType="Map">
+        insert into b_reimburse_type_info(id, company_id, type_code, type_name, create_by, create_time, is_delete)
+        values (#{id}, #{company_id}, #{type_code}, #{type_name}, #{create_by}, #{create_time}, #{is_delete})
+    </insert>
+    <!-- 修改报销类别. -->
+    <update id="updateReimburseType" parameterType="Map">
+        update b_reimburse_type_info set type_name = #{type_name}, update_by = #{update_by}, update_time = #{update_time} where type_code = #{type_code}
+    </update>
+</mapper>

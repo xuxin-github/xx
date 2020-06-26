@@ -1,0 +1,102 @@
+<!-- navigator.wxml -->
+<view class="section">
+  <view class="flex-wrp" style="flex-direction:column;" >
+    <view class="flex-item bc_1" style="margin-top:10rpx" >
+      <view class="flex-item view1" style="margin-top:40rpx">
+        <text class="flex-item text_1">关联项目：</text>
+        <label>{{listData.type == 0 && listData.project_name ? listData.project_name : listData.type == 1 && bx_listData.project_name ? bx_listData.project_name : '--'}}</label>
+      </view>
+      <view class="flex-item view1">
+        <text class="flex-item text_1">关联合同：</text>
+        <span class="{{quanxian[0].authority =='ROLE_COMMON' && listData.type == 0?'':'hidden'}}">{{listData.contract_name?listData.contract_name:'--'}}</span>
+        <span class="{{quanxian[0].authority !='ROLE_COMMON' && listData.type == 0 ? 'toshow':'hidden'}}" bindtap="toContract" data-index="{{listData.contract_name}}">{{listData.contract_name}}</span>
+        <span class="{{listData.contract_name && listData.type == 0 ?'hidden':''}}" >--</span>
+      </view>
+      <view class="flex-item view1">
+        <text class="flex-item text_1">关联报销：</text>
+        <span class="{{quanxian[0].authority =='ROLE_COMMON' && listData.type == 1 ?'':'hidden'}}">{{bx_listData.type_name ?bx_listData.type_name:'--'}}</span>
+        <span class="{{quanxian[0].authority !='ROLE_COMMON' && listData.type == 1 ? 'toshow':'hidden'}}" bindtap="toExpend" data-index1="{{bx_listData.type_name}}" data-index2="{{bx_listData.code}}">{{ bx_listData.type_name}}</span>
+        <span class="{{bx_listData.type_name && listData.type == 1?'hidden':''}}" >--</span>
+      </view>
+      <view class="flex-item view1" style="margin-bottom:40rpx">
+        <text class="flex-item text_1">创建时间：</text>
+        <label class="number">{{listData.create_time}}</label>
+      </view>
+    </view>
+    <view class="flex-item bc_1">
+      <view class="flex-item view1" style="margin-top:40rpx">
+        <text class="flex-item text_1">发票类型：</text>
+        <label>{{listData.invoice_type == '01' ? '增值税专用发票' : listData.invoice_type == '04' ? '增值税普通发票' : listData.invoice_type == '10' ? '增值税普通发票(电子)' : listData.invoice_type == '11' ? '增值税普通发票(卷式)' : '--'}}</label>
+      </view>
+      <view class="flex-item view1">
+        <text class="flex-item text_1">发票分类：</text>
+        <label>{{listData.invoice_catalog == '01' ? '管理费类': listData.invoice_catalog == '02' ? '咨询费类' : listData.invoice_catalog == '03' ? '会议费类' : listData.invoice_catalog == '04' ? '培训费类' : listData.invoice_catalog == '05' ? '旅游费类' : listData.invoice_catalog == '06' ? '手续费类' : '其他类'}}</label>
+      </view>
+      <view class="flex-item view1">
+        <text class="flex-item text_1">发票号码：</text>
+        <label class="number">{{listData.invoice_no_short}}</label>
+      </view>
+      <view class="flex-item view1">
+        <text class="flex-item text_1">发票代码：</text>
+        <label class="number">{{listData.invoice_code}}</label>
+      </view>
+      <view class="flex-item view1">
+        <text class="flex-item text_1">效验码后六位(专票可为空)：</text>
+        <label class="number">{{listData.check_code}}</label>
+      </view>
+      <view class="flex-item view1">
+        <text class="flex-item text_1">发票金额：</text>
+        <label class="number">{{listData.price_amount}}元</label>
+      </view>
+      <view class="flex-item view1" style="margin-bottom:40rpx">
+        <text class="flex-item text_1">开票日期：</text>
+        <label class="number">{{listData.invoice_time}}</label>
+      </view>
+    </view>
+    <view class="flex-item bc_1">
+      <view class="flex-item view1" style="margin-top:40rpx">
+        <text class="flex-item text_1">购方名称：</text>
+        <label>{{listData.b_name}}</label>
+      </view>
+      <view class="flex-item view1">
+        <text class="flex-item text_1">购方纳税人识别号：</text>
+        <label class="number">{{listData.b_tax_id}}</label>
+      </view>
+      <view class="flex-item view1">
+        <text class="flex-item text_1">购方地址：</text>
+        <label>{{listData.b_link_info?listData.b_link_info:'--'}}</label>
+      </view>
+      <view class="flex-item view1">
+        <text class="flex-item text_1">购方开户行：</text>
+        <label>{{listData.b_account1}}</label>
+      </view>
+      <view class="flex-item view1" style="margin-bottom:40rpx">
+        <text class="flex-item text_1">购方开户账号：</text>
+        <label class="number">{{listData.b_account2}}</label>
+      </view>
+    </view>
+    <view class="bc_3">
+      <view class="flex-item view1" style="margin-top:40rpx">
+        <text class="flex-item text_1">销方名称：</text>
+        <label>{{listData.s_name}}</label>
+      </view>
+      <view class="flex-item view1">
+        <text class="flex-item text_1">销方纳税人识别号：</text>
+        <label class="number">{{listData.s_tax_id}}</label>
+      </view>
+      <view class="flex-item view1">
+        <text class="flex-item text_1">销方地址：</text>
+        <label >{{listData.s_link_info?listData.s_link_info:'--'}}</label>
+      </view>
+      <view class="flex-item view1">
+        <text class="flex-item text_1">销方开户行：</text>
+        <label>{{listData.s_account1}}</label>
+      </view>
+      <view class="flex-item view1" style="margin-bottom:40rpx">
+        <text class="flex-item text_1">销方开户账号：</text>
+        <label class="number">{{listData.s_account2}}</label>
+      </view>
+    </view>
+  </view>
+  <!-- </block> -->
+</view>

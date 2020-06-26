@@ -1,0 +1,4 @@
+<view class='jws-switch' catchtap='changeChecked'>
+  <view style='{{background}}' class='jws-switch-cheched {{checked?"jws-show":"jws-hide"}}' wx:if='{{checked}}'></view>
+  <view class='jws-switch-btn {{checked?"jws-toright":"jws-toleft"}}'></view>
+</view>

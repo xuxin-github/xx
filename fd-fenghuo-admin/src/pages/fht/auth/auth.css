@@ -1,0 +1,57 @@
+.loginBox{
+    width: 100vw;
+    height: 100vh;
+    background: url("../../../assets/beijing.png"), rgba(240,243,247,1) !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:center center;
+}
+
+.loginLogo{
+    width:50px;
+    height:50px;
+}
+
+.loginTitle{
+    height:46px;
+    font-size:33px;
+    font-family:PingFangSC-Medium,PingFang SC;
+    font-weight:500;
+    color:rgba(0,0,0,0.85);
+    line-height:46px;
+    margin: 0 0 10px 0;
+}
+
+.loginFont{
+    width:154px;
+    height:22px;
+    font-size:14px;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+    color:rgba(0,0,0,0.45);
+    line-height:22px;
+    margin: 0 0 36px 0;
+}
+
+.loginInput{
+    width:368px;
+    height:40px;
+    background:rgba(255,255,255,1);
+    border-radius:4px;
+}
+
+.loginButton{
+    width:368px;
+    height:40px;
+    border-radius:4px;
+}
+
+.loginButtonFont{
+    width:38px;
+    height:24px;
+    font-size:16px;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+    color:rgba(255,255,255,1);
+    line-height:24px;
+}

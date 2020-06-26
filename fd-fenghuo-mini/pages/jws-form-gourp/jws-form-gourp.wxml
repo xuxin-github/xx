@@ -1,0 +1,54 @@
+<!-- 表单组件 -->
+<jws-form color='blue' title='表单'>
+
+  <jws-form-item required='false' icon='/images/icon/icon-input.svg' lable='姓名'>
+    <jws-input-txt bind:input='onInput'></jws-input-txt>
+  </jws-form-item>
+
+  <jws-form-item required='false' icon='/images/icon/icon-input.svg' lable='数量'>
+    <jws-counter color='green' bind:change='getValue' grain='1'></jws-counter>
+  </jws-form-item>
+
+  <jws-form-item columnY='true' required='false' icon='/images/icon/icon-input.svg' lable='上传图片'>
+
+    <jws-upload-img option='{{option}}' imgs='{{uploadimgs}}' bind:achieve="getValue"></jws-upload-img>
+
+  </jws-form-item>
+
+  <jws-form-item required='false' icon='/images/icon/icon-input.svg' lable='开关'>
+    <jws-switch bind:change="onInput"></jws-switch>
+  </jws-form-item>
+
+  <jws-form-item required='false' icon='/images/icon/icon-input.svg' lable='是否'>
+    <jws-switch bind:change="onInput" range="{{['是','否']}}" color='cyan'></jws-switch>
+  </jws-form-item>
+
+
+  <jws-form-item required='false' icon='/images/icon/icon-input.svg' lable='按钮1'>
+    <jws-button size="lg">按钮1</jws-button>
+    <jws-button mleft="10">按钮2</jws-button>
+    <jws-button size="sm" mleft="10">按钮3</jws-button>
+    <jws-button size="xs" mleft="10">按钮4</jws-button>
+  </jws-form-item>
+
+  <jws-form-item required='false' icon='/images/icon/icon-input.svg' lable='按钮2'>
+    <jws-button color="green" size="lg">按钮5</jws-button>
+    <jws-button color="yellow" mleft="10">按钮6</jws-button>
+    <jws-button color="red" size="sm" mleft="10">按钮7</jws-button>
+    <jws-button color="blue" size="xs" mleft="10">按钮8</jws-button>
+  </jws-form-item>
+
+  <jws-form-item required='false' icon='/images/icon/icon-input.svg' lable='日期'>
+    <jws-date>请选择日期</jws-date>
+  </jws-form-item>
+
+</jws-form>
+
+<view class='centerX P100 mgt10'> 
+<navigator url="../bill-manage/bill-manage" hover-class="navigator-hover">
+    <jws-button color="blue" isFill="true" mtop="10">发票管理</jws-button>
+  </navigator>
+  <navigator url="../bill-scan-add/bill-scan-add" hover-class="navigator-hover">
+    <jws-button color="cyan" isFill="true" mtop="10">添加发票</jws-button>
+  </navigator> 
+</view>

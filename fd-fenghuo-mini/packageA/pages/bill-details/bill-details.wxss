@@ -1,0 +1,42 @@
+/* pages/bill-details/bill-details.wxss */body {
+  background: #f5f5f5;
+}
+page {
+  background: #f5f5f5;
+}
+.flex-wrp {
+  display: flex;
+  }
+
+.bc_1 {
+  background: rgb(255, 255, 255);
+  height: 30%;
+  margin-bottom: 10rpx;
+  }
+
+.bc_3 { 
+  background: rgb(255, 255, 255);
+  height: 30%;
+  margin-bottom: 10rpx;
+  }
+
+.view1{
+  margin-left: 60rpx;
+  margin-right: 60rpx;
+  margin-bottom:15rpx;
+  letter-spacing:5rpx;
+}
+
+  .text_1{
+    color: #9B9B9B;
+    margin-right: 10rpx; 
+  }
+  .number{
+    letter-spacing:0rpx;
+  }
+ .toshow{
+   color:#147CEC
+ }
+ .hidden{
+   display: none;
+ }

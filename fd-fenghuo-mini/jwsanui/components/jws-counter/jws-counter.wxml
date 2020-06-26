@@ -1,0 +1,11 @@
+<view class='jws-counter centerY'>
+  <view class='jws-counter-btn centerXY' catchtap='minus'>
+    <view class='minus' style='{{showColor}}'></view>
+  </view>
+  <view class='jws-counter-txt'>{{value}}</view>
+  <view class='jws-counter-btn centerXY' catchtap='plus'>
+    <view class='plus' style='{{showColor}}'>
+      <view class='plus-y' style='{{showColor}}'></view>
+    </view>
+  </view>
+</view>

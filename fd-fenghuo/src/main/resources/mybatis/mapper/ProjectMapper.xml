@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fd.fhtmid.mapper.BProjectInfoMapper">
+	<!-- 获取所有项目. -->
+    <select id="findProject"  resultType="Map">
+		SELECT a.id, a.project_code, a.name, a.project_budget, a.initiator, a.create_time, a.status AS project_audit, a.dept_name,
+		IFNULL(b.price_amount, 0) AS contract_spend, IFNULL(c.reimburse_money, 0) AS reimburse_spend,
+		SUM(IFNULL(b.price_amount, 0)+IFNULL(c.reimburse_money, 0)) AS project_total_spend, a.`create_by`,
+		IFNULL(reimburse_count, 0) AS reimburse_audit, IFNULL(invoice_count, 0) AS contract_audit,
+		b_user_info.`username`, b_role_info.`role_code` FROM
+		(SELECT b_project_info.`id`, b_project_info.`project_code`, b_project_info.`name`, b_project_info.`project_budget`,
+		b_project_info.`initiator`, b_project_info.`create_time`, b_project_info.`status`, b_dept_info.`name` AS dept_name, b_project_info.`create_by`
+		FROM b_project_info LEFT JOIN b_dept_info
+		ON b_project_info.`dept_id` = b_dept_info.`dept_code`) a
+		LEFT JOIN
+		(SELECT project_code, b_contract_info.name AS contract_name, contract_code, contract_id, b_invoice_info.type,
+		SUM(b_invoice_info.`price_amount`) AS price_amount, audit_status
+		FROM b_project_info LEFT JOIN b_contract_info ON b_project_info.`project_code`=b_contract_info.`project_id`
+		LEFT JOIN b_invoice_info ON contract_code = b_invoice_info.`contract_id` WHERE b_invoice_info.type = '0' AND b_invoice_info.audit_status = '1'
+		GROUP BY project_code) AS b
+		ON a.project_code = b.project_code
+		LEFT JOIN
+		(SELECT project_code, SUM(money) AS reimburse_money, b_reimburse_info.status
+		FROM b_project_info LEFT JOIN b_reimburse_info
+		ON b_project_info.`project_code`=b_reimburse_info.`project_id` WHERE b_reimburse_info.status = '1'
+		GROUP BY project_code) AS c
+		ON a.project_code = c.project_code
+		LEFT JOIN
+		(SELECT b_project_info.`project_code`, b_reimburse_info.project_id, COUNT(b_reimburse_info.`status`) AS reimburse_count
+		FROM b_project_info LEFT JOIN b_reimburse_info
+		ON b_project_info.`project_code`=b_reimburse_info.`project_id` WHERE b_reimburse_info.`status`='0'
+		GROUP BY b_project_info.`project_code`) AS d
+		ON a.project_code = d.project_code
+		LEFT JOIN
+		(SELECT project_code, COUNT(b_invoice_info.`audit_status`) AS invoice_count
+		FROM b_project_info LEFT JOIN b_contract_info
+		ON b_project_info.`project_code`=b_contract_info.`project_id`
+		LEFT JOIN b_invoice_info
+		ON b_contract_info.`contract_code`=b_invoice_info.`contract_id` AND b_invoice_info.type='0' WHERE audit_status='0'
+		GROUP BY project_code) AS e
+		ON a.project_code = e.project_code
+		LEFT JOIN b_user_info ON b_user_info.`id`=a.create_by
+		LEFT JOIN b_role_info ON b_user_info.`role_id`=b_role_info.id
+		<where>
+			<if test="project_name != null and project_name != ''">
+				and (a.name like concat("%", #{project_name}, "%"))
+			</if>
+			<if test="role_code == 'ROLE_DIRECTOR'">
+				and (username = #{username})
+			</if>
+		</where>
+		GROUP BY a.project_code
+		ORDER BY project_audit, a.create_time DESC
+	</select>
+	<!-- 获取指定项目基本信息. -->
+	<select id="getProjectByCode" resultType="Map">
+		SELECT a.id, a.project_code, a.name, a.project_budget, a.initiator, a.create_time, a.status AS project_audit, a.dept_name,
+		IFNULL(b.price_amount, 0) AS contract_spend, IFNULL(c.reimburse_money, 0) AS reimburse_spend, a.project_tag,
+		SUM(IFNULL(b.price_amount, 0)+IFNULL(c.reimburse_money, 0)) AS project_total_spend, IFNULL(contract_money, 0) AS contract_money FROM
+		(SELECT b_project_info.`id`, b_project_info.`project_code`, b_project_info.`name`, b_project_info.`project_budget`,
+		b_project_info.`initiator`, b_project_info.`create_time`, b_project_info.`status`, b_project_info.`project_tag`, b_dept_info.`name` AS dept_name
+		FROM b_project_info LEFT JOIN b_dept_info
+		ON b_project_info.`dept_id` = b_dept_info.`dept_code`) a
+		LEFT JOIN
+		(SELECT project_code, b_contract_info.name AS contract_name, contract_code, contract_id, b_invoice_info.type,
+		SUM(b_invoice_info.`price_amount`) AS price_amount, audit_status
+		FROM b_project_info LEFT JOIN b_contract_info ON b_project_info.`project_code`=b_contract_info.`project_id`
+		LEFT JOIN b_invoice_info ON contract_code = b_invoice_info.`contract_id` WHERE b_invoice_info.type = '0' AND b_invoice_info.audit_status = '1'
+		GROUP BY project_code) AS b
+		ON a.project_code = b.project_code
+		LEFT JOIN
+		(SELECT project_code, SUM(money) AS reimburse_money, b_reimburse_info.status
+		FROM b_project_info LEFT JOIN b_reimburse_info
+		ON b_project_info.`project_code`=b_reimburse_info.`project_id` WHERE b_reimburse_info.status = '1'
+		GROUP BY project_code) AS c
+		ON a.project_code = c.project_code
+		LEFT JOIN
+		(SELECT project_code, SUM(total_amount) AS contract_money FROM b_project_info LEFT JOIN b_contract_info
+		ON b_project_info.`project_code`=b_contract_info.`project_id`
+		GROUP BY project_code) AS d
+		ON a.project_code = d.project_code
+		WHERE a.project_code = #{project_code}
+	</select>
+	<!-- 判断数据库中是否已存在相同项目名的项目. -->
+	<select id="getProjectByBasicName" resultType="Map">
+		SELECT * FROM b_project_info WHERE name = #{project_name}
+	</select>
+	<!-- 获取指定项目中的合同信息. -->
+	<select id="getProjectContract" resultType="Map">
+		SELECT b_project_info.`project_code`, b_project_info.`name`, b_contract_info.`contract_code`, b_contract_info.`name` AS contract_name,
+		b_contract_info.`p2_1`, b_contract_info.`p2_2`, b_contract_info.`p2_3`, b_contract_info.`p2_4`, b_contract_info.`create_time`, b_contract_info.`status`,
+		b_provider_info.`name` AS s_name, IFNULL(b.invoice_number, 0) AS invoice_number, IFNULL(b.price_amount, 0) AS price_amount FROM b_project_info
+		LEFT JOIN b_contract_info ON b_project_info.`project_code`=b_contract_info.`project_id`
+		LEFT JOIN b_invoice_info ON b_contract_info.`contract_code`=b_invoice_info.`contract_id` AND b_invoice_info.`type`='0'
+		LEFT JOIN b_provider_info ON b_invoice_info.`s_name`=b_provider_info.`name`
+		LEFT JOIN (
+			SELECT COUNT(b_invoice_info.`contract_id`) AS invoice_number, SUM(b_invoice_info.`price_amount`) AS price_amount, b_contract_info.`contract_code`
+			FROM b_invoice_info LEFT JOIN b_contract_info ON b_invoice_info.`contract_id`=b_contract_info.`contract_code` AND b_invoice_info.`type`='0' AND b_invoice_info.`audit_status`='1'
+			GROUP BY b_contract_info.`contract_code`
+		) AS b ON b.contract_code=b_contract_info.`contract_code`
+		WHERE b_project_info.`name` = #{project_name}
+		GROUP BY b_contract_info.`contract_code`
+	</select>
+	<!-- 获取项目中的合同信息中的得分预警值. -->
+	<select id="getCompanyScore" resultType="Map">
+		select * from b_risk_control_set where company_no = #{company_id}
+	</select>
+	<!-- 获取指定项目中的发票信息. -->
+	<select id="getProjectInvoice" resultType="Map">
+		SELECT b_invoice_info.`id`, project_code, b_project_info.`name` AS project_name, contract_code, b_contract_info.`name` AS contract_name,
+		invoice_no_short, invoice_type, s_name, invoice_catalog, invoice_code, price_amount, invoice_time, audit_status, b_invoice_info.`type`, b_contract_info.`status`
+		FROM b_project_info LEFT JOIN b_contract_info
+		ON b_project_info.`project_code`=b_contract_info.`project_id`
+		RIGHT JOIN b_invoice_info ON contract_code=b_invoice_info.`contract_id`
+		WHERE b_invoice_info.`type` = '0' AND b_project_info.`name` = #{project_name}
+		ORDER BY audit_status, invoice_time DESC
+	</select>
+	<!-- 获取通过的发票数量和金额. -->
+	<select id="getInvoiceByProjectCode" resultType="Map">
+		SELECT COUNT(b_invoice_info.`id`) AS invoice_count, SUM(b_invoice_info.`price_amount`) AS total_amount
+		FROM b_project_info LEFT JOIN b_contract_info
+		ON b_project_info.`project_code`=b_contract_info.`project_id`
+		RIGHT JOIN b_invoice_info ON contract_code=b_invoice_info.`contract_id` AND b_invoice_info.`type` = '0' AND b_invoice_info.`audit_status`='1'
+		WHERE  b_project_info.`project_code` = #{project_code}
+		GROUP BY b_project_info.`project_code`
+	</select>
+	<!-- 获取项目中的报销信息. -->
+	<select id="getProjectReimburse" resultType="Map">
+		SELECT b_project_info.`project_code`, b_project_info.`name` AS project_name, b_reimburse_info.`code` AS reimburse_id,
+		b_reimburse_info.`user_id`, b_user_info.`name` AS reimburse_man, b_dept_info.`name` AS dept,
+		b_reimburse_info.`type` AS reimburse_type, b_reimburse_info.`note`, IFNULL(b_reimburse_info.`money`, 0) AS reimburse_money,
+		b_reimburse_info.`status` AS audit_status, b_invoice_info.`type`, IFNULL(SUM(b_invoice_info.`price_amount`), 0) AS invoice_money,
+		(IFNULL(b_reimburse_info.`money`, 0)-IFNULL(SUM(b_invoice_info.`price_amount`), 0)) AS not_invoice_monet, b_reimburse_type_info.`type_name`
+		FROM b_project_info RIGHT JOIN b_reimburse_info
+		ON b_project_info.`project_code`=b_reimburse_info.`project_id`
+		LEFT JOIN b_user_info ON b_reimburse_info.`user_id`=b_user_info.`id`
+		LEFT JOIN b_dept_info ON b_user_info.`dept_id`=b_dept_info.`dept_code`
+		LEFT JOIN b_invoice_info ON b_reimburse_info.`code`=b_invoice_info.`contract_id` AND b_invoice_info.`type`='1'
+		LEFT JOIN b_reimburse_type_info ON b_reimburse_info.`type`=b_reimburse_type_info.`type_code`
+		WHERE b_project_info.`name` = #{project_name}
+		GROUP BY b_reimburse_info.`code`
+		ORDER BY b_reimburse_info.`status`, b_reimburse_info.`create_time` DESC
+	</select>
+	<!-- 获取通过的报销数量和报销金额. -->
+	<select id="getReimburseByProjectCode" resultType="Map">
+		SELECT COUNT(b_reimburse_info.`id`) AS total_amount, SUM(money) AS total_money
+		FROM b_project_info LEFT JOIN b_reimburse_info
+		ON b_project_info.`project_code`=b_reimburse_info.`project_id` AND b_reimburse_info.`status`='1'
+		WHERE b_project_info.`project_code`= #{project_code}
+		GROUP BY b_project_info.`project_code`
+	</select>
+	<!-- 获取已通过的报销记录中的发票. -->
+	<select id="getProjectPassReimburse" resultType="Map">
+		SELECT b_invoice_info.id, project_code, b_project_info.`name` AS project_name, b_reimburse_info.code as reimburse_id, b_reimburse_info.`status`, invoice_no_short,
+		invoice_type, s_name, invoice_catalog, invoice_code, price_amount, invoice_time, b_invoice_info.`type`, b_invoice_info.`audit_status`
+		FROM b_project_info LEFT JOIN b_reimburse_info
+		ON b_project_info.`project_code`=b_reimburse_info.`project_id`
+		RIGHT JOIN b_invoice_info ON b_reimburse_info.`code`=b_invoice_info.`contract_id` AND b_invoice_info.`type`='1'
+		WHERE b_reimburse_info.`status` = '1' AND b_project_info.`name` = #{project_name}
+		ORDER BY b_reimburse_info.code DESC, invoice_time desc
+	</select>
+	<!-- 新增项目. -->
+    <insert id="insertProject" parameterType="Map">
+        insert into b_project_info(id, project_code, name, project_budget, project_tag, initiator, dept_id, status, create_time, is_delete, create_by)
+        values (#{id}, #{project_code}, #{project_name}, #{project_budget}, #{project_tag}, #{initiator}, #{dept_id}, #{status}, #{create_time}, #{is_delete}, #{create_by})
+    </insert>
+	<!-- 添加合同. -->
+	<insert id="insertProjectContract" parameterType="Map">
+		insert into b_contract_info(id, contract_code, name, status, risk_level, is_delete, create_by, create_time, project_id, company_id, contract_tag)
+		values (#{contract_id}, #{contract_code}, #{contract_name}, #{status}, #{risk_level}, #{is_delete}, #{create_by}, #{create_time}, #{project_id}, #{company_id}, #{contract_tag})
+	</insert>
+	<!-- 取消关联. -->
+	<update id="updateProject" parameterType="Map">
+		UPDATE b_contract_info SET project_id = NULL, update_by=#{update_by}, update_time = #{update_time} WHERE contract_code = #{contract_code}
+	</update>
+	<!-- 获取所有项目. -->
+	<select id="findAllProject" resultType="Map">
+		SELECT NAME AS project_name, project_code, create_time FROM b_project_info ORDER BY create_time DESC
+	</select>
+
+	<!-- 修改项目状态. -->
+	<update id="updateStatus" parameterType="Map">
+		update b_project_info set status = #{status}, update_by=#{update_by}, update_time = #{update_time} where name = #{project_name}
+	</update>
+	<!-- 修改项目基本信息. -->
+	<update id="updateBasicProject" parameterType="Map">
+		update b_project_info set name = #{project_name}, project_budget = #{project_budget}, project_tag = #{project_tag},
+		update_by=#{update_by}, update_time = #{update_time} where project_code = #{project_code}
+	</update>
+	<!-- 修改发票审核状态. -->
+	<update id="updateInvoiceStatus" parameterType="Map">
+		update b_invoice_info set audit_status = #{status}, update_by = #{update_by}, update_time = #{update_time}
+		where invoice_no_short = #{invoice_no} and invoice_code = #{invoice_code}
+	</update>
+</mapper>

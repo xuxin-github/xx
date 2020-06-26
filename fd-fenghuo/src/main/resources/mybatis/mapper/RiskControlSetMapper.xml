@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fd.fhtmid.mapper.BRiskControlSetMapper">
+    <!-- 查询风控设置. -->
+    <select id="query" resultType="Map">
+        select * from b_risk_control_set where company_no = #{company_no}
+    </select>
+    <!-- 新增风控设置数据. -->
+    <insert id="insertRiskControlSet" parameterType="Map">
+        insert into b_risk_control_set(id, company_no, p1, p2_1, p2_2, p2_3, p2_4,
+        p3_1_1, p3_1_2, p3_1_3, p3_1_4, p3_1_5, p3_2_1, p3_2_2, p3_2_3, p3_2_4, p3_2_5, p3_2_6, p3_3_1, p3_3_2, p3_3_3, p3_3_4, p3_3_5, p3_3_6, p3_3_7,
+		p3_3_8, p3_3_9, p3_3_10, p3_3_11, p3_3_12, p3_3_13, p3_3_14, p3_3_15, p3_3_16, p3_3_17, p3_3_18, p3_3_19, p3_3_20, p3_3_21, p3_4_1, p3_4_2, p3_4_3, p3_4_4,
+		p3_4_5, p3_4_6, create_by, create_time)
+		values (#{id}, #{company_no}, #{p1}, #{p2_1}, #{p2_2}, #{p2_3}, #{p2_4},
+		#{p3_1_1}, #{p3_1_2}, #{p3_1_3}, #{p3_1_4}, #{p3_1_5},
+		#{p3_2_1}, #{p3_2_2}, #{p3_2_3}, #{p3_2_4}, #{p3_2_5}, #{p3_2_6},
+		#{p3_3_1}, #{p3_3_2}, #{p3_3_3}, #{p3_3_4}, #{p3_3_5}, #{p3_3_6}, #{p3_3_7}, #{p3_3_8}, #{p3_3_9}, #{p3_3_10}, #{p3_3_11}, #{p3_3_12},
+		#{p3_3_13}, #{p3_3_14}, #{p3_3_15}, #{p3_3_16}, #{p3_3_17}, #{p3_3_18}, #{p3_3_19}, #{p3_3_20}, #{p3_3_21},
+		#{p3_4_1}, #{p3_4_2}, #{p3_4_3}, #{p3_4_4}, #{p3_4_5}, #{p3_4_6}, #{create_by}, #{create_time})
+    </insert>
+    <!-- 修改风控设置. -->
+    <update id="updateRiskControlSet" parameterType="Map">
+        update b_risk_control_set set p1 = #{p1}, p2_1 = #{p2_1}, p2_2 = #{p2_2}, p2_3 = #{p2_3}, p2_4 = #{p2_4}, p3_1_1 = #{p3_1_1}, p3_1_2 = #{p3_1_2}, p3_1_3 = #{p3_1_3},
+        p3_1_4 = #{p3_1_4}, p3_1_5 = #{p3_1_5}, p3_2_1 = #{p3_2_1}, p3_2_2 = #{p3_2_2}, p3_2_3 = #{p3_2_3}, p3_2_4 = #{p3_2_4}, p3_2_5 = #{p3_2_5}, p3_2_6 = #{p3_2_6},
+        p3_2_7 = #{p3_2_7}, p3_3_1 = #{p3_3_1}, p3_3_2 = #{p3_3_2}, p3_3_3 = #{p3_3_3}, p3_3_4 = #{p3_3_4}, p3_3_5 = #{p3_3_5}, p3_3_6 = #{p3_3_6}, p3_3_7 = #{p3_3_7},
+        p3_3_8 = #{p3_3_8}, p3_3_9 = #{p3_3_9}, p3_3_10 = #{p3_3_10}, p3_3_11 = #{p3_3_11}, p3_3_12 = #{p3_3_12}, p3_3_13 = #{p3_3_13}, p3_3_14 = #{p3_3_14}, p3_3_15 = #{p3_3_15},
+        p3_3_16 = #{p3_3_16}, p3_3_17 = #{p3_3_17}, p3_3_18 = #{p3_3_18}, p3_3_19 = #{p3_3_19}, p3_3_20 = #{p3_3_20}, p3_3_21 = #{p3_3_21}, p3_4_1 = #{p3_4_1}, p3_4_2 = #{p3_4_2},
+        p3_4_3 = #{p3_4_3}, p3_4_4 = #{p3_4_4}, p3_4_5 = #{p3_4_5}, p3_4_6 = #{p3_4_6}, update_by = #{update_by}, update_time = #{update_time} where company_no = #{company_no};
+    </update>
+    <!-- 查询扣分明细表中是否已存在此合同. -->
+    <select id="findComputeByContractCode" resultType="Map">
+        SELECT * FROM b_compute_version WHERE contract_id = #{contract_code}
+    </select>
+    <!-- 新增扣分明细. -->
+    <insert id="insertCompute" parameterType="Map">
+        insert into b_compute_version(id, detail, contract_id, create_time) values (#{id}, #{detail}, #{contract_code}, #{create_time})
+    </insert>
+    <!-- 修改扣分明细. -->
+    <update id="updateCompute" parameterType="Map">
+        update b_compute_version set detail = #{detail} where contract_id = #{contract_code}
+    </update>
+    <!-- 获取企业名称. -->
+    <select id="getCompanyName" resultType="Map">
+        select * from b_company_info where company_code = #{company_no}
+    </select>
+    <!-- 在每张合同下, 以发票的购方名称进行分组. -->
+    <select id="findArrCount" resultType="Map">
+        SELECT contract_code, b_contract_info.name AS contract_name, contract_id, b_name, COUNT(b_name)
+        FROM b_contract_info LEFT JOIN b_invoice_info
+        ON b_contract_info.`contract_code` = b_invoice_info.`contract_id`
+        WHERE b_contract_info.name = #{contract_name}
+        GROUP BY b_name
+    </select>
+    <!-- 获取每张合同的下的发票供应商, 以发票的销方名称进行分组. -->
+    <select id="findSeller" resultType="Map">
+        SELECT contract_code, b_contract_info.name AS contract_name, sell_name, contract_id, s_name, COUNT(s_name)
+        FROM b_contract_info LEFT JOIN b_invoice_info
+        ON b_contract_info.`contract_code` = b_invoice_info.`contract_id`
+        WHERE b_contract_info.name = #{contract_name}
+        GROUP BY s_name
+    </select>
+    <!-- 获取合同金额和发票金额. -->
+    <select id="findMoney" resultType="Map">
+        SELECT contract_code, b_contract_info.name AS contract_name, total_amount, contract_id, price_amount
+        FROM b_contract_info LEFT JOIN b_invoice_info
+        ON b_contract_info.`contract_code` = b_invoice_info.`contract_id`
+        WHERE b_contract_info.name = #{contract_name}
+    </select>
+    <!-- 获取合同金额和总的发票金额. -->
+    <select id="findTotalMoney" resultType="Map">
+        SELECT contract_code, b_contract_info.name AS contract_name, total_amount, contract_id, SUM(price_amount) AS total
+        FROM b_contract_info LEFT JOIN b_invoice_info
+        ON b_contract_info.`contract_code` = b_invoice_info.`contract_id`
+        WHERE b_contract_info.name = #{contract_name}
+        GROUP BY contract_id
+    </select>
+    <!-- 获取货物或应税劳务、服务名称和发票分类. -->
+    <select id="findCatalog" resultType="Map">
+        SELECT contract_code, b_contract_info.name AS contract_name, service_name, contract_id, invoice_catalog
+        FROM b_contract_info LEFT JOIN b_invoice_info
+        ON b_contract_info.`contract_code` = b_invoice_info.`contract_id`
+        WHERE b_contract_info.name = #{contract_name}
+    </select>
+    <!-- 获取股东和业务信息. -->
+    <select id="findStockholder" resultType="Map">
+        SELECT NAME, contract_code, a.contract_id, a.s_name, a.stockholder, sponsor, leader, f_auditor, b_auditor
+        FROM b_contract_info LEFT JOIN
+        (SELECT contract_id, b_invoice_info.`s_name` AS s_name, stockholder FROM b_invoice_info LEFT JOIN b_provider_info ON b_invoice_info.`s_name` = b_provider_info.`name`) AS a
+        ON b_contract_info.`contract_code` = a.contract_id
+        WHERE NAME = #{contract_name}
+        GROUP BY NAME
+    </select>
+    <!-- 获取合同下的发票services信息. -->
+    <select id="findServices" resultType="Map">
+        SELECT NAME, contract_code, a.contract_id, a.s_name, a.services
+        FROM b_contract_info LEFT JOIN
+        (SELECT contract_id, b_invoice_info.`s_name` AS s_name, services FROM b_invoice_info LEFT JOIN b_provider_info ON b_invoice_info.`s_name` = b_provider_info.`name`) AS a
+        ON b_contract_info.`contract_code` = a.contract_id
+        WHERE NAME = #{contract_name}
+    </select>
+</mapper>

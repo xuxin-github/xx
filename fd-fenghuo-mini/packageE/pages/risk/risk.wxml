@@ -1,0 +1,20 @@
+<!-- 风控中心 -->
+<view class="page-body">
+  <view class="tap">图片列表(本地)</view>
+  <view class="page-body-wrapper">
+    <block wx:for="{{imgfile}}" wx:key="{{id}}">
+      <image mode='aspectFit' src="{{item}}" bindlongpress="removeImg" bindtap="openImg" data-index1="{{item}}"></image>
+    </block>
+    <view class="tap">文件列表(服务器)</view>
+    <block wx:for="{{files}}" wx:key="{{id}}">
+      <view bindtap="downFile" data-index2="{{item}}">{{item}}</view>
+    </block>
+    <block wx:for="{{imgfiles}}" wx:key="{{id}}">
+      <image mode='aspectFit' src="{{item}}" bindlongpress="removeImg" bindtap="openImg2" data-index3="{{item}}"></image>
+    </block>
+  </view>
+  <view class="img_list">
+    <button class="button1" type="primary" bindtap="button1">上传图片</button>
+    <button class="button2" bindtap="button2">文件上传</button>
+  </view>
+</view>

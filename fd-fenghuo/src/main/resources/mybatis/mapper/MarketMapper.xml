@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fd.fhtmid.mapper.BMarketInfoMapper">
+	<!-- 查询所有市场监管税法案例. -->
+	<select id="findAllMarket" resultType="Map">
+		SELECT * FROM b_market_info
+		<where>
+			<if test=" risk_market_name != null and risk_market_name != ''">
+				(name LIKE concat("%",#{risk_market_name},"%")
+				or
+				type LIKE concat("%",#{risk_market_name},"%")
+				or
+				party LIKE concat("%",#{risk_market_name},"%")
+				or
+				type_subsection LIKE concat("%",#{risk_market_name},"%")
+				or
+				specific_type LIKE concat("%",#{risk_market_name},"%"))
+			</if>
+		</where>
+		order by create_time desc
+	</select>
+	<!-- 获取指定市场监管税法案例. -->
+	<select id="findMarketByName" resultType="Map">
+		SELECT * FROM b_market_info WHERE name = #{market_name}
+	</select>
+	<!-- 新增市场监管违法案例. -->
+	<insert id="insertMarket" parameterType="Map">
+		insert into b_market_info(id, name, type, party, result, date, type_subsection, specific_type, is_release, is_delete, create_by, create_time)
+		values (#{id}, #{name}, #{type}, #{party}, #{result}, #{punishDate}, #{type_subsection}, #{specific_type}, #{is_release}, #{is_delete}, #{create_by}, #{create_time})
+	</insert>
+	<!-- 修改市场监管违法案例. -->
+	<update id="updateMarket" parameterType="Map">
+		update b_market_info set name = #{name}, type = #{type}, party = #{party}, result = #{result}, date = #{punishDate}, type_subsection = #{type_subsection},
+		specific_type = #{specific_type}, is_release = #{is_release}, update_by = #{update_by}, update_time = #{update_time} where id = #{id}
+	</update>
+	<!-- 修改市场监管违法案例发布状态. -->
+	<update id="updateStatus" parameterType="Map">
+		<if test="is_release == '01'">
+			update b_market_info set is_release = '02', update_by = #{update_by}, update_time = #{update_time} where name = #{market_name}
+		</if>
+		<if test="is_release == '02'">
+			update b_market_info set is_release = '01', update_by = #{update_by}, update_time = #{update_time} where name = #{market_name}
+		</if>
+	</update>
+
+	<!-- 查询所有发布的税市场监管违法案例. -->
+	<select id="findAllReleaseMarket" resultType="Map">
+		SELECT * FROM b_market_info
+		<where>
+			<if test=" risk_market_name != null and risk_market_name != ''">
+				(name LIKE concat("%",#{risk_market_name},"%")
+				or
+				type LIKE concat("%",#{risk_market_name},"%")
+				or
+				party LIKE concat("%",#{risk_market_name},"%")
+				or
+				type_subsection LIKE concat("%",#{risk_market_name},"%")
+				or
+				specific_type LIKE concat("%",#{risk_market_name},"%"))
+			</if>
+			and is_release = "01"
+		</where>
+		order by create_time desc
+	</select>
+</mapper>

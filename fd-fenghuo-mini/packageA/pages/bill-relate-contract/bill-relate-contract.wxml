@@ -1,0 +1,44 @@
+<view class="section">
+  <view class='search'>
+    <view class='searchItem'>
+      <image src='/images/icon/search.png' />
+      <input bindinput='onInput' placeholder='搜索合同编号、合同名称'></input>
+    </view>
+  </view>
+
+  <view class="view1">
+    <view class="table">
+      <block wx:for="{{listData}}" wx:key="{{id}}">
+        <view class="tr">
+          <view class="view1 title1">
+            <label>{{item.contract_name}}</label>
+          </view>
+          <view class="line"></view>
+          <view class="c">
+            <text class="default-title">合同号：</text>
+            <label style="letter-spacing:0rpx;">{{item.contract_code}}</label>
+          </view>
+          <view class="c">
+            <text class="default-title">供应商：</text>{{item.s_name?item.s_name:'--'}}</view>
+          <view class="c">
+            <text class="default-title">票据量：</text>
+            <label style="letter-spacing:0rpx;">{{item.invoice_number?item.invoice_number:0}} 张</label>
+            <text class="default-titles">发票金额：</text>
+            <label style="letter-spacing:0rpx;">{{item.price_amount?item.price_amount:0}} 元</label>
+          </view>
+          <view class="check1" catchtap="selectChange" data-cid="{{item.contract_code}}" wx:if="{{item.contract_code!=checkedId}}"><icon class="check_icon" type="success" color="rgb(214, 210, 211)" size="30rpx" /> 关联至该合同</view>
+           <view class="check2" catchtap="cancelChange" data-cid="" wx:if="{{item.contract_code==checkedId}}"><icon class="check_icon" type="success" color="#147CEC" size="30rpx" /> 关联至该合同</view> 
+            
+          <view class="view2"></view> 
+        </view>            
+      </block>     
+    </view>
+    <view class="{{listData == ''?'show':'hidden'}}">
+      <image class="nullImage" src="../../../images/icon/null.png" mode='aspectFit'></image>
+    </view>
+  </view>
+
+  <view class="bottom-view ">  
+      <button class="button1 " bindtap="ok" >提交审核</button>              
+  </view>
+</view>

@@ -1,0 +1,99 @@
+<!-- 合同发票记录 -->
+<view class="section">
+  <view class="view1">
+    <view>
+      <view class="view1 title1">
+        <image class="img1" src="/images/icon/33.svg" />
+        <label>{{listData.contract.contract_code}}</label>
+      </view>
+      <view class="line"></view>
+      <view class="c">
+        <text class="default-title">合同名称：</text>
+        <label style="letter-spacing:0rpx;">{{listData.contract.contract_name?listData.contract.contract_name:'--'}}</label>
+      </view>
+      <view class="c">
+        <text class="default-title">关联项目：</text>{{listData.contract.project_name?listData.contract.project_name:'--'}}</view>
+      <view class="c">
+        <text class="default-title">供 应 商 ：</text>{{listData.contract.s_name?listData.contract.s_name:'--'}}</view>
+      <view class="vs">
+        <view class="c" style="width:374rpx;">
+          <text class="default-title">开票总额：</text>
+          <label style="letter-spacing:0rpx;">{{listData.contract.price_amount ? listData.contract.price_amount : 0}} 元</label>
+        </view>
+        <view class="c2">
+          <text class="default-titles1">发票数量：</text>
+          <label style="letter-spacing:0rpx;"> {{listData.contract.invoice_number ?listData.contract.invoice_number : 0 }} </label>
+        </view>
+      </view>
+      <view class="vs">
+        <view class="c" style="width:374rpx;">
+          <text class="default-title">创建时间：</text>
+          <label style="letter-spacing:0rpx;">{{listData.contract.create_time}}</label>
+        </view>
+        <view class="c2">
+          <text class="default-titles1">风险状态：</text>
+          <label class="{{listData.contract.risk_level == '01' ? 'commom' : 'highRisk'}}"> {{listData.contract.risk_level == '01' ? '正常': listData.contract.risk_level == '02' ? '高风险' : '--'}}</label>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="invoice-tag">
+    <view class="tag"></view>
+    <label class="invoice-title">发票信息</label>
+  </view>
+  <view class="view2">
+    <view class="table">
+      <block wx:for="{{invoiceListData}}" wx:key="{{id}}">
+        <view class="tr bg-g" bindtap="invoiceDetail" data-index1="{{item.invoice_no_short}}" data-index2="{{item.invoice_code}}" data-index3="{{item.audit_status}}">
+          <view class="vs">
+            <view class="view2 title1">
+              <label>{{item.b_name}}</label>
+            </view>
+            <view class=" view2 title2">
+              <label class="{{item.audit_status == 0 ? 'wait': item.audit_status == 1 ? 'pass':item.audit_status == 2 ? 'reject':''}}">{{item.audit_status == 0 ? '待审核' : item.audit_status == 1 ? '已通过' : item.audit_status == 2 ? '已驳回' : ''}}</label>
+            </view>
+          </view>
+          <view class="line"></view>
+          <view class="vs">
+            <view class="c" style="width:350rpx;">
+              <text class="default-title">发票号码：</text>
+              <label style="letter-spacing:0rpx;">{{item.invoice_no_short ? item.invoice_no_short : '--'}} </label>
+            </view>
+            <view class="c2">
+              <text class="default-titles1">发票代码：</text>
+              <label style="letter-spacing:0rpx;">{{item.invoice_code ?item.invoice_code : '--' }} </label>
+            </view>
+          </view>
+          <view class="vs">
+            <view class="c" style="width:350rpx;">
+              <text class="default-title">发票类别：</text>
+              <label style="letter-spacing:0rpx;">{{item.invoice_type == '01' ? '增值专票' : item.invoice_type == '04' ? '增普票' : item.invoice_type == '10' ? '增普票(电子)' : item.invoice_type == '11' ? '增普票(卷式)' : '--'}} </label>
+            </view>
+            <view class="c2">
+              <text class="default-titles1">发票金额：</text>
+              <label style="letter-spacing:0rpx;">{{item.price_amount ?item.price_amount : 0 }} 元</label>
+            </view>
+          </view>
+          <view class="vs">
+            <view class="c" style="width:350rpx;">
+              <text class="default-title">发票类型：</text>
+              <label style="letter-spacing:0rpx;">{{item.invoice_catalog == '01' ? '管理费类' : item.invoice_catalog == '02' ? '咨询费类' : item.invoice_catalog == '03' ? '会议费类' : item.invoice_catalog == '04' ? '培训费类' : item.invoice_catalog == '05' ? '旅游费类' : item.invoice_catalog == '06' ? '手续费类'
+                :item.invoice_catalog == '07' ? '其他类' :'--'}} </label>
+            </view>
+            <view class="c2">
+              <text class="default-titles1">开票日期：</text>
+              <label style="letter-spacing:0rpx;">{{item.invoice_time}} </label>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="{{invoiceListData == ''?'show':'hidden'}}">
+      <image class="nullImage" src="../../../images/icon/null.png" mode='aspectFit'></image>
+    </view>
+    <view class="bottom-view">
+      <button class="button1" bindtap="scanAdd">扫码添加发票</button>
+      <button class="button2" bindtap="manageAdd">手动添加发票</button>
+    </view>
+  </view>
+</view>

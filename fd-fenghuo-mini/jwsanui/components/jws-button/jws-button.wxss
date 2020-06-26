@@ -1,0 +1,64 @@
+/* 按钮容器 */
+
+.jws-btn-box {
+  padding: 5rpx 10rpx;
+  border-radius: 10rpx;
+  color: rgba(153, 153, 153, 1);
+  background: transparent;
+  border: 1rpx solid rgba(244, 244, 244, 1);
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 点击状态样式 */
+
+.jws-btn-box:active {
+  color: rgba(0, 0, 0, 0.6) !important;
+  background-color: #dedede !important;
+}
+
+/* 按钮内部内容，可以显示icon */
+
+.jws-btn-box .jws-btn {
+  display: inline-flex;
+  font-size: 28rpx;
+}
+
+.jws-btn-box .jws-btn-lg {
+  font-size: 36rpx;
+}
+
+.jws-btn-box-lg {
+  padding: 8rpx 12rpx;
+}
+
+.jws-btn-box .jws-btn-sm {
+  font-size: 18rpx;
+  border-radius: 8rpx;
+}
+
+.jws-btn-box-sm {
+  padding: 3.5rpx 8rpx;
+  border-radius: 5rpx;
+}
+
+.jws-btn-box .jws-btn-xs {
+  font-size: 12rpx;
+}
+
+.jws-btn-box-xs {
+  padding: 2.5rpx 6rpx;
+}
+
+/* 是否铺满屏幕 */
+
+.jws-btn-fill {
+  position: relative;
+  min-width: 690rpx !important;
+  width: 100% !important;
+  height: 80rpx !important;
+  font-size: 36rpx !important;
+  text-align: center !important;
+  line-height: 80rpx !important;
+}

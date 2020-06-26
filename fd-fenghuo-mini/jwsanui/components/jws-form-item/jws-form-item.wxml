@@ -1,0 +1,12 @@
+<view class="jws-form-item {{columnY==true?'columnY':'centerY betweenX'}}">
+  <view class="jws-form-item-title centerY">
+    <view wx:if='{{required}}' class='required'>*</view>
+    <view wx:if='{{icon}}' class='jws-form-item-icon centerXY'>
+      <image src='{{icon}}'></image>
+    </view>
+    <view>{{lable}}</view>
+  </view>
+  <view class='jws-form-item-box {{columnY==true?"jws-ml20-mt20":""}}'>
+    <slot></slot>
+  </view>
+</view>

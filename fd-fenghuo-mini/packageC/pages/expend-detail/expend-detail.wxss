@@ -1,0 +1,153 @@
+/* packageB/pages/contract_detail/contract_detail.wxss */
+
+body {
+  background: #f5f5f5;
+}
+
+page {
+  background: #f5f5f5;
+}
+
+.flex-wrp {
+  display: flex;
+}
+
+.bc_1 {
+  background: rgb(255, 255, 255);
+  height: 30%;
+  margin-bottom: 10rpx;
+}
+
+.bc_3 {
+  background: rgb(255, 255, 255);
+  height: 30%;
+  margin-bottom: 10rpx;
+}
+
+.view1 {
+  margin-left: 60rpx;
+  margin-right: 60rpx;
+  margin-bottom: 15rpx;
+  letter-spacing: 5rpx;
+}
+
+.invoice-title {
+  color: #9b9b9b;
+  font-size: 30rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+}
+
+.tag {
+  width: 10rpx;
+  height: 30rpx;
+  background: rgba(20, 124, 236, 1);
+  border-radius: 4rpx;
+  display: inline-block;
+  margin: 0 12rpx -4rpx 0;
+}
+
+.invoice-tag {
+  margin-left: 30rpx;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.c {
+  margin-left: 30rpx;
+  margin-bottom: 20rpx;
+  margin-right: 30rpx;
+}
+
+.c2 {
+  margin-bottom: 20rpx;
+  margin-right: 30rpx;
+  flex-direction: row;
+  width: 340rpx;
+}
+
+/* 用于view并排 */
+
+.vs {
+  display: flex;
+  flex-direction: row;
+}
+
+.title1 {
+  width: 570rpx;
+  padding-top: 20rpx;
+  margin-left: 30rpx;
+  margin-bottom: 42rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #4a4a4a;
+}
+
+.title2 {
+  padding-top: 20rpx;
+  width: 120rpx;
+  margin-bottom: 42rpx;
+  align-items: center;
+  font-size: 30rpx;
+  font-weight: 600;
+  text-align: right;
+  margin-right: 30rpx;
+}
+
+.wait {
+  color: #f5a623;
+}
+
+.pass {
+  color: #539e00;
+}
+
+.reject {
+  color: #dd5364;
+}
+
+.default-title {
+  color: #9b9b9b;
+}
+
+.file-title {
+  font-size: 16px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: rgba(26, 26, 26, 1);
+  line-height: 22px;
+}
+.bc_2{
+  margin-bottom: 10rpx;
+}
+.vs-file{
+  display: flex;
+  flex-direction: row;
+  height: 108rpx;
+  align-items: center;
+}
+.bg-g{
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 10rpx;
+}
+.line{
+  width:90%;
+  border-top: 1px solid rgba(246,247,248,1); 
+  float: left;
+  margin-left: 30rpx;
+  margin-top: -20rpx;
+}
+  .hidden{
+  display: none;
+}
+.show{
+  display: block;
+  height: 220rpx;
+  background: #fff;
+}
+.nullImage{
+  width: 200rpx;
+  height: 200rpx;
+  display: flex;
+  margin: 0 auto;
+}

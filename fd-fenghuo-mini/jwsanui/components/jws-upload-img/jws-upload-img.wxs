@@ -1,0 +1,18 @@
+var filters = {
+  format: function(host, url, miniType) {
+    if (url.indexOf("http") === -1) {
+      if (host != "") {
+        url = host +'/common/file/readimg?img='+url;
+      }
+
+      if (miniType != "") {
+        url = url + miniType;
+      }
+    }
+    return url;
+  }
+}
+
+module.exports = {
+  format: filters.format
+}

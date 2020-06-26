@@ -1,0 +1,50 @@
+.jws-counter {
+}
+
+.jws-counter .jws-counter-btn {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  border-width: 1rpx;
+  border-style: solid;
+  border-color: rgba(204, 204, 204, 1);
+}
+
+.jws-counter .jws-counter-btn:active {
+  background: rgba(204, 204, 204, 0.2);
+}
+
+.jws-counter .jws-counter-btn .plus {
+  width: 15rpx;
+  height: 2rpx;
+  background: rgba(204, 204, 204, 1);
+  position: relative;
+  background:var(--red);
+}
+
+.jws-counter .jws-counter-btn .plus .plus-y {
+  width: 2rpx;
+  height: 15rpx;
+  background: rgba(204, 204, 204, 1);
+  position: absolute;
+  top: -6rpx;
+  left: 7rpx;
+  background:var(--red);
+}
+
+.jws-counter .jws-counter-btn .minus {
+  width: 15rpx;
+  height: 2rpx;
+  background: rgba(204, 204, 204, 1);
+  background:var(--red);
+}
+
+.jws-counter .jws-counter-txt {
+  padding: 0 8rpx;
+  line-height: 30rpx;
+  height: 30rpx;
+  font-size: 26rpx;
+  color: rgba(26, 26, 26, 0.7);
+  min-width: 50rpx;
+  text-align: center;
+}

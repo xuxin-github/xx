@@ -1,0 +1,57 @@
+
+body {
+  background: #f5f5f5;
+}
+page {
+  background: #f5f5f5;
+}
+.img_list{
+  height: 100rpx;
+  background: rgba(255, 255, 255);
+  bottom: 0rpx;
+  position: fixed;
+  width: 100%; 
+}
+.button1{
+  background:rgba(105,195,5,1);
+    padding: 5rpx 10rpx;
+    border-radius: 10rpx;
+    width: 320rpx;
+    height: 74rpx;
+    color: rgba(255, 255, 255);
+    align-items: center;
+    justify-content: center;
+    display: inline-flex;
+    font-size: 32rpx; 
+    margin-top: 15rpx;
+    margin-left: 45rpx; 
+    margin-bottom: 15rpx;
+}
+.button2{
+  padding: 5rpx 10rpx;
+    border-radius: 10rpx;
+    width: 320rpx;
+    height: 74rpx;
+    color: rgba(255, 255, 255);
+    align-items: center;
+    justify-content: center;
+    display: inline-flex;
+    font-size: 32rpx;
+    margin-left: 15rpx;
+    margin-top: 15rpx;
+    margin-bottom: 15rpx;
+    background:rgba(245,166,35,1); 
+}
+image{
+  margin-left: 50rpx;
+}
+.tap{
+  font-size: 34rpx;
+  margin-top: 20rpx;
+  color: rgb(184, 98, 224);
+  text-align: center;
+}
+.page-body-wrapper{
+  margin-top: 20rpx;
+  margin-bottom: 130rpx;
+}

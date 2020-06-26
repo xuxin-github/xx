@@ -1,0 +1,72 @@
+{
+  "pages": [
+
+    "pages/login/login",
+    "pages/authorize/authorize",
+    "pages/index/index",
+    "pages/jws-form-gourp/jws-form-gourp",
+    "pages/components/components",
+    "pages/user-center/user-center"
+  ],
+  "subPackages": [
+    {
+      "root": "packageA",
+      "pages": [
+        "pages/bill-scan-add-leader/bill-scan-add-leader",
+        "pages/bill-scan-add-common/bill-scan-add-common",
+        "pages/bill-scan-add-wait/bill-scan-add-wait",
+        "pages/bill-scan-add-expend/bill-scan-add-expend",           
+        "pages/bill-nopass-details/bill-nopass-details",
+        "pages/bill-relate-contract/bill-relate-contract",
+        "pages/bill-manage/bill-manage",
+        "pages/bill-manual-add/bill-manual-add",
+        "pages/bill-details/bill-details"
+      ]
+    },
+    {
+      "root": "packageB",
+      "pages": [
+        "pages/contract-manage/contract-manage",
+        "pages/contract-detail/contract-detail",
+        "pages/contract-bill-commit/contract-bill-commit"       
+      ]
+    },
+    {
+      "root": "packageC",
+      "pages": [
+        "pages/expend-record/expend-record",
+        "pages/expend-detail/expend-detail",
+        "pages/start-expend/start-expend",
+        "pages/manual-add/manual-add"       
+      ]
+    },
+    {
+      "root": "packageD",
+      "pages": [
+        
+      ]
+    },
+    {
+      "root": "packageE",
+      "pages": [
+        "pages/risk/risk",
+        "pages/test/test"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#2278CB",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "烽火台",
+    "backgroundColor": "#F5F5F5",
+    "backgroundTextStyle": "light"
+  },
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "获取当前位置"
+    },
+  "debug":true
+  }
+  
+}

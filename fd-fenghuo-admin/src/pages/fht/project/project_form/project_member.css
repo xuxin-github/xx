@@ -1,0 +1,43 @@
+.member_font{
+    height:21px;
+    font-size:15px;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+    color:rgba(0,0,0,0.85);
+    line-height:21px;
+}
+
+.member_div{
+    margin: 20px 0 20px 0;
+    height: 300px;
+    background:rgba(244,244,244,1);
+}
+
+.div_font{
+    margin: 0 0 0 20px;
+    height:20px;
+    font-size:14px;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+    color:rgba(0,0,0,0.85);
+    line-height:20px;
+}
+
+.button_font{
+    float: right;
+    margin: 0 40px 0 0;
+    padding: 0;
+    height:20px;
+    font-size:14px;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+    color:rgba(221,83,100,1);
+    line-height:20px;
+}
+
+.div_line{
+    margin: 0 40px 10px 20px;
+    height:1px;
+    background:rgba(226,226,226,1);
+    border-radius:2px;
+}

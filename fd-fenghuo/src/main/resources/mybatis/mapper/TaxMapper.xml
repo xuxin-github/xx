@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fd.fhtmid.mapper.BTaxInfoMapper">
+	<!-- 查询所有税收违法案例. -->
+	<select id="findAllTax" resultType="Map">
+		SELECT * FROM b_tax_info
+		<where>
+			<if test="risk_tax_name != null and risk_tax_name != ''">
+				(name LIKE concat("%",#{risk_tax_name},"%")
+				or
+				type LIKE concat("%",#{risk_tax_name},"%")
+				or
+				party LIKE concat("%",#{risk_tax_name},"%")
+				or
+				specific_type LIKE concat("%",#{risk_tax_name},"%"))
+			</if>
+		</where>
+		order by create_time desc
+	</select>
+	<!-- 获取指定税收违法案例. -->
+	<select id="findTaxByName" resultType="Map">
+		SELECT * FROM b_tax_info WHERE name = #{tax_name}
+	</select>
+	<!-- 新增税收违法案例. -->
+	<insert id="insertTax" parameterType="Map">
+		insert into b_tax_info(id, name, type, party, result, date, specific_type, is_release, is_delete, create_by, create_time)
+		values (#{id}, #{name}, #{type}, #{party}, #{result}, #{punishDate}, #{specific_type}, #{is_release}, #{is_delete}, #{create_by}, #{create_time})
+	</insert>
+	<!-- 修改市场监管违法案例. -->
+	<update id="updateTax" parameterType="Map">
+		update b_tax_info set name = #{name}, type = #{type}, party = #{party}, result = #{result}, date = #{punishDate},
+		specific_type = #{specific_type}, is_release = #{is_release}, update_by = #{update_by}, update_time = #{update_time} where id = #{id}
+	</update>
+	<!-- 修改税收违法案例发布状态. -->
+	<update id="updateStatus" parameterType="Map">
+		<if test="is_release == '01'">
+			update b_tax_info set is_release = '02', update_by = #{update_by}, update_time = #{update_time} where name = #{tax_name}
+		</if>
+		<if test="is_release == '02'">
+			update b_tax_info set is_release = '01', update_by = #{update_by}, update_time = #{update_time} where name = #{tax_name}
+		</if>
+	</update>
+
+	<!-- 查询所有发布的税收违法案例. -->
+	<select id="findAllReleaseTax" resultType="Map">
+		SELECT * FROM b_tax_info
+		<where>
+			<if test=" risk_tax_name != null and risk_tax_name != ''">
+				(name LIKE concat("%",#{risk_tax_name},"%")
+				or
+				type LIKE concat("%",#{risk_tax_name},"%")
+				or
+				party LIKE concat("%",#{risk_tax_name},"%")
+				or
+				specific_type LIKE concat("%",#{risk_tax_name},"%"))
+			</if>
+			and is_release = "01"
+		</where>
+		order by create_time desc
+	</select>
+</mapper>

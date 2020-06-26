@@ -1,0 +1,19 @@
+<block>
+    <view class="main">
+        <view class="container">
+            <view class="logo">
+                <image class="lgimg" src="/images/icon/i_logo.png"></image>
+            </view>
+            <view class="title"><text class="txt">烽火台风控系统</text>
+            </view>
+            <view class="line"></view>
+            <view class="notice"><text class="notice-txt">网页由小程序开发，请确认授权一下信息</text>
+            </view>
+            <view class="notice"><text class="notice-info">·获得您的公开信息(昵称、头像等)</text>
+            </view>
+            <view class="submit-btn">
+                <button class="authorize-btn" open-type="getUserInfo" bindgetuserinfo="getUserInfo">确认</button>
+            </view>
+        </view>
+    </view>
+</block>

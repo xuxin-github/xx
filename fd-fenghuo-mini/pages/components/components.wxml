@@ -1,0 +1,24 @@
+<!-- 图片上传组件 -->
+<view class='upload-img'>
+  <jws-upload-img option='{{option1}}' imgs='{{uploadimgs}}' bind:achieve="getImgs"></jws-upload-img>
+</view>
+<view class='upload-img'>
+  <jws-upload-img option='{{option2}}' imgs='{{uploadimgs}}' bind:achieve="getImgs"></jws-upload-img>
+</view>
+
+<!-- 加载组件 -->
+<view>
+  <jws-loading status="2"></jws-loading>
+</view>
+
+<!-- 表单组件 -->
+<jws-form title='我是表单'>
+
+  <jws-form-item required='false' icon='/images/icon/icon-input.svg' lable='姓名'>
+    <jws-input-txt bind:input='onInput'></jws-input-txt>
+  </jws-form-item>
+  <jws-form-item required='false' icon='/images/icon/icon-input.svg' lable='员工数量'>
+    <jws-counter bind:change='getValue' grain='0.05'></jws-counter>
+  </jws-form-item>
+
+</jws-form>

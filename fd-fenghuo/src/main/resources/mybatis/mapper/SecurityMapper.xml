@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fd.fhtmid.mapper.ShopMapper">
+	
+	<select id="getPUserByUser" resultType="Map">
+		select a.*,b.role_code from b_user_info a,b_role_info b where a.role_id = b.id 
+			and a.username=#{username} and a.company_id = #{company_id}
+		    and a.is_delete = '0'
+		
+	</select>
+	
+		
+</mapper>

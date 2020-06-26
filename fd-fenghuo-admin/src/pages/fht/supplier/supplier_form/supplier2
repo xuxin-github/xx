@@ -1,0 +1,200 @@
+{
+    "response_sn":"20191022175726281WOXK",
+    "retdata":
+        {
+            "ALTER":
+                [
+                    {
+                        "ALTITEM":"高级管理人员备案",
+                        "ALTBE":"
+                            姓名: 叶建素; 
+                            证件号码: ******************; 
+                            职位: 监事;
+                            姓名: 章文龙; 
+                            证件号码: ******************; 
+                            职位: 执行董事;
+                            姓名: 章文龙; 
+                            证件号码: ******************; 
+                            职位: 经理;",
+                        "ALTAF":"
+                            姓名: 叶建素; 
+                            证件号码: ******************; 
+                            职位: 执行董事;
+                            姓名: 叶建素; 
+                            证件号码: ******************; 
+                            职位: 经理;
+                            姓名: 章文龙; 
+                            证件号码: ******************; 
+                            职位: 经理;",
+                        "ALTDATE":"
+                            2019-07-04"
+                    },
+                    {
+                        "ALTITEM":"企业联络人员、财务人员",
+                        "ALTBE":"
+                            原联络员姓名:章文龙;
+                            原联络员固定电话:;
+                            原联络员移动电话:*********** ;
+                            原联络员电子邮箱:;
+                            原联络员身份证件类型:中华人民共和国居民身份证;
+                            原联络人员证件号码:******************;
+                            原财务负责人姓名:章文龙;
+                            原财务负责人固定电话:;
+                            原财务负责人移动电话:***********;
+                            原财务负责人电子邮箱:;
+                            原财务负责人证件名称:中华人民共和国居民身份证;
+                            原财务负责人身份证件号码:******************",
+                        "ALTAF":"
+                            现联络员姓名:叶建素;
+                            现联络员固定电话:;
+                            现联络员移动电话:*********** ;
+                            现联络员电子邮箱:;
+                            现联络员身份证件类型:中华人民共和国居民身份证;
+                            现联络人员证件号码:******************;
+                            现财务负责人姓名:叶建素;
+                            现财务负责人固定电话:;
+                            现财务负责人移动电话:***********;
+                            现财务负责人电子邮箱:;
+                            现财务负责人证件名称:中华人民共和国居民身份证;
+                            现财务负责人身份证件号码:******************",
+                        "ALTDATE":"
+                            2019-07-04"
+                    },
+                    {
+                        "ALTITEM":"投资人(股权)备案",
+                        "ALTBE":"
+                            姓名: 章文龙; 
+                            出资额: ***万; 
+                            百分比: ***%;",
+                        "ALTAF":"
+                            姓名: 叶建素; 
+                            出资额: ***万; 
+                            百分比: ***%;",
+                        "ALTDATE":"
+                            2019-07-04"
+                    },
+                    {
+                        "ALTITEM":"法定代表人变更",
+                        "ALTBE":"章文龙",
+                        "ALTAF":"叶建素",
+                        "ALTDATE":"2019-07-04"
+                    }
+                ],
+            "MORTGAGECAN":[],
+            "FRINV":[],
+            "FILIATION":[],
+            "STOCKPAWN":[],
+            "MORTGAGEREG":[],
+            "FRPOSITION":[],
+            "BASIC":
+                {
+                    "ENTNAME":"温州夏力服饰有限公司",
+                    "ID":"330000\u0001734C844A714D748DE0531ECDA8C0F6AC\u00012018081407222801083087",
+                    "ENTNAME_OLD":"",
+                    "ORGCODES":"MA2CQWJJ7",
+                    "CREDITCODE":"91330324MA2CQWJJ7D",
+                    "REGNO":"330324000246092",
+                    "ORIREGNO":"",
+                    "FRNAME":"叶建素",
+                    "REGCAP":"100.000000",
+                    "REGCAPCURCODE":"156",
+                    "REGCAPCUR":"人民币元",
+                    "ESDATE":"2018-08-08",
+                    "OPFROM":"2018-08-08",
+                    "OPTO":"长期",
+                    "ENTITYTYPE":"1",
+                    "ENTTYPE":"有限责任公司(自然人独资)",
+                    "ENTSTATUS":"在营（开业）",
+                    "ENTSTATUSCODE":"1",
+                    "ABUITEM":"",
+                    "ZSOPSCOPE":"制造、加工、销售：服饰、服装、皮具、箱包、文具用品、金属工艺品、手表、眼镜（不含隐形眼镜）；货物进出口、技术进出口（依法须经批准的项目，经相关部门批准后方可开展经营活动）",
+                    "REGORG":"永嘉县市场监督管理局",
+                    "ANCHEYEAR":"2018",
+                    "CANDATE":"",
+                    "REVDATE":"",
+                    "RECCAP":"",
+                    "APPRDATE":"2019-07-04",
+                    "ENTTYPECODE":"1151",
+                    "INDUSTRYCOCODE":"183",
+                    "INDUSTRYCONAME":"服饰制造",
+                    "DOM":"浙江省温州市永嘉县瓯北街道东瓯工业区双塔路3002号(浙江力德利服饰有限公司内一层）",
+                    "REGORGCODE":"330324",
+                    "DOMDISTRICT":"",
+                    "REGORGPROVINCE":"浙江省",
+                    "REGORGCITY":"浙江省温州市",
+                    "REGCITY":"330300",
+                    "REGORGDISTRICT":"浙江省温州市永嘉县",
+                    "EMAIL":"",
+                    "POSTALCODE":"325000",
+                    "S_EXT_NODENUM":"330000",
+                    "COUNTRYCODE":"",
+                    "COUNTRY":"",
+                    "QRCODE_IMAGE_BASE64":"iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQAAAABRBrPYAAAC/0lEQVR42u2aPY6kUAyE3eqAkCNwE7hYSyBxMfomHIHwBS28VWVmRzATbLbPEgSom/4IPP4p22/M/+Xa7MZu7MZu7Mb+D1YMl7/905W+9bVZ2qkrg88rHj+TYIP7WqwlZi8rj+3V4bdxxW9zEqy35+p7O3vz9smaRYYDw6uZsLBvsRFf9cL2zIbxS9fs7WT2QOQx1DJhirfBkSgPBBhsfnqD57+GZaUYs54uWi+3X4pDpdhXhaV9uJVhQ+oPYaTnwApjy+gnJbxZ647b1CFvxhwYrqmLvFlQgG3Y4DtD/hvUJAlG+5p35PpIBfwYUuajApwDg5HWhVXUEGTLZJH6+ymzasbwiAqoyIOG8JORpZLnwBBlsg8uonzAbShcqsIMuhQYHvmqNC/MFqWMEh4veA7MdxhEIyHi/MRsMQqiSlgKLOJtYXrwVqR7cODa7FkwXWEfTaPHOoVf6bNgbPqioTWMFR1qr1MLX5yW5hxYXGjCcWOUKf/1dW+zYNF9sOwu7MkH+k7deW9jGuypxjzMZX/baaIo54a2Zkx6gTaWtVfz0LeGeA5MA6nU7ujJMWfzBb9kfcWYK7Yk2O9NPTmVg9c53irG1A1yx6EuilPpZBr4JIgpMOU68uYVooE+ZGRz+ImJOwUWyqGBVIliFL8HF0/nP0jVmCvNqXttjHmcKFSK5yRYL8fEuik+cTLCmHcJy4ox9uQuI7X5Y+qzEnSX2lsxJsLkIu7J2I4ffYinwbgp5q6GKzL0gIwytbbNeT6tGNP6XpbK5pDBXvJx6cmrxbhhjR2+aWU5YMBoNHY/LhuzejHNdbt2TlxZQrrhO2a9n1WmXkw9IOUj9JtbAg7bclYSzI/qNX9vzDptYksaLHb47MnpnVXZ4joMGi5L5nqx4e+pya4ZSTunrzOVHFgcycHI5ujJY4fPky3PhMVZxKbxyKjfOuodM2FaMtG+cmwJfs6nFWM6VaQCck2jmsV+6nWoYgrsyPqRezIMRe9oco9NbArs/r+aG7uxG7uxxNgftSTTCR6Z/s0AAAAASUVORK5CYII=",
+                    "LOGOIMGNAME":"7B7fJnTMhk2s9bnxEgGUWaZYNjQYAfC2J9JZ4KbJkTNieocaGZqGT68"
+                },
+            "SHARESFROST":[],
+            "ENTINV":[],
+            "RELATEDPUNISHED":[],
+            "MORTGAGEDEBT":[],
+            "MORTGAGEPAWN":[],
+            "SHAREHOLDER":
+                [
+                    {
+                        "INVTYPE":"自然人股东",
+                        "COUNTRY":"",
+                        "SUBCONAM":"100.000000",
+                        "ACCONAM":"",
+                        "CONFORM":"",
+                        "CONDATE":"",
+                        "SHANAME":"叶建素",
+                        "FUNDEDRATIO":"100.00%",
+                        "INVTYPECODE":"20",
+                        "CONFORMCODE":"",
+                        "COUNTRYCODE":"",
+                        "REGCAPCUR":"",
+                        "CURRENCYCODE":"",
+                        "CREDITCODE":"",
+                        "REGNO":""
+                    }
+                ],
+            "PUNISHBREAK":[],
+            "ENTCASEBASEINFO":[],
+            "PUNISHED":[],
+            "PERSON":
+                [
+                    {
+                        "POSITION":"执行董事",
+                        "PERNAME":"叶建素",
+                        "POSITIONCODE":"432K",
+                        "ENTNAME":"温州夏力服饰有限公司",
+                        "PERSONAMOUNT":"3"
+                    },
+                    {
+                        "POSITION":"经理",
+                        "PERNAME":"叶建素",
+                        "POSITIONCODE":"436A",
+                        "ENTNAME":"温州夏力服饰有限公司",
+                        "PERSONAMOUNT":"3"
+                    },
+                    {
+                        "POSITION":"经理",
+                        "PERNAME":"章文龙",
+                        "POSITIONCODE":"436A",
+                        "ENTNAME":"温州夏力服饰有限公司",
+                        "PERSONAMOUNT":"3"
+                    }
+                ],
+            "MORTGAGEBASIC":[],
+            "MORTGAGEPER":[],
+            "STOCKPAWNALT":[],
+            "BASICLIST":null,
+            "RELATEDPUNISHBREAK":[],
+            "MORTGAGEALT":[],
+            "STOCKPAWNREV":[]
+        },
+    "version":"1.0",
+    "request_sn":"91f371e93f0c4a318740011844d71c73",
+    "retmsg":"交易成功",
+    "retdate":1571738246596,
+    "retcode":"000000"
+}

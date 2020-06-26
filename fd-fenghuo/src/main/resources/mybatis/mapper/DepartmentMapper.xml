@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fd.fhtmid.mapper.BDeptInfoMapper">
+    <!-- 查找所有一级组织部门. -->
+    <select id="departmentList" resultType="Map">
+        SELECT * FROM b_dept_info WHERE p_dept_no IS NULL ORDER BY weight DESC, create_time DESC
+    </select>
+    <!-- 获取指定部门名称的组织部门. -->
+    <select id="getDepartment" resultType="Map">
+        select * from b_dept_info where name = #{dept_name}
+    </select>
+    <!-- 新增一级组织部门. -->
+    <insert id="insertDepartment" parameterType="Map">
+        insert into b_dept_info(id, company_id, name, dept_code, dept_index, weight, is_delete, create_by, create_time)
+        values (#{id}, #{company_id}, #{dept_name}, #{dept_code}, #{dept_index}, #{weight}, #{is_delete}, #{create_by}, #{create_time})
+    </insert>
+    <!-- 修改组织部门. -->
+    <update id="updateDepartment" parameterType="Map">
+        update b_dept_info set name = #{dept_name}, weight = #{weight}, update_by = #{update_by}, update_time = #{update_time} where dept_code = #{dept_code}
+    </update>
+
+    <!-- 模糊查询. -->
+    <select id="departmentLikeList" resultType="Map">
+        SELECT name, dept_code FROM b_dept_info WHERE dept_index LIKE concat("%", #{dept_code}, "%")
+    </select>
+    <!-- 删除组织部门. -->
+    <delete id="deleteDepartment" parameterType="java.util.List">
+        <if test="depts != null and depts.size() > 0">
+            delete from b_dept_info where name in
+            <foreach collection="depts" item="dept" separator="," open="(" close=")">
+                #{dept}
+            </foreach>
+        </if>
+    </delete>
+
+    <!-- 查询有父部门的组织部门. -->
+    <select id="childDepartmentList" resultType="Map">
+        SELECT * FROM b_dept_info WHERE p_dept_no = #{p_dept_no} ORDER BY weight DESC, create_time DESC
+    </select>
+    <!-- 新增有父部门的组织部门. -->
+    <insert id="insertChildDepartment" parameterType="Map">
+        insert into b_dept_info(id, company_id, name, dept_code, p_dept_no, weight, dept_index, is_delete, create_by, create_time)
+        values (#{id}, #{company_id}, #{dept_name}, #{dept_code}, #{p_dept_no}, #{weight}, #{dept_index}, #{is_delete}, #{create_by}, #{create_time})
+    </insert>
+
+    <!-- 根据 code 查询部门. -->
+    <select id="getDeptByCode" resultType="Map">
+        select * from b_dept_info where dept_code = #{dept_code}
+    </select>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fd.fhtmid.mapper.BIndustryEvaluationInfoMapper">
+	<!-- 查询对应的行业评估内容. -->
+	<select id="findContent" resultType="Map">
+		SELECT * FROM b_industry_evaluation_info WHERE company_id = #{company_id}
+	</select>
+	<!-- 新增内容. -->
+	<insert id="insertContent" parameterType="Map">
+		insert into b_industry_evaluation_info(id, company_id, content, create_by, create_time)
+		values (#{id}, #{company_id}, #{content}, #{create_by}, #{create_time})
+	</insert>
+	<!-- 修改内容. -->
+	<update id="updateContent" parameterType="Map">
+		update b_industry_evaluation_info set content = #{content}, update_by = #{update_by}, update_time = #{update_time}
+		where company_id = #{company_id}
+	</update>
+</mapper>
